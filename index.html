@@ -181,6 +181,7 @@ a {
     min-height: 610px;
     background:
         linear-gradient(rgba(0,45,39,0.72), rgba(0,45,39,0.70)),
+       background-image: url("https://images.unsplash.com/photo-1569852837213-00d97a707a83?auto=format&fit=crop&w=1800&q=85");
         url("https://images.unsplash.com/photo-1569852837213-00d97a707a83?auto=format&fit=crop&w=1800&q=85")
         center/cover no-repeat;
 
@@ -2614,5 +2615,24 @@ console.log(
 
 </script>
 
+<script>
+const heroImages = [
+    "https://images.unsplash.com/photo-1569852837213-00d97a707a83?auto=format&fit=crop&w=1800&q=85",
+    "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1800&q=85",
+    "https://images.unsplash.com/photo-1595815771614-ade9d652a2e1?auto=format&fit=crop&w=1800&q=85",
+    "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1800&q=85",
+    "https://images.unsplash.com/photo-1598091383021-15ddea10925d?auto=format&fit=crop&w=1800&q=85",
+    "https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=1800&q=85"
+];
+
+let heroIndex = 0;
+const hero = document.querySelector(".hero");
+
+setInterval(() => {
+    heroIndex = (heroIndex + 1) % heroImages.length;
+    hero.style.backgroundImage =
+        `linear-gradient(rgba(0,45,39,0.72), rgba(0,45,39,0.70)), url("${heroImages[heroIndex]}")`;
+}, 4000);
+</script>
 </body>
 </html> 
