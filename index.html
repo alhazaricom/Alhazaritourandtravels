@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 <meta name="description" content="AL HAZARI TOUR AND TRAVELS is a Srinagar, Kashmir based travel agency offering Kashmir tour packages, hotel booking, taxi and local transport services.">
 <meta name="keywords" content="Kashmir tour packages, Kashmir travel agency, Srinagar travel agency, Kashmir taxi, Kashmir hotel booking, Gulmarg, Pahalgam, Sonamarg, Dal Lake">
 <style>
-:root { --primary: #075e54; --primary-dark: #043f39; --secondary: #d4a017; --accent: #0ea5a5; --light: #f5faf8; --white: #ffffff; --dark: #17211f; --text: #52605d; --border: #e5e9e7; --whatsapp: #25D366; --shadow: 0 10px 35px rgba(0,0,0,0.08); }
+:root { --primary: #075e54; --primary-dark: #043f39; --secondary: #d4a017; --accent: #0ea5a5; --light: #f5faf8; --white: #ffffff; --dark: #17211f; --text: #52605d; --border: #e5e9e7; --whatsapp: #25D366; --shadow: 0 10px 35px rgba(0,0,0,0.08); --pink: #e91e63; --pink-soft: #fce4ec; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { font-family: Arial, Helvetica, sans-serif; background: #ffffff; color: var(--dark); line-height: 1.6; }
@@ -74,25 +74,38 @@ a { text-decoration: none; }
 .why-band-item h4 { font-size: 18px; margin-bottom: 6px; }
 .why-band-item p { font-size: 14px; color: #d6e6e2; }
 .packages-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 30px; }
-.package-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); display: flex; flex-direction: column; }
+.package-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); display: flex; flex-direction: column; position: relative; }
+.package-card.honeymoon { border: 2px solid var(--pink); }
+.package-card.honeymoon::before { content: "💕 For Couples"; position: absolute; top: 15px; right: 15px; background: var(--pink); color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; z-index: 2; }
 .package-card img { width: 100%; height: 240px; object-fit: cover; }
 .package-body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
 .package-duration { display: inline-block; background: #e7f5f1; color: var(--primary); font-size: 13px; font-weight: bold; padding: 5px 12px; border-radius: 20px; margin-bottom: 12px; }
+.package-card.honeymoon .package-duration { background: var(--pink-soft); color: var(--pink); }
 .package-body h3 { color: var(--primary); font-size: 24px; margin-bottom: 8px; }
+.package-card.honeymoon h3 { color: var(--pink); }
 .package-route { color: var(--secondary); font-weight: bold; font-size: 14px; margin-bottom: 14px; }
 .package-desc { color: var(--text); font-size: 15px; margin-bottom: 16px; }
 .package-includes { background: #f5faf8; padding: 14px 18px; border-radius: 10px; margin-bottom: 16px; }
+.package-card.honeymoon .package-includes { background: var(--pink-soft); }
 .package-includes h4 { color: var(--primary); font-size: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.package-card.honeymoon .package-includes h4 { color: var(--pink); }
 .package-includes ul { list-style: none; padding: 0; }
 .package-includes li { font-size: 13.5px; color: var(--text); padding: 3px 0; }
 .package-includes li::before { content: "✓ "; color: var(--secondary); font-weight: bold; }
+.package-card.honeymoon .package-includes li::before { color: var(--pink); }
+.honeymoon-extras { background: linear-gradient(135deg, #fce4ec, #f8bbd0); padding: 16px 20px; border-radius: 12px; margin-bottom: 16px; border: 1px dashed var(--pink); }
+.honeymoon-extras h4 { color: var(--pink); font-size: 14px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
+.honeymoon-extras ul { list-style: none; padding: 0; }
+.honeymoon-extras li { font-size: 14px; color: #4a4a4a; padding: 4px 0; text-align: center; }
 .itinerary-toggle { background: #f5faf8; color: var(--primary); border: 1px solid var(--border); padding: 10px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; margin-bottom: 14px; display: block; width: 100%; text-align: left; transition: 0.3s; }
 .itinerary-toggle:hover { background: #e7f5f1; }
+.package-card.honeymoon .itinerary-toggle { background: var(--pink-soft); color: var(--pink); border-color: var(--pink); }
 .itinerary-content { display: none; background: #f9fbfa; border-radius: 10px; padding: 18px; margin-bottom: 16px; }
 .itinerary-content.open { display: block; }
 .itinerary-day { border-bottom: 1px solid var(--border); padding: 12px 0; }
 .itinerary-day:last-child { border-bottom: none; }
 .itinerary-day strong { color: var(--primary); font-size: 14px; }
+.package-card.honeymoon .itinerary-day strong { color: var(--pink); }
 .itinerary-day p { font-size: 13.5px; color: var(--text); margin-top: 4px; }
 .package-actions { display: flex; gap: 10px; margin-top: auto; flex-wrap: wrap; }
 .package-actions .btn { flex: 1; text-align: center; padding: 12px 15px; font-size: 14px; }
@@ -225,8 +238,8 @@ a { text-decoration: none; }
         <nav class="nav" id="mainNav">
             <a href="#home">Home</a>
             <a href="#services">Services</a>
-            <a href="#destinations">Destinations</a>
             <a href="#packages">Packages</a>
+            <a href="#destinations">Destinations</a>
             <a href="#best-time">Best Time</a>
             <a href="#faq">FAQ</a>
             <a href="#contact">Contact</a>
@@ -299,34 +312,7 @@ a { text-decoration: none; }
     </div>
 </section>
 
-<section class="section section-light" id="destinations">
-    <div class="container">
-        <div class="section-heading"><small>Explore Kashmir</small><h2>Popular Destinations</h2><p>Discover some of the most popular places included in Kashmir travel plans.</p></div>
-        <div class="destination-grid">
-            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/srinagar.jpg.jpg" alt="Srinagar Kashmir"><div class="destination-content"><h3>Srinagar</h3><p>Explore Dal Lake, Mughal Gardens, local markets and the beautiful surroundings of Srinagar.</p><a class="destination-link" href="#enquiry">Plan Srinagar Visit →</a></div></div>
-            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/gulmarg.jpg.jpg" alt="Gulmarg Kashmir"><div class="destination-content"><h3>Gulmarg</h3><p>Enjoy mountain scenery, meadows and the famous Gulmarg Gondola experience.</p><a class="destination-link" href="#enquiry">Plan Gulmarg Visit →</a></div></div>
-            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/pahalgam.jpg.jpeg" alt="Pahalgam Kashmir"><div class="destination-content"><h3>Pahalgam</h3><p>Discover beautiful valleys, rivers and mountain landscapes around Pahalgam.</p><a class="destination-link" href="#enquiry">Plan Pahalgam Visit →</a></div></div>
-            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/gangbal.jpg.jpg" alt="Sonamarg Gangbal Kashmir"><div class="destination-content"><h3>Sonamarg</h3><p>Experience alpine landscapes, green meadows and spectacular mountain views.</p><a class="destination-link" href="#enquiry">Plan Sonamarg Visit →</a></div></div>
-            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/doodhpathri.jpg.jpg" alt="Doodhpathri Kashmir"><div class="destination-content"><h3>Doodhpathri</h3><p>Enjoy peaceful meadows, streams and natural scenery away from the busy city.</p><a class="destination-link" href="#enquiry">Plan Doodhpathri Visit →</a></div></div>
-            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/yousmarg.jpg.jpg" alt="Yusmarg Kashmir"><div class="destination-content"><h3>Yusmarg</h3><p>A peaceful meadow destination surrounded by forests and mountain scenery.</p><a class="destination-link" href="#enquiry">Plan Yusmarg Visit →</a></div></div>
-            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/dallake.jpg.jpg" alt="Dal Lake Srinagar"><div class="destination-content"><h3>Dal Lake</h3><p>Enjoy the iconic Dal Lake and experience a traditional Shikara ride.</p><a class="destination-link" href="#enquiry">Ask About Shikara →</a></div></div>
-            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/mughalgarden.jpg.jpg" alt="Mughal Garden Srinagar"><div class="destination-content"><h3>Mughal Gardens</h3><p>Visit Nishat Bagh, Shalimar Bagh and Chashme Shahi around Srinagar.</p><a class="destination-link" href="#enquiry">Plan Garden Visit →</a></div></div>
-            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/lalchowk.jpg.jpg" alt="Lal Chowk Srinagar"><div class="destination-content"><h3>Lal Chowk</h3><p>The heart of Srinagar city — famous clock tower, local markets, and vibrant Kashmiri culture.</p><a class="destination-link" href="#enquiry">Plan Lal Chowk Visit →</a></div></div>
-        </div>
-    </div>
-</section>
-
-<section class="why-band">
-    <div class="container">
-        <div class="why-band-grid">
-            <div class="why-band-item"><div class="why-band-icon">🏔️</div><h4>Local Kashmiri Team</h4><p>Born and raised in Srinagar — we know every corner of the valley.</p></div>
-            <div class="why-band-item"><div class="why-band-icon">🛏️</div><h4>Houseboat + Hotel Stay</h4><p>Enjoy a traditional Kashmiri houseboat on Dal Lake along with comfortable hotels.</p></div>
-            <div class="why-band-item"><div class="why-band-icon">📞</div><h4>24/7 WhatsApp Support</h4><p>Round-the-clock assistance throughout your trip — just a message away.</p></div>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="packages">
+<section class="section section-light" id="packages">
     <div class="container">
         <div class="section-heading"><small>Our Tour Packages</small><h2>Handcrafted Kashmir Journeys</h2><p>Enquire for details and pricing — we customize every package to your needs.</p></div>
         <div class="packages-grid">
@@ -337,21 +323,21 @@ a { text-decoration: none; }
                     <span class="package-duration">🏔️ 3 Nights / 4 Days</span>
                     <h3>Charming Kashmir</h3>
                     <p class="package-route">📍 Srinagar • Gulmarg • Pahalgam</p>
-                    <p class="package-desc">A short but memorable Kashmir trip covering the Mughal Gardens, Dal Lake Shikara ride, Gulmarg meadows, and Pahalgam valleys.</p>
+                    <p class="package-desc">A short but memorable Kashmir trip covering Mughal Gardens, Dal Lake, Gulmarg meadows, and Pahalgam valleys.</p>
                     <div class="package-includes">
                         <h4>Package Includes</h4>
                         <ul>
                             <li>Hotel + Traditional Houseboat stay on Dal Lake</li>
                             <li>Breakfast &amp; Dinner (MAP plan)</li>
                             <li>All transfers &amp; sightseeing by private car</li>
-                            <li>1-Hour complimentary Shikara Ride</li>
+                            <li>1-Hour Shikara Ride Complimentary</li>
                         </ul>
                     </div>
                     <button class="itinerary-toggle" onclick="toggleItinerary(this)">View Day-wise Itinerary ▼</button>
                     <div class="itinerary-content">
                         <div class="itinerary-day"><strong>Day 1 — Arrive Srinagar</strong><p>Airport pickup, Mughal Gardens (Cheshma Shahi, Nishat, Shalimar), Shankaracharya Temple, evening Shikara ride on Dal Lake.</p></div>
-                        <div class="itinerary-day"><strong>Day 2 — Gulmarg Day Trip</strong><p>Full day trip to Gulmarg — Gondola ride (optional), meadows, snow points, Maharaja Palace, golf course.</p></div>
-                        <div class="itinerary-day"><strong>Day 3 — Pahalgam Day Trip</strong><p>Drive to Pahalgam via saffron fields and apple gardens. Visit Aru Valley, Betaab Valley, Chandanwari (optional).</p></div>
+                        <div class="itinerary-day"><strong>Day 2 — Gulmarg Day Trip</strong><p>Full day trip to Gulmarg — Gondola ride, meadows, snow points, Maharaja Palace, golf course.</p></div>
+                        <div class="itinerary-day"><strong>Day 3 — Pahalgam Day Trip</strong><p>Drive to Pahalgam via saffron fields and apple gardens. Visit Aru Valley, Betaab Valley, Chandanwari.</p></div>
                         <div class="itinerary-day"><strong>Day 4 — Srinagar Departure</strong><p>After breakfast, airport drop with beautiful memories.</p></div>
                     </div>
                     <div class="package-actions">
@@ -367,22 +353,22 @@ a { text-decoration: none; }
                     <span class="package-duration">🏔️ 4 Nights / 5 Days</span>
                     <h3>Kashmir Explorer</h3>
                     <p class="package-route">📍 Srinagar • Sonamarg • Gulmarg • Pahalgam</p>
-                    <p class="package-desc">A balanced Kashmir holiday covering Srinagar's Mughal Gardens, Sonamarg's glaciers, Gulmarg's meadows, and Pahalgam's valleys — perfect for families and couples.</p>
+                    <p class="package-desc">A balanced Kashmir holiday covering Srinagar's Mughal Gardens, Sonamarg's glaciers, Gulmarg's meadows, and Pahalgam's valleys.</p>
                     <div class="package-includes">
                         <h4>Package Includes</h4>
                         <ul>
                             <li>Hotel + Traditional Houseboat stay on Dal Lake</li>
                             <li>Breakfast &amp; Dinner (MAP plan)</li>
                             <li>All transfers &amp; sightseeing by private car</li>
-                            <li>Airport pickup &amp; drop included</li>
+                            <li>1-Hour Shikara Ride Complimentary</li>
                         </ul>
                     </div>
                     <button class="itinerary-toggle" onclick="toggleItinerary(this)">View Day-wise Itinerary ▼</button>
                     <div class="itinerary-content">
                         <div class="itinerary-day"><strong>Day 1 — Arrive Srinagar</strong><p>Airport pickup, Mughal Gardens sightseeing, evening Shikara ride on Dal Lake.</p></div>
-                        <div class="itinerary-day"><strong>Day 2 — Sonamarg Day Trip</strong><p>Full day excursion to Sonamarg — "Meadow of Gold", Thajiwas Glacier (pony ride optional).</p></div>
-                        <div class="itinerary-day"><strong>Day 3 — Gulmarg Day Trip</strong><p>Gulmarg — Gondola cable car (optional), meadows, snow activities, local shopping.</p></div>
-                        <div class="itinerary-day"><strong>Day 4 — Srinagar to Pahalgam</strong><p>Drive to Pahalgam. Afternoon visit to Aru Valley, Betaab Valley, Chandanwari (optional).</p></div>
+                        <div class="itinerary-day"><strong>Day 2 — Sonamarg Day Trip</strong><p>Full day excursion to Sonamarg — "Meadow of Gold", Thajiwas Glacier, Sindh River.</p></div>
+                        <div class="itinerary-day"><strong>Day 3 — Gulmarg Day Trip</strong><p>Gulmarg — Gondola cable car, meadows, snow activities, local shopping.</p></div>
+                        <div class="itinerary-day"><strong>Day 4 — Srinagar to Pahalgam</strong><p>Drive to Pahalgam. Afternoon visit to Aru Valley, Betaab Valley, Chandanwari.</p></div>
                         <div class="itinerary-day"><strong>Day 5 — Pahalgam to Srinagar Airport</strong><p>After breakfast, transfer to Srinagar Airport for departure.</p></div>
                     </div>
                     <div class="package-actions">
@@ -393,62 +379,62 @@ a { text-decoration: none; }
             </div>
 
             <div class="package-card">
-                <img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/02houseboat.jpg.jpg" alt="Kashmir Discovery 5N/6D">
+                <img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/gangbal.jpg.jpg" alt="Amazing Kashmir 5N/6D">
                 <div class="package-body">
                     <span class="package-duration">🏔️ 5 Nights / 6 Days</span>
-                    <h3>Kashmir Discovery</h3>
-                    <p class="package-route">📍 Srinagar • Sonamarg • Gulmarg • Pahalgam</p>
-                    <p class="package-desc">A complete Kashmir experience with houseboat stay, Sonamarg glacier, Gulmarg meadows, and two days in Pahalgam to explore at leisure.</p>
+                    <h3>Amazing Kashmir</h3>
+                    <p class="package-route">📍 Srinagar • Pahalgam • Sonamarg • Gulmarg</p>
+                    <p class="package-desc">A complete Kashmir experience with Pahalgam valleys, Sonamarg glacier, Gulmarg meadows, and Srinagar sightseeing.</p>
                     <div class="package-includes">
                         <h4>Package Includes</h4>
                         <ul>
                             <li>Hotels + Traditional Houseboat stay on Dal Lake</li>
                             <li>Breakfast &amp; Dinner (MAP plan)</li>
                             <li>All transfers &amp; sightseeing by private car</li>
-                            <li>Airport pickup &amp; drop included</li>
+                            <li>1-Hour Shikara Ride Complimentary</li>
                         </ul>
                     </div>
                     <button class="itinerary-toggle" onclick="toggleItinerary(this)">View Day-wise Itinerary ▼</button>
                     <div class="itinerary-content">
-                        <div class="itinerary-day"><strong>Day 1 — Arrive Srinagar</strong><p>Airport pickup, local sightseeing — Cheshma Shahi, Pari Mahal. Evening at Dal Lake Houseboat.</p></div>
-                        <div class="itinerary-day"><strong>Day 2 — Sonamarg Day Trip</strong><p>Full day excursion to Sonamarg — Meadow of Gold, Thajiwas Glacier.</p></div>
-                        <div class="itinerary-day"><strong>Day 3 — Gulmarg Day Trip</strong><p>Gulmarg — Gondola ride (optional), snow activities, return to Srinagar.</p></div>
-                        <div class="itinerary-day"><strong>Day 4 — Srinagar to Pahalgam</strong><p>Drive to Pahalgam via saffron fields. Visit Aru Valley, Betaab Valley, Chandanwari.</p></div>
-                        <div class="itinerary-day"><strong>Day 5 — Pahalgam Local Sightseeing</strong><p>Explore Baisaran (Mini Switzerland), Sheeshnag Lake trek (optional), Lidder River.</p></div>
-                        <div class="itinerary-day"><strong>Day 6 — Pahalgam to Srinagar Airport</strong><p>After breakfast, transfer to Srinagar Airport for departure.</p></div>
+                        <div class="itinerary-day"><strong>Day 1 — Arrive Srinagar → Pahalgam</strong><p>Airport pickup, transfer to Pahalgam via saffron fields, apple gardens and Pine Valley.</p></div>
+                        <div class="itinerary-day"><strong>Day 2 — Pahalgam Local → Srinagar</strong><p>Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran (Mini Switzerland). Evening return to Srinagar.</p></div>
+                        <div class="itinerary-day"><strong>Day 3 — Srinagar Local Sightseeing</strong><p>Mughal Gardens (Cheshma Shahi, Nishat, Shalimar), Shankaracharya Temple, evening Shikara ride.</p></div>
+                        <div class="itinerary-day"><strong>Day 4 — Sonamarg Day Trip</strong><p>Full day excursion to Sonamarg — Thajiwas Glacier, Zero Point, Sindh River.</p></div>
+                        <div class="itinerary-day"><strong>Day 5 — Gulmarg Day Trip</strong><p>Full day Gulmarg — Gondola ride, snow activities, Maharaja Palace, golf course.</p></div>
+                        <div class="itinerary-day"><strong>Day 6 — Srinagar Airport Drop</strong><p>After breakfast, transfer to Srinagar Airport for departure.</p></div>
                     </div>
                     <div class="package-actions">
-                        <a class="btn btn-whatsapp" href="https://wa.me/919541722366?text=Hello%20AL%20HAZARI%20TOUR%20AND%20TRAVELS%2C%20I%20want%20to%20enquire%20about%20the%20Kashmir%20Discovery%20(5N%2F6D)%20package." target="_blank">Enquire on WhatsApp</a>
+                        <a class="btn btn-whatsapp" href="https://wa.me/919541722366?text=Hello%20AL%20HAZARI%20TOUR%20AND%20TRAVELS%2C%20I%20want%20to%20enquire%20about%20the%20Amazing%20Kashmir%20(5N%2F6D)%20package." target="_blank">Enquire on WhatsApp</a>
                         <a class="btn btn-primary" href="#enquiry">Full Details</a>
                     </div>
                 </div>
             </div>
 
             <div class="package-card">
-                <img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/pahalgam.jpg.jpeg" alt="Kashmir Heaven on Earth 6N/7D">
+                <img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/winter.jpg.jpg" alt="Kashmir Heaven on Earth 6N/7D">
                 <div class="package-body">
                     <span class="package-duration">🏔️ 6 Nights / 7 Days</span>
                     <h3>Kashmir Heaven on Earth</h3>
-                    <p class="package-route">📍 Srinagar • Doodhpathri • Sonamarg • Gulmarg • Pahalgam • Katra</p>
-                    <p class="package-desc">The grand Kashmir tour — includes offbeat Doodhpathri meadows, Sonamarg glacier, Gulmarg gondola, Srinagar sightseeing, Pahalgam valleys, and drop at Katra.</p>
+                    <p class="package-route">📍 Srinagar • Sonamarg • Pahalgam • Gulmarg</p>
+                    <p class="package-desc">The grand Kashmir tour — full valley experience with Mughal Gardens, Sonamarg glacier, Pahalgam valleys, and Gulmarg gondola.</p>
                     <div class="package-includes">
                         <h4>Package Includes</h4>
                         <ul>
                             <li>Hotels + Traditional Houseboat stay on Dal Lake</li>
                             <li>Breakfast &amp; Dinner (MAP plan)</li>
                             <li>All transfers &amp; sightseeing by private car</li>
-                            <li>Drop at Katra Railway Station</li>
+                            <li>1-Hour Shikara Ride Complimentary</li>
                         </ul>
                     </div>
                     <button class="itinerary-toggle" onclick="toggleItinerary(this)">View Day-wise Itinerary ▼</button>
                     <div class="itinerary-content">
-                        <div class="itinerary-day"><strong>Day 1 — Arrive Srinagar</strong><p>Airport pickup, transfer to hotel. Evening walk to Dal Lake.</p></div>
-                        <div class="itinerary-day"><strong>Day 2 — Gulmarg Day Trip</strong><p>Full day trip to Gulmarg — Gondola ride (optional), snow activities, meadows.</p></div>
-                        <div class="itinerary-day"><strong>Day 3 — Sonamarg Day Trip</strong><p>Excursion to Sonamarg — Meadow of Gold, Thajiwas Glacier, Sindh River.</p></div>
-                        <div class="itinerary-day"><strong>Day 4 — Doodhpathri Day Trip</strong><p>Visit the "Valley of Milk" — alpine meadows, streams, Tosamaidan views.</p></div>
-                        <div class="itinerary-day"><strong>Day 5 — Srinagar City Tour</strong><p>Mughal Gardens, Shankaracharya Temple, handloom centres. Evening at Houseboat on Dal Lake.</p></div>
-                        <div class="itinerary-day"><strong>Day 6 — Srinagar to Pahalgam</strong><p>Drive to Pahalgam. Visit Aru Valley, Betaab Valley, Chandanwari.</p></div>
-                        <div class="itinerary-day"><strong>Day 7 — Pahalgam to Katra</strong><p>After breakfast, transfer to Katra Railway Station for onward journey.</p></div>
+                        <div class="itinerary-day"><strong>Day 1 — Arrive Srinagar</strong><p>Airport pickup, Mughal Gardens sightseeing, evening Shikara ride on Dal Lake.</p></div>
+                        <div class="itinerary-day"><strong>Day 2 — Sonamarg Day Trip</strong><p>Full day excursion to Sonamarg — Meadow of Gold, Thajiwas Glacier, Sindh River.</p></div>
+                        <div class="itinerary-day"><strong>Day 3 — Srinagar → Pahalgam</strong><p>Drive to Pahalgam via saffron fields and apple gardens. Evening free at leisure.</p></div>
+                        <div class="itinerary-day"><strong>Day 4 — Pahalgam Local Sightseeing</strong><p>Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran (Mini Switzerland), Denow Valley.</p></div>
+                        <div class="itinerary-day"><strong>Day 5 — Pahalgam → Gulmarg</strong><p>Drive to Gulmarg. Evening free at leisure.</p></div>
+                        <div class="itinerary-day"><strong>Day 6 — Gulmarg Sightseeing → Srinagar</strong><p>Gulmarg — Gondola ride, Maharaja Palace, golf course, church. Evening return to Srinagar Houseboat.</p></div>
+                        <div class="itinerary-day"><strong>Day 7 — Srinagar Airport Drop</strong><p>After breakfast, transfer to Srinagar Airport for departure.</p></div>
                     </div>
                     <div class="package-actions">
                         <a class="btn btn-whatsapp" href="https://wa.me/919541722366?text=Hello%20AL%20HAZARI%20TOUR%20AND%20TRAVELS%2C%20I%20want%20to%20enquire%20about%20the%20Kashmir%20Heaven%20on%20Earth%20(6N%2F7D)%20package." target="_blank">Enquire on WhatsApp</a>
@@ -457,8 +443,76 @@ a { text-decoration: none; }
                 </div>
             </div>
 
+            <div class="package-card honeymoon">
+                <img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/02houseboat.jpg.jpg" alt="Kashmir Honeymoon Special 5N/6D">
+                <div class="package-body">
+                    <span class="package-duration">💕 5 Nights / 6 Days</span>
+                    <h3>Kashmir Honeymoon Special</h3>
+                    <p class="package-route">📍 Srinagar • Pahalgam • Gulmarg • Sonamarg</p>
+                    <p class="package-desc">A romantic Kashmir escape for couples — peaceful valleys, candlelight evenings on a houseboat, and unforgettable memories together.</p>
+                    <div class="package-includes">
+                        <h4>Package Includes</h4>
+                        <ul>
+                            <li>Hotel + Traditional Houseboat stay on Dal Lake</li>
+                            <li>Breakfast &amp; Dinner (MAP plan)</li>
+                            <li>All transfers &amp; sightseeing by private car</li>
+                            <li>1-Hour Shikara Ride Complimentary</li>
+                        </ul>
+                    </div>
+                    <div class="honeymoon-extras">
+                        <h4>💕 Special Honeymoon Inclusions</h4>
+                        <ul>
+                            <li>🎂 Chocolate Cake</li>
+                            <li>🕯️ Candle Light Dinner</li>
+                            <li>🛏️ Bed Decoration</li>
+                            <li>📍 Once at Houseboat</li>
+                        </ul>
+                    </div>
+                    <button class="itinerary-toggle" onclick="toggleItinerary(this)">View Day-wise Itinerary ▼</button>
+                    <div class="itinerary-content">
+                        <div class="itinerary-day"><strong>Day 1 — Arrive Srinagar → Pahalgam</strong><p>Airport pickup, transfer to Pahalgam via saffron fields and apple gardens.</p></div>
+                        <div class="itinerary-day"><strong>Day 2 — Pahalgam Local → Srinagar</strong><p>Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran. Evening return to Srinagar.</p></div>
+                        <div class="itinerary-day"><strong>Day 3 — Srinagar Local Sightseeing</strong><p>Mughal Gardens, Shankaracharya Temple, evening Shikara ride.</p></div>
+                        <div class="itinerary-day"><strong>Day 4 — Gulmarg Day Trip</strong><p>Full day Gulmarg — Gondola ride, snow activities, meadows.</p></div>
+                        <div class="itinerary-day"><strong>Day 5 — Sonamarg Day Trip</strong><p>Full day Sonamarg — Thajiwas Glacier, Sindh River. Evening at Houseboat.</p></div>
+                        <div class="itinerary-day"><strong>Day 6 — Srinagar Airport Drop</strong><p>After breakfast, transfer to Srinagar Airport with beautiful memories.</p></div>
+                    </div>
+                    <div class="package-actions">
+                        <a class="btn btn-whatsapp" href="https://wa.me/919541722366?text=Hello%20AL%20HAZARI%20TOUR%20AND%20TRAVELS%2C%20I%20want%20to%20enquire%20about%20the%20Kashmir%20Honeymoon%20Special%20(5N%2F6D)%20package." target="_blank">Enquire on WhatsApp</a>
+                        <a class="btn btn-primary" href="#enquiry">Full Details</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <p style="text-align:center; margin-top:35px; color:#52605d; font-size:14px;">✨ All packages are fully customizable. For inclusions, exclusions, and pricing — <a href="https://wa.me/919541722366" target="_blank" style="color:#075e54; font-weight:bold;">contact us on WhatsApp</a>.</p>
+    </div>
+</section>
+
+<section class="section" id="destinations">
+    <div class="container">
+        <div class="section-heading"><small>Explore Kashmir</small><h2>Popular Destinations</h2><p>Discover some of the most popular places included in Kashmir travel plans.</p></div>
+        <div class="destination-grid">
+            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/srinagar.jpg.jpg" alt="Srinagar Kashmir" loading="lazy"><div class="destination-content"><h3>Srinagar</h3><p>Explore Dal Lake, Mughal Gardens, local markets and the beautiful surroundings of Srinagar.</p><a class="destination-link" href="#enquiry">Plan Srinagar Visit →</a></div></div>
+            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/gulmarg.jpg.jpg" alt="Gulmarg Kashmir" loading="lazy"><div class="destination-content"><h3>Gulmarg</h3><p>Enjoy mountain scenery, meadows and the famous Gulmarg Gondola experience.</p><a class="destination-link" href="#enquiry">Plan Gulmarg Visit →</a></div></div>
+            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/pahalgam.jpg.jpeg" alt="Pahalgam Kashmir" loading="lazy"><div class="destination-content"><h3>Pahalgam</h3><p>Discover beautiful valleys, rivers and mountain landscapes around Pahalgam.</p><a class="destination-link" href="#enquiry">Plan Pahalgam Visit →</a></div></div>
+            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/gangbal.jpg.jpg" alt="Sonamarg Gangbal Kashmir" loading="lazy"><div class="destination-content"><h3>Sonamarg</h3><p>Experience alpine landscapes, green meadows and spectacular mountain views.</p><a class="destination-link" href="#enquiry">Plan Sonamarg Visit →</a></div></div>
+            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/doodhpathri.jpg.jpg" alt="Doodhpathri Kashmir" loading="lazy"><div class="destination-content"><h3>Doodhpathri</h3><p>Enjoy peaceful meadows, streams and natural scenery away from the busy city.</p><a class="destination-link" href="#enquiry">Plan Doodhpathri Visit →</a></div></div>
+            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/yousmarg.jpg.jpg" alt="Yusmarg Kashmir" loading="lazy"><div class="destination-content"><h3>Yusmarg</h3><p>A peaceful meadow destination surrounded by forests and mountain scenery.</p><a class="destination-link" href="#enquiry">Plan Yusmarg Visit →</a></div></div>
+            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/dallake.jpg.jpg" alt="Dal Lake Srinagar" loading="lazy"><div class="destination-content"><h3>Dal Lake</h3><p>Enjoy the iconic Dal Lake and experience a traditional Shikara ride.</p><a class="destination-link" href="#enquiry">Ask About Shikara →</a></div></div>
+            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/mughalgarden.jpg.jpg" alt="Mughal Garden Srinagar" loading="lazy"><div class="destination-content"><h3>Mughal Gardens</h3><p>Visit Nishat Bagh, Shalimar Bagh and Chashme Shahi around Srinagar.</p><a class="destination-link" href="#enquiry">Plan Garden Visit →</a></div></div>
+            <div class="destination-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/lalchowk.jpg.jpg" alt="Lal Chowk Srinagar" loading="lazy"><div class="destination-content"><h3>Lal Chowk</h3><p>The heart of Srinagar city — famous clock tower, local markets, and vibrant Kashmiri culture.</p><a class="destination-link" href="#enquiry">Plan Lal Chowk Visit →</a></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="why-band">
+    <div class="container">
+        <div class="why-band-grid">
+            <div class="why-band-item"><div class="why-band-icon">🏔️</div><h4>Local Kashmiri Team</h4><p>Born and raised in Srinagar — we know every corner of the valley.</p></div>
+            <div class="why-band-item"><div class="why-band-icon">🛏️</div><h4>Houseboat + Hotel Stay</h4><p>Enjoy a traditional Kashmiri houseboat on Dal Lake along with comfortable hotels.</p></div>
+            <div class="why-band-item"><div class="why-band-icon">📞</div><h4>24/7 WhatsApp Support</h4><p>Round-the-clock assistance throughout your trip — just a message away.</p></div>
+        </div>
     </div>
 </section>
 
@@ -479,10 +533,10 @@ a { text-decoration: none; }
     <div class="container">
         <div class="section-heading"><small>Things To Do</small><h2>Popular Kashmir Experiences</h2><p>Add memorable experiences to your Kashmir holiday.</p></div>
         <div class="experience-grid">
-            <div class="experience-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/shikara.jpg.jpg" alt="Shikara Dal Lake"><div class="experience-overlay"><div><h3>Shikara Ride</h3><p>Enjoy a peaceful traditional boat ride on Dal Lake.</p></div></div></div>
-            <div class="experience-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/02houseboat.jpg.jpg" alt="Houseboat Kashmir"><div class="experience-overlay"><div><h3>Houseboat Stay</h3><p>Experience a traditional Kashmiri houseboat on Dal Lake.</p></div></div></div>
-            <div class="experience-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/mughalgarden1.jpg.jpg" alt="Mughal Garden Srinagar"><div class="experience-overlay"><div><h3>Mughal Gardens</h3><p>Visit Nishat Bagh, Shalimar Bagh and Chashme Shahi.</p></div></div></div>
-            <div class="experience-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/houseboat.jpg.jpg" alt="Kashmiri Houseboat Dal Lake"><div class="experience-overlay"><div><h3>Houseboat Lifestyle</h3><p>Carved wood, warm hospitality, and serene lake views.</p></div></div></div>
+            <div class="experience-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/shikara.jpg.jpg" alt="Shikara Dal Lake" loading="lazy"><div class="experience-overlay"><div><h3>Shikara Ride</h3><p>Enjoy a peaceful traditional boat ride on Dal Lake.</p></div></div></div>
+            <div class="experience-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/02houseboat.jpg.jpg" alt="Houseboat Kashmir" loading="lazy"><div class="experience-overlay"><div><h3>Houseboat Stay</h3><p>Experience a traditional Kashmiri houseboat on Dal Lake.</p></div></div></div>
+            <div class="experience-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/mughalgarden1.jpg.jpg" alt="Mughal Garden Srinagar" loading="lazy"><div class="experience-overlay"><div><h3>Mughal Gardens</h3><p>Visit Nishat Bagh, Shalimar Bagh and Chashme Shahi.</p></div></div></div>
+            <div class="experience-card"><img src="https://raw.githubusercontent.com/alhazaricom/Alhazaritourandtravels/main/houseboat.jpg.jpg" alt="Kashmiri Houseboat Dal Lake" loading="lazy"><div class="experience-overlay"><div><h3>Houseboat Lifestyle</h3><p>Carved wood, warm hospitality, and serene lake views.</p></div></div></div>
         </div>
     </div>
 </section>
@@ -551,7 +605,7 @@ a { text-decoration: none; }
                     <div class="form-group"><label for="email">Email</label><input type="email" id="email" placeholder="Your email address"></div>
                     <div class="form-group"><label for="date">Travel Date</label><input type="date" id="date"></div>
                     <div class="form-group"><label for="travellers">Number of Travellers</label><input type="number" id="travellers" min="1" placeholder="e.g. 4"></div>
-                    <div class="form-group"><label for="service">Service Required</label><select id="service"><option value="">Select a service</option><option>Charming Kashmir (3N/4D)</option><option>Kashmir Explorer (4N/5D)</option><option>Kashmir Discovery (5N/6D)</option><option>Kashmir Heaven on Earth (6N/7D)</option><option>Hotel Booking</option><option>Taxi &amp; Local Transport</option><option>Dal Lake Shikara Ride</option><option>Customized Trip</option></select></div>
+                    <div class="form-group"><label for="service">Service Required</label><select id="service"><option value="">Select a service</option><option>Charming Kashmir (3N/4D)</option><option>Kashmir Explorer (4N/5D)</option><option>Amazing Kashmir (5N/6D)</option><option>Kashmir Heaven on Earth (6N/7D)</option><option>Kashmir Honeymoon Special (5N/6D)</option><option>Hotel Booking</option><option>Taxi &amp; Local Transport</option><option>Dal Lake Shikara Ride</option><option>Customized Trip</option></select></div>
                     <div class="form-group full"><label for="destinations">Destinations / Places</label><input type="text" id="destinations" placeholder="e.g. Srinagar, Gulmarg, Pahalgam"></div>
                     <div class="form-group full"><label for="message">Message</label><textarea id="message" placeholder="Tell us about your Kashmir trip..."></textarea></div>
                 </div>
@@ -602,8 +656,8 @@ a { text-decoration: none; }
                 <div class="footer-links">
                     <a href="#home">Home</a>
                     <a href="#services">Services</a>
-                    <a href="#destinations">Destinations</a>
                     <a href="#packages">Packages</a>
+                    <a href="#destinations">Destinations</a>
                     <a href="#best-time">Best Time</a>
                     <a href="#faq">FAQ</a>
                     <a href="#contact">Contact</a>
@@ -672,7 +726,7 @@ const cookieBox = document.getElementById("cookieBox");
 const cookieAccept = document.getElementById("cookieAccept");
 if (!localStorage.getItem("ahzCookieAccepted")) { cookieBox.style.display = "block"; }
 cookieAccept.addEventListener("click", function() { localStorage.setItem("ahzCookieAccepted", "yes"); cookieBox.style.display = "none"; });
-console.log("AL HAZARI TOUR AND TRAVELS — Final website loaded.");
+console.log("AL HAZARI TOUR AND TRAVELS — Packages moved after Services.");
 </script>
 
 </body>
