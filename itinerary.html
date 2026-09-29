@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Itinerary - Al Hazari Tour and Travels</title>
+<style>
+:root { --primary: #075e54; --primary-dark: #043f39; --secondary: #d4a017; --light: #f5faf8; --white: #ffffff; --dark: #17211f; --text: #52605d; --border: #e5e9e7; --whatsapp: #25D366; --pink: #e91e63; --pink-soft: #fce4ec; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, Helvetica, sans-serif; background: #eef2f5; color: var(--dark); line-height: 1.6; }
+.container { max-width: 800px; margin: auto; padding: 20px; }
+
+/* HEADER */
+.header { background: var(--primary); color: #fff; padding: 25px 20px; border-radius: 12px 12px 0 0; display: flex; align-items: center; gap: 15px; }
+.logo-icon { width: 50px; height: 50px; background: #fff; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; flex-shrink: 0; }
+.header-text strong { display: block; font-size: 17px; }
+.header-text span { font-size: 12px; opacity: 0.9; }
+
+/* DRAFT BANNER */
+.draft-banner { background: #ffc107; color: #856404; text-align: center; padding: 12px; font-weight: bold; font-size: 15px; border-bottom: 2px solid #ffca2c; }
+.draft-watermark { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; display: flex; align-items: center; justify-content: center; }
+.draft-watermark span { font-size: 100px; font-weight: bold; color: rgba(255, 193, 7, 0.12); transform: rotate(-30deg); white-space: nowrap; }
+
+/* CLIENT INFO */
+.client-info { background: #fff; padding: 25px; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+.client-info h1 { color: var(--primary); font-size: 24px; margin-bottom: 8px; }
+.client-info .meta { color: var(--text); font-size: 14px; }
+.client-info .meta strong { color: var(--dark); }
+
+/* HERO IMAGE */
+.hero-img { width: 100%; height: 220px; object-fit: cover; border-radius: 0; }
+
+/* SECTION */
+.section { background: #fff; padding: 25px; border: 1px solid var(--border); border-top: none; }
+.section:last-child { border-radius: 0 0 12px 12px; margin-bottom: 20px; }
+.section h2 { color: var(--primary); font-size: 20px; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid var(--secondary); display: inline-block; }
+.section h3 { color: var(--primary); font-size: 17px; margin-bottom: 10px; }
+
+/* DAY ITINERARY */
+.day-item { border-left: 3px solid var(--secondary); padding-left: 15px; margin-bottom: 22px; }
+.day-item h4 { color: var(--primary); font-size: 16px; margin-bottom: 5px; }
+.day-item p { font-size: 14px; color: var(--text); white-space: pre-wrap; }
+.day-note { background: #fff8e1; border-left: 3px solid var(--secondary); padding: 10px; margin-top: 8px; font-size: 13px; color: #856404; border-radius: 4px; }
+
+/* ACCOMMODATION */
+.acc-item { background: var(--light); border-radius: 8px; padding: 15px; margin-bottom: 12px; border-left: 4px solid var(--primary); }
+.acc-item h4 { color: var(--primary); font-size: 16px; margin-bottom: 5px; }
+.acc-item .details { font-size: 13.5px; color: var(--text); }
+.acc-item .details strong { color: var(--dark); }
+.acc-img { width: 100%; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; }
+
+/* INCLUSIONS / EXCLUSIONS */
+.list-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.list-box { background: #f9fbfa; padding: 15px; border-radius: 8px; }
+.list-box h4 { font-size: 15px; margin-bottom: 10px; }
+.list-box ul { list-style: none; padding: 0; }
+.list-box li { font-size: 13.5px; color: var(--text); padding: 4px 0; padding-left: 18px; position: relative; }
+.list-box li::before { content: "✓"; color: var(--secondary); font-weight: bold; position: absolute; left: 0; }
+.list-box.excl li::before { content: "✕"; color: #dc3545; }
+
+/* PRICING */
+.price-box { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border: 2px solid var(--secondary); border-radius: 10px; padding: 20px; margin-top: 15px; text-align: center; }
+.price-box .total { font-size: 32px; font-weight: bold; color: var(--primary); }
+.price-box .basis { font-size: 14px; color: var(--text); margin-top: 5px; }
+.price-box .validity { font-size: 13px; color: #856404; margin-top: 8px; font-style: italic; }
+.option-box { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-top: 10px; }
+.option-box strong { color: var(--primary); }
+
+/* PAYMENT */
+.payment-box { background: var(--light); border: 1px dashed var(--primary); border-radius: 8px; padding: 18px; }
+.payment-box p { font-size: 14px; margin-bottom: 5px; }
+.payment-box strong { color: var(--primary); }
+.qr-box { text-align: center; margin-top: 15px; }
+.qr-box img { max-width: 180px; border: 1px solid var(--border); border-radius: 8px; padding: 5px; background: #fff; }
+
+/* TERMS */
+.terms-box { background: #f9fbfa; padding: 15px; border-radius: 8px; font-size: 13px; color: var(--text); white-space: pre-wrap; }
+
+/* BUTTONS */
+.btn { display: inline-block; padding: 12px 22px; border-radius: 7px; font-weight: bold; text-decoration: none; margin: 5px; font-size: 14px; transition: 0.2s; cursor: pointer; border: none; }
+.btn-whatsapp { background: var(--whatsapp); color: #fff; }
+.btn-whatsapp:hover { background: #128C7E; }
+.btn-primary { background: var(--secondary); color: var(--dark); }
+.btn-primary:hover { background: #b88a10; }
+.btn-blue { background: #007bff; color: #fff; }
+.btn-blue:hover { background: #0056b3; }
+.btn-container { text-align: center; padding: 20px; }
+.footer { background: var(--primary); color: #fff; text-align: center; padding: 20px; font-size: 13px; margin-top: 20px; border-radius: 0 0 12px 12px; }
+.footer a { color: #fff; }
+.loading { text-align: center; padding: 80px; font-size: 18px; color: var(--text); }
+.error { text-align: center; padding: 80px; color: #dc3545; font-size: 18px; }
+.copyright { text-align: center; font-size: 12px; color: #888; padding: 15px; }
+
+@media (max-width: 600px) {
+    .list-grid { grid-template-columns: 1fr; }
+    .client-info h1 { font-size: 20px; }
+    .price-box .total { font-size: 26px; }
+    .header { flex-direction: column; text-align: center; }
+    .draft-watermark span { font-size: 60px; }
+}
+</style>
+</head>
+<body>
+
+<div id="loading" class="loading">Loading your itinerary...</div>
+
+<div id="content" style="display:none;">
+    <div id="draftWatermark" class="draft-watermark" style="display:none;"><span>DRAFT</span></div>
+    <div id="draftBanner" class="draft-banner" style="display:none;">⚠️ DRAFT - NOT FOR CUSTOMER. FOR INTERNAL REVIEW ONLY.</div>
+
+    <div class="container" style="padding:0;">
+        <div class="header">
+            <div class="logo-icon">AH</div>
+            <div class="header-text">
+                <strong>AL HAZARI TOUR AND TRAVELS</strong>
+                <span>Your Local Travel Partner in Kashmir</span>
+            </div>
+        </div>
+
+        <div id="heroSection"></div>
+
+        <div class="client-info">
+            <h1 id="clientNameDisplay"></h1>
+            <div class="meta" id="clientMetaDisplay"></div>
+        </div>
+
+        <!-- ITINERARY -->
+        <div class="section" id="itinerarySection">
+            <h2>Day-wise Itinerary</h2>
+            <div id="daysContainer"></div>
+        </div>
+
+        <!-- ACCOMMODATION -->
+        <div class="section" id="accommodationSection">
+            <h2>Accommodation Details</h2>
+            <div id="accommodationContainer"></div>
+        </div>
+
+        <!-- VEHICLE -->
+        <div class="section" id="vehicleSection">
+            <h2>Vehicle & Transport</h2>
+            <div id="vehicleContainer"></div>
+        </div>
+
+        <!-- INCLUSIONS & EXCLUSIONS -->
+        <div class="section" id="inclusionsSection">
+            <h2>Inclusions & Exclusions</h2>
+            <div class="list-grid">
+                <div class="list-box"><h4>✅ Cost Includes</h4><ul id="inclusionsList"></ul></div>
+                <div class="list-box excl"><h4>❌ Cost Excludes</h4><ul id="exclusionsList"></ul></div>
+            </div>
+        </div>
+
+        <!-- PRICING -->
+        <div class="section" id="pricingSection" style="display:none;">
+            <h2>Package Cost</h2>
+            <div id="pricingContainer"></div>
+        </div>
+
+        <!-- PAYMENT -->
+        <div class="section" id="paymentSection" style="display:none;">
+            <h2>Payment Details</h2>
+            <div class="payment-box" id="paymentContainer"></div>
+        </div>
+
+        <!-- TERMS -->
+        <div class="section" id="termsSection" style="display:none;">
+            <h2>Terms & Conditions</h2>
+            <div class="terms-box" id="termsContainer"></div>
+        </div>
+
+        <!-- NOTES -->
+        <div class="section" id="notesSection" style="display:none;">
+            <h2>Special Notes</h2>
+            <div id="notesContainer" style="font-size:14px; color:var(--text);"></div>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="section btn-container">
+            <a id="whatsappBtn" class="btn btn-whatsapp" href="#" target="_blank">💬 Chat with Us on WhatsApp</a>
+            <button class="btn btn-primary" onclick="window.print()">📥 Download PDF</button>
+            <button class="btn btn-blue" onclick="copyLink()">🔗 Copy Link</button>
+        </div>
+
+        <div class="footer">
+            <strong>AL HAZARI TOUR AND TRAVELS</strong><br>
+            📍 Khanda Bhawan, Nawakadal, Srinagar<br>
+            📞 <a href="tel:+919541722366">+91 9541722366</a> |
+            <a href="https://wa.me/919541722366" target="_blank">WhatsApp</a>
+        </div>
+        <div class="copyright">This is a computer-generated itinerary. For any queries, contact us on WhatsApp.</div>
+    </div>
+</div>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const fileName = urlParams.get('file');
+const isDraft = urlParams.get('draft') === '1';
+
+if (!fileName) {
+    document.getElementById('loading').innerHTML = "No itinerary specified. Please check the link.";
+} else {
+    fetch(fileName)
+        .then(response => { if(!response.ok) throw new Error("Not found"); return response.json(); })
+        .then(data => {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+
+            if(isDraft || data.draftMode) {
+                document.getElementById('draftBanner').style.display = 'block';
+                document.getElementById('draftWatermark').style.display = 'flex';
+            }
+
+            // Client Info
+            document.getElementById('clientNameDisplay').textContent = data.client + "'s Kashmir Trip";
+            let meta = `<strong>Dates:</strong> ${data.dates} (${data.totalNights} Nights) | <strong>Adults:</strong> ${data.adults}`;
+            if(data.children > 0) meta += ` | <strong>Children:</strong> ${data.children}`;
+            if(data.bookingRef) meta += ` | <strong>Ref:</strong> ${data.bookingRef}`;
+            if(data.bookingStatus) meta += ` | <strong>Status:</strong> ${data.bookingStatus}`;
+            document.getElementById('clientMetaDisplay').innerHTML = meta;
+
+            // Hero Image
+            const heroImg = getImageForPlace('srinagar');
+            if(heroImg) {
+                document.getElementById('heroSection').innerHTML = `<img src="${heroImg}" class="hero-img" alt="Kashmir">`;
+            }
+
+            // Days
+            const daysContainer = document.getElementById('daysContainer');
+            if(data.days && data.days.length > 0) {
+                data.days.forEach(d => {
+                    const div = document.createElement('div');
+                    div.className = 'day-item';
+                    div.innerHTML = `<h4>Day ${d.day}: ${d.title}</h4><p>${d.details}</p>${d.note ? `<div class="day-note">${d.note}</div>` : ''}`;
+                    daysContainer.appendChild(div);
+                });
+            } else {
+                daysContainer.innerHTML = "<p>Itinerary details will be shared shortly.</p>";
+            }
+
+            // Accommodation
+            const accContainer = document.getElementById('accommodationContainer');
+            if(data.accommodation && data.accommodation.length > 0) {
+                data.accommodation.forEach(a => {
+                    const img = getImageForPlace(a.place);
+                    let bedding = [];
+                    if(a.double > 0) bedding.push(a.double + ' Double Sharing');
+                    if(a.triple > 0) bedding.push(a.triple + ' Triple Sharing');
+                    if(a.extra > 0) bedding.push(a.extra + ' Extra Bed');
+                    if(a.childNoBed > 0) bedding.push(a.childNoBed + ' Child Without Bed');
+                    if(a.single > 0) bedding.push(a.single + ' Single Occupancy');
+                    const beddingText = bedding.length > 0 ? bedding.join(' + ') : 'To be confirmed';
+
+                    const hotelName = a.hotel === 'To be confirmed' ? 'Hotel (To be confirmed)' : a.hotel;
+
+                    const div = document.createElement('div');
+                    div.className = 'acc-item';
+                    div.innerHTML = `
+                        ${img ? `<img src="${img}" class="acc-img" alt="${a.place}">` : ''}
+                        <h4>${a.place} (${a.nights} Night${a.nights > 1 ? 's' : ''})</h4>
+                        <div class="details">
+                            <strong>Hotel:</strong> ${hotelName}<br>
+                            <strong>Room Type:</strong> ${a.roomType}<br>
+                            <strong>Rooms:</strong> ${beddingText}<br>
+                            <strong>Meal Plan:</strong> ${a.meal}
+                        </div>
+                    `;
+                    accContainer.appendChild(div);
+                });
+            } else {
+                accContainer.innerHTML = "<p>Accommodation details will be shared shortly.</p>";
+            }
+
+            // Vehicle
+            const vehicleContainer = document.getElementById('vehicleContainer');
+            if(data.vehicle) {
+                vehicleContainer.innerHTML = `
+                    <p style="font-size:14px;"><strong>Vehicle:</strong> ${data.vehicle.type} (${data.vehicle.ac})</p>
+                    ${data.vehicle.note ? `<p style="font-size:13px; color:#856404; background:#fff8e1; padding:10px; border-radius:5px; margin-top:8px;">${data.vehicle.note}</p>` : ''}
+                `;
+            }
+
+            // Inclusions & Exclusions
+            const incList = document.getElementById('inclusionsList');
+            const excList = document.getElementById('exclusionsList');
+            if(data.inclusions && data.inclusions.length > 0) {
+                data.inclusions.forEach(i => { const li = document.createElement('li'); li.textContent = i; incList.appendChild(li); });
+            } else { incList.innerHTML = '<li>As per package</li>'; }
+            if(data.exclusions && data.exclusions.length > 0) {
+                data.exclusions.forEach(e => { const li = document.createElement('li'); li.textContent = e; excList.appendChild(li); });
+            } else { excList.innerHTML = '<li>As per package</li>'; }
+
+            // Pricing
+            if(data.showPricing && data.pricing) {
+                document.getElementById('pricingSection').style.display = 'block';
+                const p = data.pricing;
+                let html = '';
+                if(p.total) {
+                    html += `<div class="price-box"><div class="total">₹${p.total} ${p.suffix || ''}</div><div class="basis">${p.basis || ''}</div>${p.perPerson ? `<div class="basis">Per Person: ₹${p.perPerson} × ${p.totalPax} Pax</div>` : ''}${p.validity ? `<div class="validity">This quotation is valid until: ${p.validity}</div>` : ''}</div>`;
+                }
+                if(p.breakdown && (p.breakdown.hotel || p.breakdown.cab || p.breakdown.other)) {
+                    html += `<div class="option-box"><strong>Price Breakdown:</strong><br>`;
+                    if(p.breakdown.hotel) html += `Hotel: ₹${p.breakdown.hotel}<br>`;
+                    if(p.breakdown.cab) html += `Cab: ₹${p.breakdown.cab}<br>`;
+                    if(p.breakdown.other) html += `Other: ₹${p.breakdown.other}<br>`;
+                    html += `</div>`;
+                }
+                if(p.options && p.options.length > 0) {
+                    html += `<div style="margin-top:15px;"><strong>Available Options:</strong>`;
+                    p.options.forEach(o => {
+                        html += `<div class="option-box"><strong>${o.name}</strong>: ₹${o.price} ${p.suffix || ''}</div>`;
+                    });
+                    html += `</div>`;
+                }
+                document.getElementById('pricingContainer').innerHTML = html;
+            }
+
+            // Payment
+            if(data.showPayment && data.payment) {
+                document.getElementById('paymentSection').style.display = 'block';
+                const pay = data.payment;
+                let payHtml = '';
+                if(pay.bankName) payHtml += `<p><strong>Bank:</strong> ${pay.bankName}</p>`;
+                if(pay.accountHolder) payHtml += `<p><strong>Account Holder:</strong> ${pay.accountHolder}</p>`;
+                if(pay.accountNumber) payHtml += `<p><strong>Account Number:</strong> ${pay.accountNumber}</p>`;
+                if(pay.ifsc) payHtml += `<p><strong>IFSC:</strong> ${pay.ifsc}</p>`;
+                if(pay.upiId) {
+                    payHtml += `<p><strong>UPI ID:</strong> ${pay.upiId}</p>`;
+                    payHtml += `<div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=${encodeURIComponent(pay.upiId)}" alt="UPI QR Code"><br><small>Scan to pay via UPI</small></div>`;
+                }
+                document.getElementById('paymentContainer').innerHTML = payHtml;
+            }
+
+            // Terms
+            if(data.showTerms && data.termsText) {
+                document.getElementById('termsSection').style.display = 'block';
+                document.getElementById('termsContainer').textContent = data.termsText;
+            }
+
+            // Notes
+            if(data.clientNotes) {
+                document.getElementById('notesSection').style.display = 'block';
+                document.getElementById('notesContainer').textContent = data.clientNotes;
+            }
+
+            // WhatsApp Button
+            const waMsg = encodeURIComponent(`Hello, I am interested in the ${data.client} itinerary (${data.bookingRef || 'Ref'}). Please share the final details.`);
+            document.getElementById('whatsappBtn').href = `https://wa.me/919541722366?text=${waMsg}`;
+
+        })
+        .catch(error => {
+            document.getElementById('loading').innerHTML = `<div class="error">Sorry, we could not find this itinerary. Please ask us for a new link.</div>`;
+            console.error('Error:', error);
+        });
+}
+
+// --- IMAGE MAPPER ---
+function getImageForPlace(place) {
+    const p = place.toLowerCase();
+    if(p.includes('srinagar')) return 'Srinagarview.jpg.jpg';
+    if(p.includes('gulmarg')) return 'gulmarg.jpg.jpg';
+    if(p.includes('pahalgam')) return 'pahalgam.jpg.jpg';
+    if(p.includes('sonamarg')) return 'mountainview.jpg.jpg';
+    if(p.includes('doodhpathri')) return 'doodhpathri.jpg.jpg';
+    if(p.includes('houseboat')) return '02houseboat.jpg.jpg';
+    if(p.includes('yusmarg')) return 'yousmarg.jpg.jpg';
+    if(p.includes('gurez')) return 'mountainview.jpg.jpg';
+    if(p.includes('dal')) return 'dallake.jpg.jpg';
+    return null;
+}
+
+// --- COPY LINK ---
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href);
+    alert("Link copied to clipboard!");
+}
+</script>
+
+</body>
+</html>
