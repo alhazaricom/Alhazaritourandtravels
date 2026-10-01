@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin - Al Hazari Itinerary Builder</title>
 <style>
-:root { --primary: #075e54; --secondary: #d4a017; --whatsapp: #25D366; --light: #f5faf8; --border: #e5e9e7; --text: #52605d; --dark: #17211f; --pink: #e91e63; }
+:root { --primary: #075e54; --secondary: #d4a017; --whatsapp: #25D366; --light: #f5faf8; --border: #e5e9e7; --text: #52605d; --dark: #17211f; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: Arial, Helvetica, sans-serif; background: #f0f2f5; padding: 20px; color: var(--dark); line-height: 1.6; }
+body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; color: var(--dark); line-height: 1.6; }
 .container { max-width: 1100px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
 h2 { color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 10px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
 .logo-icon { width: 40px; height: 40px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; }
 h3 { color: var(--primary); margin-top: 30px; margin-bottom: 12px; padding: 10px; background: var(--light); border-left: 4px solid var(--secondary); border-radius: 4px; font-size: 17px; }
 .section { margin-bottom: 20px; padding: 18px; border: 1px solid var(--border); border-radius: 8px; background: #fafafa; }
 label { font-weight: 600; font-size: 13.5px; display: block; margin-bottom: 5px; color: #444; }
-input[type="text"], input[type="number"], input[type="date"], textarea, select { width: 100%; padding: 9px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: inherit; font-size: 14px; background: #fff; }
+input, select, textarea { width: 100%; padding: 9px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: inherit; font-size: 14px; background: #fff; }
 textarea { height: 70px; resize: vertical; }
 .row { display: flex; gap: 12px; flex-wrap: wrap; }
 .col { flex: 1; min-width: 140px; }
@@ -27,7 +27,7 @@ textarea { height: 70px; resize: vertical; }
 .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px; }
 .checkbox-group label { font-weight: normal; display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; margin-bottom: 0; }
 .checkbox-group input[type="checkbox"] { width: auto; margin: 0; }
-.btn { background: var(--whatsapp); color: #fff; border: none; padding: 14px 25px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; transition: 0.2s; }
+.btn { background: var(--whatsapp); color: #fff; border: none; padding: 14px 25px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; }
 .btn:hover { background: #128C7E; }
 .btn-sec { background: var(--secondary); color: var(--dark); }
 .btn-blue { background: #007bff; color: #fff; }
@@ -63,7 +63,6 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 
     <h3>2. Package Selection</h3>
     <div class="section">
-        <label>Choose Package:</label>
         <div class="pkg-option">
             <label><input type="radio" name="pkg" value="charming" checked> Charming Kashmir (3N/4D)</label>
             <label><input type="radio" name="pkg" value="explorer"> Kashmir Explorer (4N/5D)</label>
@@ -83,16 +82,12 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
                 <label><input type="checkbox" value="Yusmarg"> Yusmarg</label>
                 <label><input type="checkbox" value="Gurez Valley"> Gurez Valley</label>
             </div>
-            <label>Add More Place:</label>
-            <input type="text" id="newPlace" placeholder="Type place name">
-            <button class="btn btn-sec" style="width:auto; padding:8px 15px; font-size:13px;" onclick="addCustomPlace()">+ Add Place</button>
-            <div id="customPlaceList" style="margin-top:8px; font-size:13px;"></div>
         </div>
     </div>
 
     <h3>3. Accommodation</h3>
     <div class="section">
-        <div class="acc-header"><div>Place</div><div>Nights</div><div>Hotel Name</div><div>Room Type</div><div>Double</div><div>Triple</div><div>Extra Bed</div><div>Child WOB</div><div>Single</div><div>Meal Plan</div></div>
+        <div class="acc-header"><div>Place</div><div>Nights</div><div>Hotel</div><div>Room Type</div><div>Double</div><div>Triple</div><div>Extra</div><div>Child WOB</div><div>Single</div><div>Meal Plan</div></div>
         <div class="acc-row"><div><strong>Srinagar</strong></div><div><input type="number" class="nights" value="2" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name" list="hotelList"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
         <div class="acc-row"><div><strong>Gulmarg</strong></div><div><input type="number" class="nights" value="0" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name" list="hotelList"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
         <div class="acc-row"><div><strong>Pahalgam</strong></div><div><input type="number" class="nights" value="0" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name" list="hotelList"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
@@ -161,23 +156,6 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
                 <div class="col"><label>Per Person Price</label><input type="text" id="perPersonPrice" placeholder="e.g. 12,000"></div>
                 <div class="col"><label>Total Pax</label><input type="number" id="totalPax" value="2"></div>
             </div>
-            <button class="btn btn-sec" style="width:auto; padding:6px 12px; font-size:12px;" onclick="calculateTotal()">Calculate Total</button>
-            <div style="margin-top:12px;">
-                <label>Price Breakdown (Optional)</label>
-                <div class="row">
-                    <div class="col"><input type="text" id="breakdownHotel" placeholder="Hotel Cost"></div>
-                    <div class="col"><input type="text" id="breakdownCab" placeholder="Cab Cost"></div>
-                    <div class="col"><input type="text" id="breakdownOther" placeholder="Other Cost"></div>
-                </div>
-            </div>
-            <div style="margin-top:12px;">
-                <label>Multiple Options (Optional)</label>
-                <div class="row">
-                    <div class="col"><input type="text" id="opt1Name" placeholder="Option 1 Name"><input type="text" id="opt1Price" placeholder="Price"></div>
-                    <div class="col"><input type="text" id="opt2Name" placeholder="Option 2 Name"><input type="text" id="opt2Price" placeholder="Price"></div>
-                    <div class="col"><input type="text" id="opt3Name" placeholder="Option 3 Name"><input type="text" id="opt3Price" placeholder="Price"></div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -216,7 +194,6 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
     <h3>12. Extra Tools</h3>
     <div class="section">
         <button class="btn btn-blue" style="width:auto; padding:8px 15px; font-size:13px;" onclick="loadSample()">Load Sample Data</button>
-        <button class="btn btn-sec" style="width:auto; padding:8px 15px; font-size:13px;" onclick="downloadJSON()">Download JSON</button>
     </div>
 
     <button class="btn" onclick="generateItinerary()">💾 SAVE & GENERATE ITINERARY CODE</button>
@@ -234,7 +211,7 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 </div>
 
 <script>
-const packages = {
+var packages = {
     charming: { title: "Charming Kashmir (3N/4D)", days: [
         { day: 1, title: "Arrive Srinagar", details: "Airport pickup, Mughal Gardens (Cheshma Shahi, Nishat, Shalimar), Shankaracharya Temple, evening Shikara ride on Dal Lake." },
         { day: 2, title: "Gulmarg Day Trip", details: "Full day trip to Gulmarg — Gondola ride, meadows, snow points, Maharaja Palace, golf course." },
@@ -275,111 +252,104 @@ const packages = {
     ]}
 };
 
-let savedHotels = JSON.parse(localStorage.getItem('alhazari_hotels')) || [];
-const hotelList = document.getElementById('hotelList');
-function renderHotelList() { hotelList.innerHTML = ''; savedHotels.forEach(h => { const o = document.createElement('option'); o.value = h; hotelList.appendChild(o); }); }
+var savedHotels = JSON.parse(localStorage.getItem('alhazari_hotels')) || [];
+var hotelList = document.getElementById('hotelList');
+function renderHotelList() { hotelList.innerHTML = ''; savedHotels.forEach(function(h) { var o = document.createElement('option'); o.value = h; hotelList.appendChild(o); }); }
 renderHotelList();
-document.querySelectorAll('.hotel-name').forEach(input => {
-    input.addEventListener('change', function() { const v = this.value.trim(); if(v && !savedHotels.includes(v)) { savedHotels.push(v); localStorage.setItem('alhazari_hotels', JSON.stringify(savedHotels)); renderHotelList(); } });
+document.querySelectorAll('.hotel-name').forEach(function(input) {
+    input.addEventListener('change', function() { var v = this.value.trim(); if(v && savedHotels.indexOf(v) === -1) { savedHotels.push(v); localStorage.setItem('alhazari_hotels', JSON.stringify(savedHotels)); renderHotelList(); } });
 });
 
-const bankFields = ['bankName', 'accountNumber', 'ifsc', 'accountHolder', 'upiId'];
-bankFields.forEach(id => { const el = document.getElementById(id); if(el) { el.value = localStorage.getItem('alhazari_' + id) || ''; el.addEventListener('input', function() { localStorage.setItem('alhazari_' + id, this.value); }); } });
+var bankFields = ['bankName', 'accountNumber', 'ifsc', 'accountHolder', 'upiId'];
+bankFields.forEach(function(id) { var el = document.getElementById(id); if(el) { el.value = localStorage.getItem('alhazari_' + id) || ''; el.addEventListener('input', function() { localStorage.setItem('alhazari_' + id, this.value); }); } });
 
-document.querySelectorAll('input[name="pkg"]').forEach(radio => { radio.addEventListener('change', function() { document.getElementById('customPlacesDiv').style.display = this.value === 'custom' ? 'block' : 'none'; loadPackageDays(this.value); }); });
+document.querySelectorAll('input[name="pkg"]').forEach(function(radio) { radio.addEventListener('change', function() { document.getElementById('customPlacesDiv').style.display = this.value === 'custom' ? 'block' : 'none'; loadPackageDays(this.value); }); });
 loadPackageDays('charming');
 
 function loadPackageDays(pkgKey) {
-    const c = document.getElementById('itineraryDays'); c.innerHTML = '';
+    var c = document.getElementById('itineraryDays'); c.innerHTML = '';
     if(pkgKey === 'custom') { addDay(); return; }
-    const pkg = packages[pkgKey]; if(!pkg) return;
-    pkg.days.forEach(d => addDay(d.day, d.title, d.details));
+    var pkg = packages[pkgKey]; if(!pkg) return;
+    pkg.days.forEach(function(d) { addDay(d.day, d.title, d.details); });
 }
 
 function addDay(dayNum, title, details) {
-    const c = document.getElementById('itineraryDays'); const n = c.children.length + 1;
-    const div = document.createElement('div'); div.className = 'section'; div.style.background = '#fff'; div.style.padding = '12px'; div.style.marginBottom = '10px';
-    div.innerHTML = `<div class="row"><div class="col" style="flex:0.3;"><label>Day</label><input type="number" class="day-num" value="${dayNum || n}" min="1"></div><div class="col-wide"><label>Title</label><input type="text" class="day-title" value="${title || ''}" placeholder="e.g. Arrive Srinagar"></div></div><label>Details</label><textarea class="day-details" placeholder="Details...">${details || ''}</textarea><label>Day Note (Optional)</label><select class="day-note-select"><option value="">-- None --</option><option value="Note: In Gulmarg during winter, if there is heavy snow on Gulmarg Road, our cab will drop you at Tangmarg (12 kms before Gulmarg). From there, you have to hire a snow jeep to Gulmarg at your own cost.">Gulmarg Winter Note</option><option value="Note: Inner line sightseeing at Pahalgam is done by local union taxi or pony at your own cost.">Pahalgam Union Taxi Note</option><option value="Note: Thajiwas Glacier, Zero Point at Sonamarg are accessed by local union taxi or pony at your own cost.">Sonamarg Union Taxi Note</option><option value="Note: Children under 3 years are not permitted on the Gulmarg Gondola. Children aged 3-10 years pay a discounted ticket price. Children 12 years and above are charged as adults.">Child Policy - Gondola</option><option value="Note: Child policy varies by hotel. Please confirm age limits and extra bed charges at the time of booking.">Child Policy - Hotel</option></select><button class="btn" style="width:auto; padding:5px 10px; font-size:12px; background:#dc3545; margin-top:5px;" onclick="this.parentElement.remove()">Remove Day</button>`;
+    var c = document.getElementById('itineraryDays'); var n = c.children.length + 1;
+    var div = document.createElement('div'); div.className = 'section'; div.style.background = '#fff'; div.style.padding = '12px'; div.style.marginBottom = '10px';
+    div.innerHTML = '<div class="row"><div class="col" style="flex:0.3;"><label>Day</label><input type="number" class="day-num" value="' + (dayNum || n) + '" min="1"></div><div class="col-wide"><label>Title</label><input type="text" class="day-title" value="' + (title || '') + '" placeholder="Title"></div></div><label>Details</label><textarea class="day-details" placeholder="Details...">' + (details || '') + '</textarea><label>Day Note</label><select class="day-note-select"><option value="">-- None --</option><option value="Note: In Gulmarg during winter, if there is heavy snow on Gulmarg Road, our cab will drop you at Tangmarg (12 kms before Gulmarg). From there, you have to hire a snow jeep to Gulmarg at your own cost.">Gulmarg Winter Note</option><option value="Note: Inner line sightseeing at Pahalgam is done by local union taxi or pony at your own cost.">Pahalgam Union Taxi Note</option><option value="Note: Thajiwas Glacier, Zero Point at Sonamarg are accessed by local union taxi or pony at your own cost.">Sonamarg Union Taxi Note</option><option value="Note: Children under 3 years are not permitted on the Gulmarg Gondola. Children aged 3-10 years pay a discounted ticket price. Children 12 years and above are charged as adults.">Child Policy - Gondola</option><option value="Note: Child policy varies by hotel. Please confirm age limits and extra bed charges at the time of booking.">Child Policy - Hotel</option></select><button class="btn" style="width:auto; padding:5px 10px; font-size:12px; background:#dc3545; margin-top:5px;" onclick="this.parentElement.remove()">Remove Day</button>';
     c.appendChild(div);
 }
 
-let customPlaces = [];
-function addCustomPlace() { const v = document.getElementById('newPlace').value.trim(); if(v && !customPlaces.includes(v)) { customPlaces.push(v); const d = document.createElement('div'); d.innerHTML = `• ${v} <button style="border:none; background:none; color:red; cursor:pointer;" onclick="this.parentElement.remove(); customPlaces = customPlaces.filter(p=>p!=='${v}');">✕</button>`; document.getElementById('customPlaceList').appendChild(d); document.getElementById('newPlace').value = ''; } }
-
 document.getElementById('showPricing').addEventListener('change', function() { document.getElementById('pricingSection').style.display = this.checked ? 'block' : 'none'; });
 
-function calculateTotal() { const pp = parseFloat(document.getElementById('perPersonPrice').value.replace(/,/g,'')) || 0; const pax = parseInt(document.getElementById('totalPax').value) || 0; if(pp > 0 && pax > 0) { document.getElementById('totalPrice').value = (pp * pax).toLocaleString('en-IN'); } }
-
 function generateItinerary() {
-    const clientName = document.getElementById('clientName').value.trim();
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
+    var clientName = document.getElementById('clientName').value.trim();
+    var startDate = document.getElementById('startDate').value;
+    var endDate = document.getElementById('endDate').value;
     if(!clientName || !startDate || !endDate) { alert("Please fill in Client Name, Start Date, and End Date."); return; }
 
-    const formatDate = (d) => { if(!d) return ""; const dt = new Date(d); return dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); };
-    const formattedDates = formatDate(startDate) + " - " + formatDate(endDate);
-    const totalNights = Array.from(document.querySelectorAll('.nights')).reduce((s, el) => s + (parseInt(el.value) || 0), 0);
-    const pkgRadio = document.querySelector('input[name="pkg"]:checked');
-    const pkgKey = pkgRadio ? pkgRadio.value : 'custom';
+    var formatDate = function(d) { if(!d) return ""; var dt = new Date(d); return dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); };
+    var formattedDates = formatDate(startDate) + " - " + formatDate(endDate);
+    var totalNights = Array.from(document.querySelectorAll('.nights')).reduce(function(s, el) { return s + (parseInt(el.value) || 0); }, 0);
+    var pkgRadio = document.querySelector('input[name="pkg"]:checked');
+    var pkgKey = pkgRadio ? pkgRadio.value : 'custom';
 
-    const accommodation = [];
-    document.querySelectorAll('.acc-row').forEach(row => {
-        const place = row.querySelector('strong').textContent.trim();
-        const nights = parseInt(row.querySelector('.nights').value) || 0;
+    var accommodation = [];
+    document.querySelectorAll('.acc-row').forEach(function(row) {
+        var place = row.querySelector('strong').textContent.trim();
+        var nights = parseInt(row.querySelector('.nights').value) || 0;
         if(nights <= 0) return;
         accommodation.push({ place: place, nights: nights, hotel: row.querySelector('.hotel-name').value.trim() || "To be confirmed", roomType: row.querySelector('.room-type').value, double: parseInt(row.querySelector('.double').value) || 0, triple: parseInt(row.querySelector('.triple').value) || 0, extra: parseInt(row.querySelector('.extra').value) || 0, childNoBed: parseInt(row.querySelector('.child').value) || 0, single: parseInt(row.querySelector('.single').value) || 0, meal: row.querySelector('.meal-plan').value });
     });
 
-    const inclusions = [], exclusions = [];
-    document.querySelectorAll('.checkbox-group input[type="checkbox"]:checked').forEach(cb => {
-        const col = cb.closest('.col');
-        if(col.querySelector('label').textContent.includes('Inclusions')) inclusions.push(cb.value);
+    var inclusions = [], exclusions = [];
+    document.querySelectorAll('.checkbox-group input[type="checkbox"]:checked').forEach(function(cb) {
+        var col = cb.closest('.col');
+        if(col.querySelector('label').textContent.indexOf('Inclusions') !== -1) inclusions.push(cb.value);
         else exclusions.push(cb.value);
     });
-    const ci = document.getElementById('customInclusion').value.trim(); if(ci) inclusions.push(ci);
-    const ce = document.getElementById('customExclusion').value.trim(); if(ce) exclusions.push(ce);
+    var ci = document.getElementById('customInclusion').value.trim(); if(ci) inclusions.push(ci);
+    var ce = document.getElementById('customExclusion').value.trim(); if(ce) exclusions.push(ce);
 
-    const days = [];
-    document.querySelectorAll('#itineraryDays .section').forEach(div => {
-        const title = div.querySelector('.day-title')?.value.trim() || '';
-        const details = div.querySelector('.day-details')?.value.trim() || '';
-        const note = div.querySelector('.day-note-select')?.value || '';
+    var days = [];
+    document.querySelectorAll('#itineraryDays .section').forEach(function(div) {
+        var title = div.querySelector('.day-title') ? div.querySelector('.day-title').value.trim() : '';
+        var details = div.querySelector('.day-details') ? div.querySelector('.day-details').value.trim() : '';
+        var note = div.querySelector('.day-note-select') ? div.querySelector('.day-note-select').value : '';
         if(title || details) days.push({ title: title, details: details, note: note });
     });
 
-    const showPricing = document.getElementById('showPricing').checked;
-    const showPayment = document.getElementById('showPayment').checked;
-    const showTerms = document.getElementById('showTerms').checked;
-    const draftMode = document.getElementById('draftMode').checked;
+    var showPricing = document.getElementById('showPricing').checked;
+    var showPayment = document.getElementById('showPayment').checked;
+    var showTerms = document.getElementById('showTerms').checked;
+    var draftMode = document.getElementById('draftMode').checked;
 
-    const data = {
+    var data = {
         client: clientName, adults: parseInt(document.getElementById('adults').value) || 0, children: parseInt(document.getElementById('children').value) || 0,
         childrenAges: document.getElementById('childrenAges').value.trim(), dates: formattedDates, totalNights: totalNights,
         bookingRef: document.getElementById('bookingRef').value.trim(), bookingStatus: document.getElementById('bookingStatus').value,
-        packageName: pkgKey, customPlaces: customPlaces,
+        packageName: pkgKey,
         vehicle: { type: document.getElementById('vehicleType').value, ac: document.getElementById('acType').value, note: document.getElementById('vehicleNote').value.trim() },
         accommodation: accommodation, inclusions: inclusions, exclusions: exclusions, days: days,
         showPricing: showPricing,
-        pricing: showPricing ? { total: document.getElementById('totalPrice').value.trim(), suffix: document.getElementById('priceSuffix').value.trim(), basis: document.getElementById('priceBasis').value.trim(), validity: formatDate(document.getElementById('validityDate').value), perPerson: document.getElementById('perPersonPrice').value.trim(), totalPax: document.getElementById('totalPax').value, breakdown: { hotel: document.getElementById('breakdownHotel').value.trim(), cab: document.getElementById('breakdownCab').value.trim(), other: document.getElementById('breakdownOther').value.trim() }, options: [{ name: document.getElementById('opt1Name').value.trim(), price: document.getElementById('opt1Price').value.trim() }, { name: document.getElementById('opt2Name').value.trim(), price: document.getElementById('opt2Price').value.trim() }, { name: document.getElementById('opt3Name').value.trim(), price: document.getElementById('opt3Price').value.trim() }].filter(o => o.name) } : null,
+        pricing: showPricing ? { total: document.getElementById('totalPrice').value.trim(), suffix: document.getElementById('priceSuffix').value.trim(), basis: document.getElementById('priceBasis').value.trim(), validity: formatDate(document.getElementById('validityDate').value), perPerson: document.getElementById('perPersonPrice').value.trim(), totalPax: document.getElementById('totalPax').value } : null,
         showPayment: showPayment,
         payment: showPayment ? { bankName: document.getElementById('bankName').value.trim(), accountNumber: document.getElementById('accountNumber').value.trim(), ifsc: document.getElementById('ifsc').value.trim(), accountHolder: document.getElementById('accountHolder').value.trim(), upiId: document.getElementById('upiId').value.trim() } : null,
         showTerms: showTerms, termsText: document.getElementById('termsText').value.trim(), clientNotes: document.getElementById('clientNotes').value.trim(), draftMode: draftMode
     };
 
-    const safeFileName = clientName.toLowerCase().replace(/\s+/g, '-') + ".json";
+    var safeFileName = clientName.toLowerCase().replace(/\s+/g, '-') + ".json";
     document.getElementById('outputBox').style.display = 'block';
     document.getElementById('jsonOutput').textContent = JSON.stringify(data, null, 2);
     document.getElementById('fileNameDisplay').textContent = safeFileName;
-    const currentURL = window.location.href;
-    const baseURL = currentURL.substring(0, currentURL.lastIndexOf('/'));
-    const clientLink = baseURL + "/itinerary.html?file=" + safeFileName + (draftMode ? "&draft=1" : "");
+    var currentURL = window.location.href;
+    var baseURL = currentURL.substring(0, currentURL.lastIndexOf('/'));
+    var clientLink = baseURL + "/itinerary.html?file=" + safeFileName + (draftMode ? "&draft=1" : "");
     document.getElementById('clientLink').href = clientLink;
     document.getElementById('clientLink').textContent = clientLink;
-    navigator.clipboard.writeText(JSON.stringify(data, null, 2));
-    alert("✅ JSON copied to clipboard!");
+    try { navigator.clipboard.writeText(JSON.stringify(data, null, 2)); } catch(e) {}
+    alert("✅ JSON generated! Scroll down to see the code.");
 }
-
-function downloadJSON() { const json = document.getElementById('jsonOutput').textContent; if(!json) { alert("Generate first."); return; } const blob = new Blob([json], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = document.getElementById('fileNameDisplay').textContent; a.click(); URL.revokeObjectURL(url); }
 
 function loadSample() {
     document.getElementById('clientName').value = "Test Sharma";
@@ -388,7 +358,7 @@ function loadSample() {
     document.getElementById('bookingRef').value = "ALH-TEST-001"; document.getElementById('bookingStatus').value = "Draft";
     document.querySelector('input[name="pkg"][value="charming"]').checked = true;
     loadPackageDays('charming');
-    alert("Sample data loaded. Now scroll down and click the green button.");
+    alert("Sample data loaded.");
 }
 </script>
 
