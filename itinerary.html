@@ -90,7 +90,6 @@ body { font-family: Arial, Helvetica, sans-serif; background: #eef2f5; color: va
     .draft-watermark span { font-size: 60px; }
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -172,10 +171,8 @@ body { font-family: Arial, Helvetica, sans-serif; background: #eef2f5; color: va
 </div>
 
 <script>
-// --- SUPABASE CONFIGURATION (MUMBAI) ---
-const SUPABASE_URL = 'https://wmlbyaxsygjhbjxkyjtj.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtbGJ5YXhzeWdpaGJqeGtqeXRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA4NTA0MTMsImV4cCI6MjEwNjQyNjQxM30.DkxwDVll_6WddygtI5uDgdTTneLEHyzhQ8-tAjehG40';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// --- GOOGLE APPS SCRIPT API URL ---
+const API_URL = 'https://script.google.com/macros/s/AKfycbxIHR1S3n6ve7D-14qBaJseTVFoLd74rsVPbjlM-Ai0lpbJz-wnc0i1io_DlMw6BG96sA/exec';
 
 const urlParams = new URLSearchParams(window.location.search);
 const recordId = urlParams.get('id');
@@ -184,19 +181,14 @@ const isDraft = urlParams.get('draft') === '1';
 if (!recordId) {
     document.getElementById('loading').innerHTML = "No itinerary specified. Please check the link.";
 } else {
-    supabase
-        .from('itineraries')
-        .select('*')
-        .eq('id', recordId)
-        .single()
-        .then(({ data: record, error }) => {
-            if (error || !record) {
+    fetch(API_URL + '?id=' + recordId)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error || !data.client) {
                 document.getElementById('loading').innerHTML = "<div class='error'>Sorry, we could not find this itinerary. Please ask us for a new link.</div>";
-                console.error(error);
                 return;
             }
 
-            const data = record.client_data;
             document.getElementById('loading').style.display = 'none';
             document.getElementById('content').style.display = 'block';
 
@@ -312,6 +304,10 @@ if (!recordId) {
 
             const waMsg = encodeURIComponent(`Hello, I am interested in the ${data.client} itinerary. Please share the final details.`);
             document.getElementById('whatsappBtn').href = `https://wa.me/919541722366?text=${waMsg}`;
+        })
+        .catch(error => {
+            document.getElementById('loading').innerHTML = "<div class='error'>Sorry, we could not find this itinerary. Please ask us for a new link.</div>";
+            console.error('Error:', error);
         });
 }
 
