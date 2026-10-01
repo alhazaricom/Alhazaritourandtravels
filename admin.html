@@ -179,7 +179,7 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 
 <script>
 // --- GOOGLE APPS SCRIPT API URL ---
-const API_URL = 'https://script.google.com/macros/s/AKfycbxIHR1S3n6ve7D-14qBaJseTVFoLd74rsVPbjlM-Ai0lpbJz-wnc0i1io_DlMw6BG96sA/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzgtL1g0LEhszd0e8y99oSfUUQiUh10omweQyMh4MVFwU1Aq2aFF4XbaBTfNCwUd3uyjQ/exec';
 
 var packages = {
     charming: { days: [
@@ -318,8 +318,7 @@ async function saveToDatabase() {
             body: JSON.stringify({ client_name: clientName, client_data: data })
         });
 
-        // Since 'no-cors' does not allow reading the response, we assume success if no error is thrown.
-        const recordId = Date.now(); // Use timestamp as temporary ID for the link
+        const recordId = Date.now(); 
         
         document.getElementById('outputBox').style.display = 'block';
         document.getElementById('jsonOutput').textContent = JSON.stringify(data, null, 2);
