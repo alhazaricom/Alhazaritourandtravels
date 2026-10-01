@@ -1,7 +1,100 @@
 {
   "client": "Ahmad",
-  "adults": "2",
-  "dates": "30 Sept 2026 - 3 Oct 2026",
-  "packageName": "Charming Kashmir (3N/4D)",
-  "totalDays": 4
+  "adults": 2,
+  "children": 0,
+  "dates": "15 Oct 2026 - 19 Oct 2026",
+  "totalNights": 3,
+  "bookingRef": "test",
+  "packageName": "honeymoon",
+  "vehicle": {
+    "type": "SUV (Innova/Ertiga)",
+    "ac": "AC",
+    "note": ""
+  },
+  "accommodation": [
+    {
+      "place": "Srinagar",
+      "nights": 2,
+      "hotel": "Grand Hotel",
+      "roomType": "Deluxe",
+      "double": 1,
+      "triple": 0,
+      "extra": 0,
+      "childNoBed": 0,
+      "single": 0,
+      "meal": "MAP"
+    },
+    {
+      "place": "Houseboat",
+      "nights": 1,
+      "hotel": "Young bombay",
+      "roomType": "Deluxe",
+      "double": 1,
+      "triple": 0,
+      "extra": 0,
+      "childNoBed": 0,
+      "single": 0,
+      "meal": "MAP"
+    }
+  ],
+  "inclusions": [
+    "Airport Transfers",
+    "Accommodation on Double Sharing",
+    "Meals as per Plan",
+    "All Transfers & Sightseeing",
+    "Shikara Ride (1 Hour)",
+    "All Taxes & Driver Allowance"
+  ],
+  "exclusions": [
+    "Airfare / Train Fare",
+    "Gondola Tickets / Pony Ride",
+    "Union Taxi at Pahalgam/Sonamarg",
+    "Entry Fees & Guide Charges",
+    "Personal Expenses"
+  ],
+  "days": [
+    {
+      "title": "Arrive Srinagar → Pahalgam",
+      "details": "Airport pickup, transfer to Pahalgam via saffron fields and apple gardens.",
+      "note": ""
+    },
+    {
+      "title": "Pahalgam Local → Srinagar",
+      "details": "Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran. Evening return to Srinagar.",
+      "note": ""
+    },
+    {
+      "title": "Srinagar Local Sightseeing",
+      "details": "Mughal Gardens, Shankaracharya Temple, evening Shikara ride.",
+      "note": ""
+    },
+    {
+      "title": "Gulmarg Day Trip",
+      "details": "Full day Gulmarg — Gondola ride, snow activities, meadows.",
+      "note": ""
+    },
+    {
+      "title": "Sonamarg Day Trip",
+      "details": "Full day Sonamarg — Thajiwas Glacier, Sindh River. Evening at Houseboat.",
+      "note": ""
+    },
+    {
+      "title": "Srinagar Airport Drop",
+      "details": "After breakfast, transfer to Srinagar Airport with beautiful memories.",
+      "note": ""
+    }
+  ],
+  "showPricing": false,
+  "pricing": null,
+  "showPayment": true,
+  "payment": {
+    "bankName": "HDFC",
+    "accountNumber": "50200075445673",
+    "ifsc": "HDFC0000850",
+    "accountHolder": "AL HAZARI TOUR AND TRAVELS",
+    "upiId": "9541722366@hdfc"
+  },
+  "showTerms": true,
+  "termsText": "1. 50% advance required to confirm booking.\n2. Cancellation policy as per hotel rules.\n3. Rates subject to change without prior notice.\n4. Any dispute subject to Srinagar jurisdiction.",
+  "draftMode": false
 }
