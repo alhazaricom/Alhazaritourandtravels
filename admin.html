@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin - Al Hazari Itinerary Builder</title>
 <style>
-:root { --primary: #075e54; --secondary: #d4a017; --whatsapp: #25D366; --light: #f5faf8; --border: #e5e9e7; --text: #52605d; --dark: #17211f; }
+:root { --primary: #075e54; --secondary: #d4a017; --whatsapp: #25D366; --light: #f5faf8; --border: #e5e9e7; --dark: #17211f; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; color: var(--dark); line-height: 1.6; }
-.container { max-width: 1100px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.container { max-width: 1000px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
 h2 { color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 10px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
 .logo-icon { width: 40px; height: 40px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; }
 h3 { color: var(--primary); margin-top: 30px; margin-bottom: 12px; padding: 10px; background: var(--light); border-left: 4px solid var(--secondary); border-radius: 4px; font-size: 17px; }
@@ -19,22 +19,20 @@ textarea { height: 70px; resize: vertical; }
 .row { display: flex; gap: 12px; flex-wrap: wrap; }
 .col { flex: 1; min-width: 140px; }
 .col-wide { flex: 2; min-width: 200px; }
-.acc-header, .acc-row { display: grid; grid-template-columns: 0.9fr 0.6fr 1.4fr 0.9fr 0.7fr 0.7fr 0.7fr 0.7fr 0.7fr 0.9fr; gap: 5px; padding: 8px; border-radius: 6px; align-items: center; font-size: 12px; }
-.acc-header { background: var(--primary); color: #fff; font-weight: bold; margin-bottom: 5px; }
-.acc-row { background: #fff; border: 1px solid var(--border); margin-bottom: 5px; }
-.acc-row input, .acc-row select { margin-bottom: 0; padding: 5px; font-size: 11px; }
-.acc-row strong { font-size: 12px; color: var(--primary); }
 .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px; }
 .checkbox-group label { font-weight: normal; display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; margin-bottom: 0; }
 .checkbox-group input[type="checkbox"] { width: auto; margin: 0; }
 .btn { background: var(--whatsapp); color: #fff; border: none; padding: 14px 25px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; }
 .btn:hover { background: #128C7E; }
-.btn-sec { background: var(--secondary); color: var(--dark); }
-.btn-blue { background: #007bff; color: #fff; }
 .output-box { margin-top: 25px; padding: 20px; background: #e8f5e9; border: 2px solid #c8e6c9; border-radius: 8px; display: none; }
 code { display: block; background: #333; color: #fff; padding: 15px; margin-top: 10px; border-radius: 5px; word-wrap: break-word; white-space: pre-wrap; max-height: 250px; overflow-y: auto; font-size: 12px; }
 .hint { color: #d32f2f; font-size: 12px; font-style: italic; margin-bottom: 8px; }
 .success { color: #2e7d32; font-weight: bold; }
+.acc-header, .acc-row { display: grid; grid-template-columns: 1fr 0.6fr 1.5fr 1fr 0.7fr 0.7fr 0.7fr 0.7fr 0.7fr 0.9fr; gap: 5px; padding: 8px; border-radius: 6px; align-items: center; font-size: 12px; }
+.acc-header { background: var(--primary); color: #fff; font-weight: bold; margin-bottom: 5px; }
+.acc-row { background: #fff; border: 1px solid var(--border); margin-bottom: 5px; }
+.acc-row input, .acc-row select { margin-bottom: 0; padding: 5px; font-size: 11px; }
+.acc-row strong { font-size: 12px; color: var(--primary); }
 .pkg-option { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
 .pkg-option label { font-weight: normal; display: flex; align-items: center; gap: 5px; font-size: 13px; background: #fff; padding: 6px 12px; border: 1px solid var(--border); border-radius: 20px; cursor: pointer; }
 .pkg-option input[type="radio"] { width: auto; margin: 0; }
@@ -51,59 +49,45 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
             <div class="col"><label>Client Name *</label><input type="text" id="clientName" placeholder="e.g. Mr. Sharma"></div>
             <div class="col"><label>Adults</label><input type="number" id="adults" value="2" min="1"></div>
             <div class="col"><label>Children</label><input type="number" id="children" value="0" min="0"></div>
-            <div class="col"><label>Children Ages</label><input type="text" id="childrenAges" placeholder="e.g. 5, 8"></div>
         </div>
         <div class="row">
             <div class="col"><label>Start Date *</label><input type="date" id="startDate"></div>
             <div class="col"><label>End Date *</label><input type="date" id="endDate"></div>
             <div class="col"><label>Booking Ref</label><input type="text" id="bookingRef" placeholder="e.g. ALH-2026-001"></div>
-            <div class="col"><label>Booking Status</label><select id="bookingStatus"><option>Draft</option><option>Sent to Client</option><option>Advance Received</option><option>Fully Paid</option><option>Cancelled</option></select></div>
         </div>
     </div>
 
     <h3>2. Package Selection</h3>
     <div class="section">
         <div class="pkg-option">
-            <label><input type="radio" name="pkg" value="charming" checked> Charming Kashmir (3N/4D)</label>
-            <label><input type="radio" name="pkg" value="explorer"> Kashmir Explorer (4N/5D)</label>
-            <label><input type="radio" name="pkg" value="amazing"> Amazing Kashmir (5N/6D)</label>
-            <label><input type="radio" name="pkg" value="heaven"> Kashmir Heaven on Earth (6N/7D)</label>
-            <label><input type="radio" name="pkg" value="honeymoon"> Kashmir Honeymoon Special (5N/6D)</label>
+            <label><input type="radio" name="pkg" value="charming" checked> Charming Kashmir</label>
+            <label><input type="radio" name="pkg" value="explorer"> Kashmir Explorer</label>
+            <label><input type="radio" name="pkg" value="amazing"> Amazing Kashmir</label>
+            <label><input type="radio" name="pkg" value="heaven"> Heaven on Earth</label>
+            <label><input type="radio" name="pkg" value="honeymoon"> Honeymoon Special</label>
             <label><input type="radio" name="pkg" value="custom"> Custom Package</label>
-        </div>
-        <div id="customPlacesDiv" style="display:none; margin-top:10px;">
-            <label>Select Places:</label>
-            <div class="checkbox-group">
-                <label><input type="checkbox" value="Srinagar" checked> Srinagar</label>
-                <label><input type="checkbox" value="Gulmarg"> Gulmarg</label>
-                <label><input type="checkbox" value="Pahalgam"> Pahalgam</label>
-                <label><input type="checkbox" value="Sonamarg"> Sonamarg</label>
-                <label><input type="checkbox" value="Doodhpathri"> Doodhpathri</label>
-                <label><input type="checkbox" value="Yusmarg"> Yusmarg</label>
-                <label><input type="checkbox" value="Gurez Valley"> Gurez Valley</label>
-            </div>
         </div>
     </div>
 
     <h3>3. Accommodation</h3>
     <div class="section">
-        <div class="acc-header"><div>Place</div><div>Nights</div><div>Hotel</div><div>Room Type</div><div>Double</div><div>Triple</div><div>Extra</div><div>Child WOB</div><div>Single</div><div>Meal Plan</div></div>
-        <div class="acc-row"><div><strong>Srinagar</strong></div><div><input type="number" class="nights" value="2" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name" list="hotelList"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
-        <div class="acc-row"><div><strong>Gulmarg</strong></div><div><input type="number" class="nights" value="0" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name" list="hotelList"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
-        <div class="acc-row"><div><strong>Pahalgam</strong></div><div><input type="number" class="nights" value="0" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name" list="hotelList"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
-        <div class="acc-row"><div><strong>Sonamarg</strong></div><div><input type="number" class="nights" value="0" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name" list="hotelList"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
-        <div class="acc-row"><div><strong>Doodhpathri</strong></div><div><input type="number" class="nights" value="0" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name" list="hotelList"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
-        <div class="acc-row"><div><strong>Houseboat</strong></div><div><input type="number" class="nights" value="1" min="0"></div><div><input type="text" class="hotel-name" placeholder="Houseboat Name" list="hotelList"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
-        <datalist id="hotelList"></datalist>
+        <p class="hint">Only fill places where client stays. Leave "Nights" as 0 for places not included.</p>
+        <div class="acc-header"><div>Place</div><div>Nights</div><div>Hotel</div><div>Room Type</div><div>Double</div><div>Triple</div><div>Extra</div><div>Child WOB</div><div>Single</div><div>Meal</div></div>
+        <div class="acc-row"><div><strong>Srinagar</strong></div><div><input type="number" class="nights" value="2" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
+        <div class="acc-row"><div><strong>Gulmarg</strong></div><div><input type="number" class="nights" value="0" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
+        <div class="acc-row"><div><strong>Pahalgam</strong></div><div><input type="number" class="nights" value="0" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
+        <div class="acc-row"><div><strong>Sonamarg</strong></div><div><input type="number" class="nights" value="0" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
+        <div class="acc-row"><div><strong>Doodhpathri</strong></div><div><input type="number" class="nights" value="0" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
+        <div class="acc-row"><div><strong>Houseboat</strong></div><div><input type="number" class="nights" value="1" min="0"></div><div><input type="text" class="hotel-name" placeholder="Houseboat Name"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
     </div>
 
     <h3>4. Vehicle</h3>
     <div class="section">
         <div class="row">
-            <div class="col"><label>Vehicle Type</label><select id="vehicleType"><option>Sedan (Dzire/Etios) - 2-3 Pax</option><option>SUV (Innova/Ertiga) - 4-6 Pax</option><option>Luxury (Innova Crysta) - 4-6 Pax</option><option>Tempo Traveller - 7-12 Pax</option><option>Force Urbania - 12-17 Pax</option></select></div>
+            <div class="col"><label>Vehicle Type</label><select id="vehicleType"><option>Sedan (Dzire/Etios)</option><option>SUV (Innova/Ertiga)</option><option>Luxury (Innova Crysta)</option><option>Tempo Traveller</option><option>Force Urbania</option></select></div>
             <div class="col"><label>AC / Non-AC</label><select id="acType"><option>AC</option><option>Non-AC</option><option>AC + Heater</option><option>Heater Only</option></select></div>
-            <div class="col-wide"><label>Vehicle Note</label><input type="text" id="vehicleNote" placeholder="e.g. In winter, cab drops at Tangmarg."></div>
         </div>
+        <label>Vehicle Note</label><input type="text" id="vehicleNote" placeholder="e.g. In winter, cab drops at Tangmarg.">
     </div>
 
     <h3>5. Inclusions & Exclusions</h3>
@@ -112,88 +96,57 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
             <div class="col"><label>✅ Inclusions</label>
                 <div class="checkbox-group">
                     <label><input type="checkbox" value="Airport Transfers" checked> Airport Transfers</label>
-                    <label><input type="checkbox" value="Accommodation on Double Sharing" checked> Accommodation on Double Sharing</label>
+                    <label><input type="checkbox" value="Accommodation on Double Sharing" checked> Accommodation</label>
                     <label><input type="checkbox" value="Meals as per Plan" checked> Meals as per Plan</label>
-                    <label><input type="checkbox" value="All Transfers & Sightseeing" checked> All Transfers & Sightseeing</label>
-                    <label><input type="checkbox" value="Shikara Ride (1 Hour)" checked> Shikara Ride (1 Hour)</label>
-                    <label><input type="checkbox" value="All Taxes & Driver Allowance" checked> All Taxes & Driver Allowance</label>
-                    <label><input type="checkbox" value="Honeymoon Inclusions (Cake, Decoration)"> Honeymoon Inclusions</label>
+                    <label><input type="checkbox" value="All Transfers & Sightseeing" checked> Transfers & Sightseeing</label>
+                    <label><input type="checkbox" value="Shikara Ride (1 Hour)" checked> Shikara Ride</label>
+                    <label><input type="checkbox" value="All Taxes & Driver Allowance" checked> Taxes & Driver</label>
                 </div>
             </div>
             <div class="col"><label>❌ Exclusions</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox" value="Airfare / Train Fare" checked> Airfare / Train Fare</label>
-                    <label><input type="checkbox" value="Gondola Tickets / Pony Ride" checked> Gondola Tickets / Pony Ride</label>
-                    <label><input type="checkbox" value="Union Taxi at Pahalgam/Sonamarg" checked> Union Taxi at Pahalgam/Sonamarg</label>
-                    <label><input type="checkbox" value="Entry Fees & Guide Charges" checked> Entry Fees & Guide Charges</label>
-                    <label><input type="checkbox" value="Personal Expenses (Tips, Laundry)" checked> Personal Expenses</label>
-                    <label><input type="checkbox" value="Anything not mentioned in Inclusions" checked> Anything not mentioned</label>
+                    <label><input type="checkbox" value="Airfare / Train Fare" checked> Airfare / Train</label>
+                    <label><input type="checkbox" value="Gondola Tickets / Pony Ride" checked> Gondola / Pony</label>
+                    <label><input type="checkbox" value="Union Taxi at Pahalgam/Sonamarg" checked> Union Taxi</label>
+                    <label><input type="checkbox" value="Entry Fees & Guide Charges" checked> Entry Fees</label>
+                    <label><input type="checkbox" value="Personal Expenses" checked> Personal Expenses</label>
                 </div>
             </div>
         </div>
-        <label>Custom Inclusion</label><input type="text" id="customInclusion" placeholder="e.g. Candle Light Dinner">
-        <label>Custom Exclusion</label><input type="text" id="customExclusion" placeholder="e.g. Camel Safari">
     </div>
 
-    <h3>6. Day-wise Itinerary</h3>
-    <div class="section">
-        <p class="hint">Auto-filled based on package. Edit any day.</p>
-        <div id="itineraryDays"></div>
-        <button class="btn btn-blue" style="width:auto; padding:8px 15px; font-size:13px;" onclick="addDay()">+ Add Day</button>
-    </div>
-
-    <h3>7. Pricing</h3>
+    <h3>6. Pricing (Optional)</h3>
     <div class="section">
         <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="showPricing" style="width:auto;"> <strong>Show Pricing</strong></label>
         <div id="pricingSection" style="display:none; margin-top:10px;">
             <div class="row">
                 <div class="col"><label>Total Price</label><input type="text" id="totalPrice" placeholder="e.g. 24,500"></div>
-                <div class="col"><label>Price Suffix</label><input type="text" id="priceSuffix" value="/-Nett"></div>
                 <div class="col"><label>Validity Date</label><input type="date" id="validityDate"></div>
-            </div>
-            <div class="row">
-                <div class="col-wide"><label>Price Basis</label><input type="text" id="priceBasis" value="MAPAI Basis, Double Sharing Room"></div>
-                <div class="col"><label>Per Person Price</label><input type="text" id="perPersonPrice" placeholder="e.g. 12,000"></div>
-                <div class="col"><label>Total Pax</label><input type="number" id="totalPax" value="2"></div>
             </div>
         </div>
     </div>
 
-    <h3>8. Payment Details</h3>
+    <h3>7. Payment Details (Optional)</h3>
     <div class="section">
         <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="showPayment" style="width:auto;"> <strong>Show Payment Details</strong></label>
         <div class="row">
-            <div class="col"><label>Bank Name</label><input type="text" id="bankName" placeholder="e.g. J&K Bank"></div>
+            <div class="col"><label>Bank Name</label><input type="text" id="bankName" placeholder="Bank Name"></div>
             <div class="col"><label>Account Number</label><input type="text" id="accountNumber" placeholder="Account No"></div>
-            <div class="col"><label>IFSC Code</label><input type="text" id="ifsc" placeholder="IFSC"></div>
+            <div class="col"><label>IFSC</label><input type="text" id="ifsc" placeholder="IFSC"></div>
         </div>
         <div class="row">
             <div class="col"><label>Account Holder</label><input type="text" id="accountHolder" placeholder="Name"></div>
-            <div class="col"><label>UPI ID</label><input type="text" id="upiId" placeholder="e.g. alhazari@upi"></div>
+            <div class="col"><label>UPI ID</label><input type="text" id="upiId" placeholder="UPI ID"></div>
         </div>
     </div>
 
-    <h3>9. Terms & Conditions</h3>
+    <h3>8. Terms (Optional)</h3>
     <div class="section">
         <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="showTerms" checked style="width:auto;"> <strong>Show Terms</strong></label>
-        <textarea id="termsText" style="height:100px;">1. 50% advance required to confirm booking.
+        <textarea id="termsText" style="height:80px;">1. 50% advance required to confirm booking.
 2. Cancellation policy as per hotel rules.
 3. Rates subject to change without prior notice.
-4. In case of bad weather or road closure, itinerary may change.
-5. Any dispute subject to Srinagar jurisdiction.</textarea>
-    </div>
-
-    <h3>10. Client Notes</h3>
-    <div class="section"><textarea id="clientNotes" placeholder="e.g. Gondola tickets need to be booked in advance."></textarea></div>
-
-    <h3>11. Draft Mode</h3>
-    <div class="section">
-        <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="draftMode" style="width:auto;"> <strong>Enable Draft Mode</strong></label>
-    </div>
-
-    <h3>12. Extra Tools</h3>
-    <div class="section">
-        <button class="btn btn-blue" style="width:auto; padding:8px 15px; font-size:13px;" onclick="loadSample()">Load Sample Data</button>
+4. Any dispute subject to Srinagar jurisdiction.</textarea>
     </div>
 
     <button class="btn" onclick="generateItinerary()">💾 SAVE & GENERATE ITINERARY CODE</button>
@@ -211,77 +164,6 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 </div>
 
 <script>
-var packages = {
-    charming: { title: "Charming Kashmir (3N/4D)", days: [
-        { day: 1, title: "Arrive Srinagar", details: "Airport pickup, Mughal Gardens (Cheshma Shahi, Nishat, Shalimar), Shankaracharya Temple, evening Shikara ride on Dal Lake." },
-        { day: 2, title: "Gulmarg Day Trip", details: "Full day trip to Gulmarg — Gondola ride, meadows, snow points, Maharaja Palace, golf course." },
-        { day: 3, title: "Pahalgam Day Trip", details: "Drive to Pahalgam via saffron fields and apple gardens. Visit Aru Valley, Betaab Valley, Chandanwari." },
-        { day: 4, title: "Srinagar Departure", details: "After breakfast, airport drop with beautiful memories." }
-    ]},
-    explorer: { title: "Kashmir Explorer (4N/5D)", days: [
-        { day: 1, title: "Arrive Srinagar", details: "Airport pickup, Mughal Gardens sightseeing, evening Shikara ride on Dal Lake." },
-        { day: 2, title: "Sonamarg Day Trip", details: "Full day excursion to Sonamarg — Meadow of Gold, Thajiwas Glacier, Sindh River." },
-        { day: 3, title: "Gulmarg Day Trip", details: "Gulmarg — Gondola cable car, meadows, snow activities, local shopping." },
-        { day: 4, title: "Srinagar to Pahalgam", details: "Drive to Pahalgam. Afternoon visit to Aru Valley, Betaab Valley, Chandanwari." },
-        { day: 5, title: "Pahalgam to Srinagar Airport", details: "After breakfast, transfer to Srinagar Airport for departure." }
-    ]},
-    amazing: { title: "Amazing Kashmir (5N/6D)", days: [
-        { day: 1, title: "Arrive Srinagar → Pahalgam", details: "Airport pickup, transfer to Pahalgam via saffron fields, apple gardens and Pine Valley." },
-        { day: 2, title: "Pahalgam Local → Srinagar", details: "Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran. Evening return to Srinagar." },
-        { day: 3, title: "Srinagar Local Sightseeing", details: "Mughal Gardens, Shankaracharya Temple, evening Shikara ride." },
-        { day: 4, title: "Sonamarg Day Trip", details: "Full day excursion to Sonamarg — Thajiwas Glacier, Zero Point, Sindh River." },
-        { day: 5, title: "Gulmarg Day Trip", details: "Full day Gulmarg — Gondola ride, snow activities, Maharaja Palace, golf course." },
-        { day: 6, title: "Srinagar Airport Drop", details: "After breakfast, transfer to Srinagar Airport for departure." }
-    ]},
-    heaven: { title: "Kashmir Heaven on Earth (6N/7D)", days: [
-        { day: 1, title: "Arrive Srinagar", details: "Airport pickup, Mughal Gardens sightseeing, evening Shikara ride on Dal Lake." },
-        { day: 2, title: "Sonamarg Day Trip", details: "Full day excursion to Sonamarg — Meadow of Gold, Thajiwas Glacier, Sindh River." },
-        { day: 3, title: "Srinagar → Pahalgam", details: "Drive to Pahalgam via saffron fields and apple gardens. Evening free at leisure." },
-        { day: 4, title: "Pahalgam Local Sightseeing", details: "Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran, Denow Valley." },
-        { day: 5, title: "Pahalgam → Gulmarg", details: "Drive to Gulmarg. Evening free at leisure." },
-        { day: 6, title: "Gulmarg Sightseeing → Srinagar", details: "Gulmarg — Gondola ride, Maharaja Palace, golf course, church. Evening return to Srinagar Houseboat." },
-        { day: 7, title: "Srinagar Airport Drop", details: "After breakfast, transfer to Srinagar Airport for departure." }
-    ]},
-    honeymoon: { title: "Kashmir Honeymoon Special (5N/6D)", days: [
-        { day: 1, title: "Arrive Srinagar → Pahalgam", details: "Airport pickup, transfer to Pahalgam via saffron fields and apple gardens." },
-        { day: 2, title: "Pahalgam Local → Srinagar", details: "Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran. Evening return to Srinagar." },
-        { day: 3, title: "Srinagar Local Sightseeing", details: "Mughal Gardens, Shankaracharya Temple, evening Shikara ride." },
-        { day: 4, title: "Gulmarg Day Trip", details: "Full day Gulmarg — Gondola ride, snow activities, meadows." },
-        { day: 5, title: "Sonamarg Day Trip", details: "Full day Sonamarg — Thajiwas Glacier, Sindh River. Evening at Houseboat." },
-        { day: 6, title: "Srinagar Airport Drop", details: "After breakfast, transfer to Srinagar Airport with beautiful memories." }
-    ]}
-};
-
-var savedHotels = JSON.parse(localStorage.getItem('alhazari_hotels')) || [];
-var hotelList = document.getElementById('hotelList');
-function renderHotelList() { hotelList.innerHTML = ''; savedHotels.forEach(function(h) { var o = document.createElement('option'); o.value = h; hotelList.appendChild(o); }); }
-renderHotelList();
-document.querySelectorAll('.hotel-name').forEach(function(input) {
-    input.addEventListener('change', function() { var v = this.value.trim(); if(v && savedHotels.indexOf(v) === -1) { savedHotels.push(v); localStorage.setItem('alhazari_hotels', JSON.stringify(savedHotels)); renderHotelList(); } });
-});
-
-var bankFields = ['bankName', 'accountNumber', 'ifsc', 'accountHolder', 'upiId'];
-bankFields.forEach(function(id) { var el = document.getElementById(id); if(el) { el.value = localStorage.getItem('alhazari_' + id) || ''; el.addEventListener('input', function() { localStorage.setItem('alhazari_' + id, this.value); }); } });
-
-document.querySelectorAll('input[name="pkg"]').forEach(function(radio) { radio.addEventListener('change', function() { document.getElementById('customPlacesDiv').style.display = this.value === 'custom' ? 'block' : 'none'; loadPackageDays(this.value); }); });
-loadPackageDays('charming');
-
-function loadPackageDays(pkgKey) {
-    var c = document.getElementById('itineraryDays'); c.innerHTML = '';
-    if(pkgKey === 'custom') { addDay(); return; }
-    var pkg = packages[pkgKey]; if(!pkg) return;
-    pkg.days.forEach(function(d) { addDay(d.day, d.title, d.details); });
-}
-
-function addDay(dayNum, title, details) {
-    var c = document.getElementById('itineraryDays'); var n = c.children.length + 1;
-    var div = document.createElement('div'); div.className = 'section'; div.style.background = '#fff'; div.style.padding = '12px'; div.style.marginBottom = '10px';
-    div.innerHTML = '<div class="row"><div class="col" style="flex:0.3;"><label>Day</label><input type="number" class="day-num" value="' + (dayNum || n) + '" min="1"></div><div class="col-wide"><label>Title</label><input type="text" class="day-title" value="' + (title || '') + '" placeholder="Title"></div></div><label>Details</label><textarea class="day-details" placeholder="Details...">' + (details || '') + '</textarea><label>Day Note</label><select class="day-note-select"><option value="">-- None --</option><option value="Note: In Gulmarg during winter, if there is heavy snow on Gulmarg Road, our cab will drop you at Tangmarg (12 kms before Gulmarg). From there, you have to hire a snow jeep to Gulmarg at your own cost.">Gulmarg Winter Note</option><option value="Note: Inner line sightseeing at Pahalgam is done by local union taxi or pony at your own cost.">Pahalgam Union Taxi Note</option><option value="Note: Thajiwas Glacier, Zero Point at Sonamarg are accessed by local union taxi or pony at your own cost.">Sonamarg Union Taxi Note</option><option value="Note: Children under 3 years are not permitted on the Gulmarg Gondola. Children aged 3-10 years pay a discounted ticket price. Children 12 years and above are charged as adults.">Child Policy - Gondola</option><option value="Note: Child policy varies by hotel. Please confirm age limits and extra bed charges at the time of booking.">Child Policy - Hotel</option></select><button class="btn" style="width:auto; padding:5px 10px; font-size:12px; background:#dc3545; margin-top:5px;" onclick="this.parentElement.remove()">Remove Day</button>';
-    c.appendChild(div);
-}
-
-document.getElementById('showPricing').addEventListener('change', function() { document.getElementById('pricingSection').style.display = this.checked ? 'block' : 'none'; });
-
 function generateItinerary() {
     var clientName = document.getElementById('clientName').value.trim();
     var startDate = document.getElementById('startDate').value;
@@ -290,9 +172,10 @@ function generateItinerary() {
 
     var formatDate = function(d) { if(!d) return ""; var dt = new Date(d); return dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); };
     var formattedDates = formatDate(startDate) + " - " + formatDate(endDate);
-    var totalNights = Array.from(document.querySelectorAll('.nights')).reduce(function(s, el) { return s + (parseInt(el.value) || 0); }, 0);
+    var totalNights = 0;
+    document.querySelectorAll('.nights').forEach(function(el) { totalNights += parseInt(el.value) || 0; });
     var pkgRadio = document.querySelector('input[name="pkg"]:checked');
-    var pkgKey = pkgRadio ? pkgRadio.value : 'custom';
+    var pkgKey = pkgRadio ? pkgRadio.value : 'charming';
 
     var accommodation = [];
     document.querySelectorAll('.acc-row').forEach(function(row) {
@@ -308,34 +191,22 @@ function generateItinerary() {
         if(col.querySelector('label').textContent.indexOf('Inclusions') !== -1) inclusions.push(cb.value);
         else exclusions.push(cb.value);
     });
-    var ci = document.getElementById('customInclusion').value.trim(); if(ci) inclusions.push(ci);
-    var ce = document.getElementById('customExclusion').value.trim(); if(ce) exclusions.push(ce);
-
-    var days = [];
-    document.querySelectorAll('#itineraryDays .section').forEach(function(div) {
-        var title = div.querySelector('.day-title') ? div.querySelector('.day-title').value.trim() : '';
-        var details = div.querySelector('.day-details') ? div.querySelector('.day-details').value.trim() : '';
-        var note = div.querySelector('.day-note-select') ? div.querySelector('.day-note-select').value : '';
-        if(title || details) days.push({ title: title, details: details, note: note });
-    });
 
     var showPricing = document.getElementById('showPricing').checked;
     var showPayment = document.getElementById('showPayment').checked;
     var showTerms = document.getElementById('showTerms').checked;
-    var draftMode = document.getElementById('draftMode').checked;
 
     var data = {
         client: clientName, adults: parseInt(document.getElementById('adults').value) || 0, children: parseInt(document.getElementById('children').value) || 0,
-        childrenAges: document.getElementById('childrenAges').value.trim(), dates: formattedDates, totalNights: totalNights,
-        bookingRef: document.getElementById('bookingRef').value.trim(), bookingStatus: document.getElementById('bookingStatus').value,
+        dates: formattedDates, totalNights: totalNights, bookingRef: document.getElementById('bookingRef').value.trim(),
         packageName: pkgKey,
         vehicle: { type: document.getElementById('vehicleType').value, ac: document.getElementById('acType').value, note: document.getElementById('vehicleNote').value.trim() },
-        accommodation: accommodation, inclusions: inclusions, exclusions: exclusions, days: days,
+        accommodation: accommodation, inclusions: inclusions, exclusions: exclusions,
         showPricing: showPricing,
-        pricing: showPricing ? { total: document.getElementById('totalPrice').value.trim(), suffix: document.getElementById('priceSuffix').value.trim(), basis: document.getElementById('priceBasis').value.trim(), validity: formatDate(document.getElementById('validityDate').value), perPerson: document.getElementById('perPersonPrice').value.trim(), totalPax: document.getElementById('totalPax').value } : null,
+        pricing: showPricing ? { total: document.getElementById('totalPrice').value.trim(), validity: formatDate(document.getElementById('validityDate').value) } : null,
         showPayment: showPayment,
         payment: showPayment ? { bankName: document.getElementById('bankName').value.trim(), accountNumber: document.getElementById('accountNumber').value.trim(), ifsc: document.getElementById('ifsc').value.trim(), accountHolder: document.getElementById('accountHolder').value.trim(), upiId: document.getElementById('upiId').value.trim() } : null,
-        showTerms: showTerms, termsText: document.getElementById('termsText').value.trim(), clientNotes: document.getElementById('clientNotes').value.trim(), draftMode: draftMode
+        showTerms: showTerms, termsText: document.getElementById('termsText').value.trim()
     };
 
     var safeFileName = clientName.toLowerCase().replace(/\s+/g, '-') + ".json";
@@ -344,22 +215,13 @@ function generateItinerary() {
     document.getElementById('fileNameDisplay').textContent = safeFileName;
     var currentURL = window.location.href;
     var baseURL = currentURL.substring(0, currentURL.lastIndexOf('/'));
-    var clientLink = baseURL + "/itinerary.html?file=" + safeFileName + (draftMode ? "&draft=1" : "");
+    var clientLink = baseURL + "/itinerary.html?file=" + safeFileName;
     document.getElementById('clientLink').href = clientLink;
     document.getElementById('clientLink').textContent = clientLink;
-    try { navigator.clipboard.writeText(JSON.stringify(data, null, 2)); } catch(e) {}
     alert("✅ JSON generated! Scroll down to see the code.");
 }
 
-function loadSample() {
-    document.getElementById('clientName').value = "Test Sharma";
-    document.getElementById('adults').value = 2; document.getElementById('children').value = 0;
-    document.getElementById('startDate').value = "2026-10-15"; document.getElementById('endDate').value = "2026-10-19";
-    document.getElementById('bookingRef').value = "ALH-TEST-001"; document.getElementById('bookingStatus').value = "Draft";
-    document.querySelector('input[name="pkg"][value="charming"]').checked = true;
-    loadPackageDays('charming');
-    alert("Sample data loaded.");
-}
+document.getElementById('showPricing').addEventListener('change', function() { document.getElementById('pricingSection').style.display = this.checked ? 'block' : 'none'; });
 </script>
 
 </body>
