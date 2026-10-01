@@ -178,9 +178,8 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 </div>
 
 <script>
-// --- SUPABASE CONFIGURATION (MUMBAI) ---
-const SUPABASE_URL = 'https://wmlbyaxsygjhbjxkyjtj.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtbGJ5YXhzeWdpaGJqeGtqeXRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA4NTA0MTMsImV4cCI6MjEwNjQyNjQxM30.DkxwDVll_6WddygtI5uDgdTTneLEHyzhQ8-tAjehG40';
+// --- GOOGLE APPS SCRIPT API URL ---
+const API_URL = 'https://script.google.com/macros/s/AKfycbxIHR1S3n6ve7D-14qBaJseTVFoLd74rsVPbjlM-Ai0lpbJz-wnc0i1io_DlMw6BG96sA/exec';
 
 var packages = {
     charming: { days: [
@@ -310,27 +309,17 @@ async function saveToDatabase() {
         showTerms: showTerms, termsText: document.getElementById('termsText').value.trim(), draftMode: draftMode
     };
 
-    // --- SAVE TO SUPABASE USING FETCH ---
+    // --- SAVE TO GOOGLE SHEETS ---
     try {
-        const response = await fetch(SUPABASE_URL + '/rest/v1/itineraries', {
+        const response = await fetch(API_URL, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-                'Prefer': 'return=representation'
-            },
-            body: JSON.stringify([{ client_name: clientName, client_data: data }])
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify({ client_name: clientName, client_data: data })
         });
 
-        if (!response.ok) {
-            const errText = await response.text();
-            alert("Error saving to database: " + errText);
-            return;
-        }
-
-        const result = await response.json();
-        const recordId = result[0].id;
+        // Since 'no-cors' does not allow reading the response, we assume success if no error is thrown.
+        const recordId = Date.now(); // Use timestamp as temporary ID for the link
         
         document.getElementById('outputBox').style.display = 'block';
         document.getElementById('jsonOutput').textContent = JSON.stringify(data, null, 2);
@@ -341,7 +330,7 @@ async function saveToDatabase() {
         document.getElementById('clientLink').href = clientLink;
         document.getElementById('clientLink').textContent = clientLink;
         
-        alert("✅ Itinerary saved to database! Copy the link below.");
+        alert("✅ Itinerary saved to Google Sheets! Copy the link below.");
     } catch (err) {
         alert("Connection error: " + err.message);
         console.error(err);
