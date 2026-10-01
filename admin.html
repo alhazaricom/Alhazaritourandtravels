@@ -182,7 +182,7 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 // --- SUPABASE CONFIGURATION ---
 const SUPABASE_URL = 'https://dwxdnezlqwbqlscqznqb.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3eGRuZXpscXdibHFzY3F6cW5iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA4NDE2NDYsImV4cCI6MjEwNjQxNzY0Nn0.iIVn6xhnneI48Fo9JD7CgIKVknl_vLOH4NcJLNGyRcU';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 var packages = {
     charming: { days: [
@@ -314,7 +314,7 @@ async function saveToDatabase() {
 
     // --- SAVE TO SUPABASE ---
     try {
-        const { data: result, error } = await supabase
+        const { data: result, error } = await window.supabaseClient
             .from('itineraries')
             .insert([{ client_name: clientName, client_data: data }])
             .select();
