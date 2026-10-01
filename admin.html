@@ -40,6 +40,7 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 .pkg-option input[type="radio"] { width: auto; margin: 0; }
 .day-box { background: #fff; padding: 12px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 6px; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -165,21 +166,24 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
         <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="draftMode" style="width:auto;"> <strong>Enable Draft Mode</strong></label>
     </div>
 
-    <button class="btn" onclick="generateItinerary()">💾 SAVE & GENERATE ITINERARY CODE</button>
+    <button class="btn" onclick="saveToDatabase()">💾 SAVE & GENERATE ITINERARY LINK</button>
 
     <div class="output-box" id="outputBox">
-        <h3 class="success">✅ Itinerary Generated!</h3>
-        <p><strong>Step 1:</strong> Copy the JSON code below.</p>
-        <p><strong>Step 2:</strong> Create a file in GitHub named: <code id="fileNameDisplay" style="display:inline; padding:2px 8px; font-size:13px;">client.json</code></p>
-        <p><strong>Step 3:</strong> Paste the code into that file and save.</p>
-        <p><strong>Step 4:</strong> Send this link to your client:</p>
-        <p><a id="clientLink" href="#" target="_blank" style="color:blue; font-weight:bold; word-break:break-all;">Link will appear here</a></p>
-        <p><strong>JSON Data:</strong></p>
+        <h3 class="success">✅ Itinerary Saved to Database!</h3>
+        <p><strong>Step 1:</strong> Copy the link below.</p>
+        <p><strong>Step 2:</strong> Send this link to your client:</p>
+        <p><a id="clientLink" href="#" target="_blank" style="color:blue; font-weight:bold; word-break:break-all; font-size:16px;">Link will appear here</a></p>
+        <p><strong>JSON Data (Saved to Database):</strong></p>
         <code id="jsonOutput"></code>
     </div>
 </div>
 
 <script>
+// --- SUPABASE CONFIGURATION ---
+const SUPABASE_URL = 'https://dwxdnezlqwbqlscqznqb.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3eGRuZXpscXdibHFzY3F6cW5iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA4NDE2NDYsImV4cCI6MjEwNjQxNzY0Nn0.iIVn6xhnneI48Fo9JD7CgIKVknl_vLOH4NcJLNGyRcU';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 var packages = {
     charming: { days: [
         { day: 1, title: "Arrive Srinagar", details: "Airport pickup, Mughal Gardens (Cheshma Shahi, Nishat, Shalimar), Shankaracharya Temple, evening Shikara ride on Dal Lake." },
@@ -257,7 +261,7 @@ bankFields.forEach(function(id) {
     }
 });
 
-function generateItinerary() {
+async function saveToDatabase() {
     var clientName = document.getElementById('clientName').value.trim();
     var startDate = document.getElementById('startDate').value;
     var endDate = document.getElementById('endDate').value;
@@ -308,16 +312,34 @@ function generateItinerary() {
         showTerms: showTerms, termsText: document.getElementById('termsText').value.trim(), draftMode: draftMode
     };
 
-    var safeFileName = clientName.toLowerCase().replace(/\s+/g, '-') + ".json";
-    document.getElementById('outputBox').style.display = 'block';
-    document.getElementById('jsonOutput').textContent = JSON.stringify(data, null, 2);
-    document.getElementById('fileNameDisplay').textContent = safeFileName;
-    var currentURL = window.location.href;
-    var baseURL = currentURL.substring(0, currentURL.lastIndexOf('/'));
-    var clientLink = baseURL + "/itinerary.html?file=" + safeFileName + (draftMode ? "&draft=1" : "");
-    document.getElementById('clientLink').href = clientLink;
-    document.getElementById('clientLink').textContent = clientLink;
-    alert("✅ JSON generated! Scroll down to see the code.");
+    // --- SAVE TO SUPABASE ---
+    try {
+        const { data: result, error } = await supabase
+            .from('itineraries')
+            .insert([{ client_name: clientName, client_data: data }])
+            .select();
+
+        if (error) {
+            alert("Error saving to database: " + error.message);
+            console.error(error);
+            return;
+        }
+
+        const recordId = result[0].id;
+        document.getElementById('outputBox').style.display = 'block';
+        document.getElementById('jsonOutput').textContent = JSON.stringify(data, null, 2);
+        
+        var currentURL = window.location.href;
+        var baseURL = currentURL.substring(0, currentURL.lastIndexOf('/'));
+        var clientLink = baseURL + "/itinerary.html?id=" + recordId + (draftMode ? "&draft=1" : "");
+        document.getElementById('clientLink').href = clientLink;
+        document.getElementById('clientLink').textContent = clientLink;
+        
+        alert("✅ Itinerary saved to database! Copy the link below.");
+    } catch (err) {
+        alert("Connection error. Please check your internet.");
+        console.error(err);
+    }
 }
 </script>
 
