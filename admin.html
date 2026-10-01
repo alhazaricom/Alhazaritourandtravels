@@ -8,7 +8,7 @@
 :root { --primary: #075e54; --secondary: #d4a017; --whatsapp: #25D366; --light: #f5faf8; --border: #e5e9e7; --dark: #17211f; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; color: var(--dark); line-height: 1.6; }
-.container { max-width: 1000px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.container { max-width: 1100px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
 h2 { color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 10px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
 .logo-icon { width: 40px; height: 40px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; }
 h3 { color: var(--primary); margin-top: 30px; margin-bottom: 12px; padding: 10px; background: var(--light); border-left: 4px solid var(--secondary); border-radius: 4px; font-size: 17px; }
@@ -24,6 +24,8 @@ textarea { height: 70px; resize: vertical; }
 .checkbox-group input[type="checkbox"] { width: auto; margin: 0; }
 .btn { background: var(--whatsapp); color: #fff; border: none; padding: 14px 25px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; }
 .btn:hover { background: #128C7E; }
+.btn-sec { background: var(--secondary); color: var(--dark); }
+.btn-blue { background: #007bff; color: #fff; }
 .output-box { margin-top: 25px; padding: 20px; background: #e8f5e9; border: 2px solid #c8e6c9; border-radius: 8px; display: none; }
 code { display: block; background: #333; color: #fff; padding: 15px; margin-top: 10px; border-radius: 5px; word-wrap: break-word; white-space: pre-wrap; max-height: 250px; overflow-y: auto; font-size: 12px; }
 .hint { color: #d32f2f; font-size: 12px; font-style: italic; margin-bottom: 8px; }
@@ -36,6 +38,7 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 .pkg-option { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
 .pkg-option label { font-weight: normal; display: flex; align-items: center; gap: 5px; font-size: 13px; background: #fff; padding: 6px 12px; border: 1px solid var(--border); border-radius: 20px; cursor: pointer; }
 .pkg-option input[type="radio"] { width: auto; margin: 0; }
+.day-box { background: #fff; padding: 12px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 6px; }
 </style>
 </head>
 <body>
@@ -115,7 +118,14 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
         </div>
     </div>
 
-    <h3>6. Pricing (Optional)</h3>
+    <h3>6. Day-wise Itinerary</h3>
+    <div class="section">
+        <p class="hint">Auto-filled based on package. Edit any day, remove a day, or add a new one.</p>
+        <div id="itineraryDays"></div>
+        <button class="btn btn-blue" style="width:auto; padding:8px 15px; font-size:13px;" onclick="addDay()">+ Add Day</button>
+    </div>
+
+    <h3>7. Pricing (Optional)</h3>
     <div class="section">
         <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="showPricing" style="width:auto;"> <strong>Show Pricing</strong></label>
         <div id="pricingSection" style="display:none; margin-top:10px;">
@@ -126,9 +136,10 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
         </div>
     </div>
 
-    <h3>7. Payment Details (Optional)</h3>
+    <h3>8. Payment Details (Optional)</h3>
     <div class="section">
         <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="showPayment" style="width:auto;"> <strong>Show Payment Details</strong></label>
+        <p class="hint">Bank details are saved only in your browser for privacy.</p>
         <div class="row">
             <div class="col"><label>Bank Name</label><input type="text" id="bankName" placeholder="Bank Name"></div>
             <div class="col"><label>Account Number</label><input type="text" id="accountNumber" placeholder="Account No"></div>
@@ -140,13 +151,18 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
         </div>
     </div>
 
-    <h3>8. Terms (Optional)</h3>
+    <h3>9. Terms (Optional)</h3>
     <div class="section">
         <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="showTerms" checked style="width:auto;"> <strong>Show Terms</strong></label>
         <textarea id="termsText" style="height:80px;">1. 50% advance required to confirm booking.
 2. Cancellation policy as per hotel rules.
 3. Rates subject to change without prior notice.
 4. Any dispute subject to Srinagar jurisdiction.</textarea>
+    </div>
+
+    <h3>10. Draft Mode</h3>
+    <div class="section">
+        <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="draftMode" style="width:auto;"> <strong>Enable Draft Mode</strong></label>
     </div>
 
     <button class="btn" onclick="generateItinerary()">💾 SAVE & GENERATE ITINERARY CODE</button>
@@ -164,6 +180,83 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 </div>
 
 <script>
+var packages = {
+    charming: { days: [
+        { day: 1, title: "Arrive Srinagar", details: "Airport pickup, Mughal Gardens (Cheshma Shahi, Nishat, Shalimar), Shankaracharya Temple, evening Shikara ride on Dal Lake." },
+        { day: 2, title: "Gulmarg Day Trip", details: "Full day trip to Gulmarg — Gondola ride, meadows, snow points, Maharaja Palace, golf course." },
+        { day: 3, title: "Pahalgam Day Trip", details: "Drive to Pahalgam via saffron fields and apple gardens. Visit Aru Valley, Betaab Valley, Chandanwari." },
+        { day: 4, title: "Srinagar Departure", details: "After breakfast, airport drop with beautiful memories." }
+    ]},
+    explorer: { days: [
+        { day: 1, title: "Arrive Srinagar", details: "Airport pickup, Mughal Gardens sightseeing, evening Shikara ride on Dal Lake." },
+        { day: 2, title: "Sonamarg Day Trip", details: "Full day excursion to Sonamarg — Meadow of Gold, Thajiwas Glacier, Sindh River." },
+        { day: 3, title: "Gulmarg Day Trip", details: "Gulmarg — Gondola cable car, meadows, snow activities, local shopping." },
+        { day: 4, title: "Srinagar to Pahalgam", details: "Drive to Pahalgam. Afternoon visit to Aru Valley, Betaab Valley, Chandanwari." },
+        { day: 5, title: "Pahalgam to Srinagar Airport", details: "After breakfast, transfer to Srinagar Airport for departure." }
+    ]},
+    amazing: { days: [
+        { day: 1, title: "Arrive Srinagar → Pahalgam", details: "Airport pickup, transfer to Pahalgam via saffron fields, apple gardens and Pine Valley." },
+        { day: 2, title: "Pahalgam Local → Srinagar", details: "Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran. Evening return to Srinagar." },
+        { day: 3, title: "Srinagar Local Sightseeing", details: "Mughal Gardens, Shankaracharya Temple, evening Shikara ride." },
+        { day: 4, title: "Sonamarg Day Trip", details: "Full day excursion to Sonamarg — Thajiwas Glacier, Zero Point, Sindh River." },
+        { day: 5, title: "Gulmarg Day Trip", details: "Full day Gulmarg — Gondola ride, snow activities, Maharaja Palace, golf course." },
+        { day: 6, title: "Srinagar Airport Drop", details: "After breakfast, transfer to Srinagar Airport for departure." }
+    ]},
+    heaven: { days: [
+        { day: 1, title: "Arrive Srinagar", details: "Airport pickup, Mughal Gardens sightseeing, evening Shikara ride on Dal Lake." },
+        { day: 2, title: "Sonamarg Day Trip", details: "Full day excursion to Sonamarg — Meadow of Gold, Thajiwas Glacier, Sindh River." },
+        { day: 3, title: "Srinagar → Pahalgam", details: "Drive to Pahalgam via saffron fields and apple gardens. Evening free at leisure." },
+        { day: 4, title: "Pahalgam Local Sightseeing", details: "Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran, Denow Valley." },
+        { day: 5, title: "Pahalgam → Gulmarg", details: "Drive to Gulmarg. Evening free at leisure." },
+        { day: 6, title: "Gulmarg Sightseeing → Srinagar", details: "Gulmarg — Gondola ride, Maharaja Palace, golf course, church. Evening return to Srinagar Houseboat." },
+        { day: 7, title: "Srinagar Airport Drop", details: "After breakfast, transfer to Srinagar Airport for departure." }
+    ]},
+    honeymoon: { days: [
+        { day: 1, title: "Arrive Srinagar → Pahalgam", details: "Airport pickup, transfer to Pahalgam via saffron fields and apple gardens." },
+        { day: 2, title: "Pahalgam Local → Srinagar", details: "Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran. Evening return to Srinagar." },
+        { day: 3, title: "Srinagar Local Sightseeing", details: "Mughal Gardens, Shankaracharya Temple, evening Shikara ride." },
+        { day: 4, title: "Gulmarg Day Trip", details: "Full day Gulmarg — Gondola ride, snow activities, meadows." },
+        { day: 5, title: "Sonamarg Day Trip", details: "Full day Sonamarg — Thajiwas Glacier, Sindh River. Evening at Houseboat." },
+        { day: 6, title: "Srinagar Airport Drop", details: "After breakfast, transfer to Srinagar Airport with beautiful memories." }
+    ]}
+};
+
+document.querySelectorAll('input[name="pkg"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+        loadPackageDays(this.value);
+    });
+});
+loadPackageDays('charming');
+
+function loadPackageDays(pkgKey) {
+    var c = document.getElementById('itineraryDays');
+    c.innerHTML = '';
+    if(pkgKey === 'custom') { addDay(); return; }
+    var pkg = packages[pkgKey];
+    if(!pkg) return;
+    pkg.days.forEach(function(d) { addDay(d.day, d.title, d.details); });
+}
+
+function addDay(dayNum, title, details) {
+    var c = document.getElementById('itineraryDays');
+    var n = c.children.length + 1;
+    var div = document.createElement('div');
+    div.className = 'day-box';
+    div.innerHTML = '<div class="row"><div class="col" style="flex:0.3;"><label>Day</label><input type="number" class="day-num" value="' + (dayNum || n) + '" min="1"></div><div class="col-wide"><label>Title</label><input type="text" class="day-title" value="' + (title || '') + '" placeholder="Title"></div></div><label>Details</label><textarea class="day-details" placeholder="Details...">' + (details || '') + '</textarea><label>Day Note</label><select class="day-note-select"><option value="">-- None --</option><option value="Note: In Gulmarg during winter, if there is heavy snow on Gulmarg Road, our cab will drop you at Tangmarg (12 kms before Gulmarg). From there, you have to hire a snow jeep to Gulmarg at your own cost.">Gulmarg Winter Note</option><option value="Note: Inner line sightseeing at Pahalgam is done by local union taxi or pony at your own cost.">Pahalgam Union Taxi Note</option><option value="Note: Thajiwas Glacier, Zero Point at Sonamarg are accessed by local union taxi or pony at your own cost.">Sonamarg Union Taxi Note</option><option value="Note: Children under 3 years are not permitted on the Gulmarg Gondola.">Child Policy - Gondola</option><option value="Note: Child policy varies by hotel. Please confirm age limits and extra bed charges at the time of booking.">Child Policy - Hotel</option></select><button class="btn" style="width:auto; padding:5px 10px; font-size:12px; background:#dc3545; margin-top:5px;" onclick="this.parentElement.remove()">Remove Day</button>';
+    c.appendChild(div);
+}
+
+document.getElementById('showPricing').addEventListener('change', function() { document.getElementById('pricingSection').style.display = this.checked ? 'block' : 'none'; });
+
+var bankFields = ['bankName', 'accountNumber', 'ifsc', 'accountHolder', 'upiId'];
+bankFields.forEach(function(id) {
+    var el = document.getElementById(id);
+    if(el) {
+        el.value = localStorage.getItem('alhazari_' + id) || '';
+        el.addEventListener('input', function() { localStorage.setItem('alhazari_' + id, this.value); });
+    }
+});
+
 function generateItinerary() {
     var clientName = document.getElementById('clientName').value.trim();
     var startDate = document.getElementById('startDate').value;
@@ -186,26 +279,33 @@ function generateItinerary() {
     });
 
     var inclusions = [], exclusions = [];
-    var incCheckboxes = document.querySelectorAll('#inclusionsGroup input[type="checkbox"]:checked');
-    incCheckboxes.forEach(function(cb) { inclusions.push(cb.value); });
-    var excCheckboxes = document.querySelectorAll('#exclusionsGroup input[type="checkbox"]:checked');
-    excCheckboxes.forEach(function(cb) { exclusions.push(cb.value); });
+    document.querySelectorAll('#inclusionsGroup input[type="checkbox"]:checked').forEach(function(cb) { inclusions.push(cb.value); });
+    document.querySelectorAll('#exclusionsGroup input[type="checkbox"]:checked').forEach(function(cb) { exclusions.push(cb.value); });
+
+    var days = [];
+    document.querySelectorAll('#itineraryDays .day-box').forEach(function(div) {
+        var title = div.querySelector('.day-title') ? div.querySelector('.day-title').value.trim() : '';
+        var details = div.querySelector('.day-details') ? div.querySelector('.day-details').value.trim() : '';
+        var note = div.querySelector('.day-note-select') ? div.querySelector('.day-note-select').value : '';
+        if(title || details) days.push({ title: title, details: details, note: note });
+    });
 
     var showPricing = document.getElementById('showPricing').checked;
     var showPayment = document.getElementById('showPayment').checked;
     var showTerms = document.getElementById('showTerms').checked;
+    var draftMode = document.getElementById('draftMode').checked;
 
     var data = {
         client: clientName, adults: parseInt(document.getElementById('adults').value) || 0, children: parseInt(document.getElementById('children').value) || 0,
         dates: formattedDates, totalNights: totalNights, bookingRef: document.getElementById('bookingRef').value.trim(),
         packageName: pkgKey,
         vehicle: { type: document.getElementById('vehicleType').value, ac: document.getElementById('acType').value, note: document.getElementById('vehicleNote').value.trim() },
-        accommodation: accommodation, inclusions: inclusions, exclusions: exclusions,
+        accommodation: accommodation, inclusions: inclusions, exclusions: exclusions, days: days,
         showPricing: showPricing,
         pricing: showPricing ? { total: document.getElementById('totalPrice').value.trim(), validity: formatDate(document.getElementById('validityDate').value) } : null,
         showPayment: showPayment,
         payment: showPayment ? { bankName: document.getElementById('bankName').value.trim(), accountNumber: document.getElementById('accountNumber').value.trim(), ifsc: document.getElementById('ifsc').value.trim(), accountHolder: document.getElementById('accountHolder').value.trim(), upiId: document.getElementById('upiId').value.trim() } : null,
-        showTerms: showTerms, termsText: document.getElementById('termsText').value.trim()
+        showTerms: showTerms, termsText: document.getElementById('termsText').value.trim(), draftMode: draftMode
     };
 
     var safeFileName = clientName.toLowerCase().replace(/\s+/g, '-') + ".json";
@@ -214,13 +314,11 @@ function generateItinerary() {
     document.getElementById('fileNameDisplay').textContent = safeFileName;
     var currentURL = window.location.href;
     var baseURL = currentURL.substring(0, currentURL.lastIndexOf('/'));
-    var clientLink = baseURL + "/itinerary.html?file=" + safeFileName;
+    var clientLink = baseURL + "/itinerary.html?file=" + safeFileName + (draftMode ? "&draft=1" : "");
     document.getElementById('clientLink').href = clientLink;
     document.getElementById('clientLink').textContent = clientLink;
     alert("✅ JSON generated! Scroll down to see the code.");
 }
-
-document.getElementById('showPricing').addEventListener('change', function() { document.getElementById('pricingSection').style.display = this.checked ? 'block' : 'none'; });
 </script>
 
 </body>
