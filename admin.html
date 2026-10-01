@@ -40,7 +40,6 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 .pkg-option input[type="radio"] { width: auto; margin: 0; }
 .day-box { background: #fff; padding: 12px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 6px; }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -182,7 +181,6 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 // --- SUPABASE CONFIGURATION (MUMBAI) ---
 const SUPABASE_URL = 'https://wmlbyaxsygjhbjxkyjtj.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtbGJ5YXhzeWdpaGJqeGtqeXRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA4NTA0MTMsImV4cCI6MjEwNjQyNjQxM30.DkxwDVll_6WddygtI5uDgdTTneLEHyzhQ8-tAjehG40';
-window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 var packages = {
     charming: { days: [
@@ -312,20 +310,28 @@ async function saveToDatabase() {
         showTerms: showTerms, termsText: document.getElementById('termsText').value.trim(), draftMode: draftMode
     };
 
-    // --- SAVE TO SUPABASE ---
+    // --- SAVE TO SUPABASE USING FETCH ---
     try {
-        const { data: result, error } = await window.supabaseClient
-            .from('itineraries')
-            .insert([{ client_name: clientName, client_data: data }])
-            .select();
+        const response = await fetch(SUPABASE_URL + '/rest/v1/itineraries', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+                'Prefer': 'return=representation'
+            },
+            body: JSON.stringify([{ client_name: clientName, client_data: data }])
+        });
 
-        if (error) {
-            alert("Error saving to database: " + error.message);
-            console.error(error);
+        if (!response.ok) {
+            const errText = await response.text();
+            alert("Error saving to database: " + errText);
             return;
         }
 
+        const result = await response.json();
         const recordId = result[0].id;
+        
         document.getElementById('outputBox').style.display = 'block';
         document.getElementById('jsonOutput').textContent = JSON.stringify(data, null, 2);
         
@@ -337,7 +343,7 @@ async function saveToDatabase() {
         
         alert("✅ Itinerary saved to database! Copy the link below.");
     } catch (err) {
-        alert("Connection error. Please check your internet.");
+        alert("Connection error: " + err.message);
         console.error(err);
     }
 }
