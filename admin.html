@@ -94,7 +94,7 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
     <div class="section">
         <div class="row">
             <div class="col"><label>✅ Inclusions</label>
-                <div class="checkbox-group">
+                <div class="checkbox-group" id="inclusionsGroup">
                     <label><input type="checkbox" value="Airport Transfers" checked> Airport Transfers</label>
                     <label><input type="checkbox" value="Accommodation on Double Sharing" checked> Accommodation</label>
                     <label><input type="checkbox" value="Meals as per Plan" checked> Meals as per Plan</label>
@@ -104,7 +104,7 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
                 </div>
             </div>
             <div class="col"><label>❌ Exclusions</label>
-                <div class="checkbox-group">
+                <div class="checkbox-group" id="exclusionsGroup">
                     <label><input type="checkbox" value="Airfare / Train Fare" checked> Airfare / Train</label>
                     <label><input type="checkbox" value="Gondola Tickets / Pony Ride" checked> Gondola / Pony</label>
                     <label><input type="checkbox" value="Union Taxi at Pahalgam/Sonamarg" checked> Union Taxi</label>
@@ -186,11 +186,10 @@ function generateItinerary() {
     });
 
     var inclusions = [], exclusions = [];
-    document.querySelectorAll('.checkbox-group input[type="checkbox"]:checked').forEach(function(cb) {
-        var col = cb.closest('.col');
-        if(col.querySelector('label').textContent.indexOf('Inclusions') !== -1) inclusions.push(cb.value);
-        else exclusions.push(cb.value);
-    });
+    var incCheckboxes = document.querySelectorAll('#inclusionsGroup input[type="checkbox"]:checked');
+    incCheckboxes.forEach(function(cb) { inclusions.push(cb.value); });
+    var excCheckboxes = document.querySelectorAll('#exclusionsGroup input[type="checkbox"]:checked');
+    excCheckboxes.forEach(function(cb) { exclusions.push(cb.value); });
 
     var showPricing = document.getElementById('showPricing').checked;
     var showPayment = document.getElementById('showPayment').checked;
