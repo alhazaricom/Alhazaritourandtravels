@@ -1,5 +1,5 @@
 {
-  "client": "Ahmad",
+  "client": "MR.sharma",
   "adults": 2,
   "children": 0,
   "dates": "15 Oct 2026 - 19 Oct 2026",
@@ -7,7 +7,7 @@
   "bookingRef": "test",
   "packageName": "honeymoon",
   "vehicle": {
-    "type": "SUV (Innova/Ertiga)",
+    "type": "Sedan (Dzire/Etios)",
     "ac": "AC",
     "note": ""
   },
@@ -27,7 +27,7 @@
     {
       "place": "Houseboat",
       "nights": 1,
-      "hotel": "Young bombay",
+      "hotel": "Young BOMbay",
       "roomType": "Deluxe",
       "double": 1,
       "triple": 0,
@@ -84,8 +84,11 @@
       "note": ""
     }
   ],
-  "showPricing": false,
-  "pricing": null,
+  "showPricing": true,
+  "pricing": {
+    "total": "24500",
+    "validity": "31 Oct 2026"
+  },
   "showPayment": true,
   "payment": {
     "bankName": "HDFC",
