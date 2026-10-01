@@ -181,7 +181,7 @@ const isDraft = urlParams.get('draft') === '1';
 if (!recordId) {
     document.getElementById('loading').innerHTML = "No itinerary specified. Please check the link.";
 } else {
-    fetch(API_URL + '?id=' + recordId)
+    fetch(API_URL + '?id=' + recordId, { redirect: 'follow' })
         .then(response => response.json())
         .then(data => {
             if (data.error || !data.client) {
