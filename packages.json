@@ -1,0 +1,117 @@
+{
+  "places": [
+    { "id": "srinagar", "name": "Srinagar", "image": "srinagarview.jpg.jpg" },
+    { "id": "gulmarg", "name": "Gulmarg", "image": "gulmarg.jpg.jpg" },
+    { "id": "pahalgam", "name": "Pahalgam", "image": "pahalgam.jpg.jpg" },
+    { "id": "sonamarg", "name": "Sonamarg", "image": "sonamarg1.jpg" },
+    { "id": "doodhpathri", "name": "Doodhpathri", "image": "doodhpathri.jpg.jpg" },
+    { "id": "yusmarg", "name": "Yusmarg", "image": "yousmarg.jpg.jpg" },
+    { "id": "gurez", "name": "Gurez Valley", "image": "mountainview.jpg.jpg" },
+    { "id": "houseboat", "name": "Houseboat", "image": "02houseboat.jpg.jpg" }
+  ],
+  "images": [
+    "srinagarview.jpg.jpg",
+    "dallakeview.jpg.jpg",
+    "dallake.jpg.jpg",
+    "gulmarg.jpg.jpg",
+    "gulmarg2.jpg.jpg",
+    "gondola.jpg.jpg",
+    "pahalgam.jpg.jpg",
+    "sonamarg1.jpg",
+    "sonamarg2.jpg",
+    "doodhpathri.jpg.jpg",
+    "yousmarg.jpg.jpg",
+    "mountainview.jpg.jpg",
+    "02houseboat.jpg.jpg",
+    "houseboat.jpg.jpg",
+    "shikara.jpg.jpg",
+    "mughalgarden.jpg.jpg",
+    "mughalgarden1.jpg.jpg",
+    "winter.jpg.jpg",
+    "gangbal.jpg.jpg",
+    "lalchowk.jpg.jpg"
+  ],
+  "distances": {
+    "srinagar-gulmarg": "50 km / 1.5 hours",
+    "srinagar-sonamarg": "80 km / 2.5 hours",
+    "srinagar-pahalgam": "95 km / 2.5 hours",
+    "srinagar-doodhpathri": "45 km / 1.5 hours",
+    "srinagar-yusmarg": "50 km / 1.5 hours",
+    "srinagar-gurez": "130 km / 4 hours",
+    "srinagar-airport": "15 km / 30 minutes",
+    "gulmarg-pahalgam": "140 km / 4 hours",
+    "pahalgam-gulmarg": "140 km / 4 hours",
+    "sonamarg-pahalgam": "175 km / 5 hours",
+    "pahalgam-sonamarg": "175 km / 5 hours"
+  },
+  "packages": {
+    "charming": {
+      "title": "Charming Kashmir (3N/4D)",
+      "theme": "green",
+      "heroImage": "dallakeview.jpg.jpg",
+      "nights": { "srinagar": 1, "pahalgam": 1, "houseboat": 1 },
+      "days": [
+        { "day": 1, "title": "Arrive Srinagar", "details": "On arrival at Srinagar Airport (15 km), our representative will meet and greet you. Visit the famous Mughal Gardens — Cheshma Shahi (built by Emperor Shah Jahan), Nishat Bagh (Garden of Pleasure), and Shalimar Bagh (Garden of Love). Visit Shankaracharya Temple for a panoramic view of Srinagar city. In the evening, enjoy a 1-hour Shikara ride on Dal Lake. Dinner & overnight at Srinagar Hotel.", "image": "srinagarview.jpg.jpg" },
+        { "day": 2, "title": "Srinagar → Pahalgam", "details": "After breakfast, drive to Pahalgam (95 km / 2.5 hours), also known as the 'Valley of Shepherds,' via saffron fields and apple orchards. Visit Aru Valley (12 km), Chandanwari (16 km — the starting point of Amarnath Yatra), and Betaab Valley (famous from the Bollywood movie Betaab). Note: These points are accessed by local union taxi or pony at your own cost. Dinner & overnight at Pahalgam Hotel.", "image": "pahalgam.jpg.jpg" },
+        { "day": 3, "title": "Pahalgam → Srinagar Houseboat", "details": "After breakfast, return to Srinagar (95 km / 2.5 hours). Visit the local handicraft shops and the famous Lal Chowk. In the evening, check in to a traditional Houseboat on Dal Lake. Enjoy the serene views and a complimentary Shikara ride. Dinner & overnight at Houseboat.", "image": "02houseboat.jpg.jpg" },
+        { "day": 4, "title": "Srinagar Airport Drop", "details": "After breakfast, check out from the houseboat. Transfer to Srinagar Airport (15 km) for your onward journey. Depart with beautiful memories of Kashmir.", "image": "dallakeview.jpg.jpg" }
+      ]
+    },
+    "explorer": {
+      "title": "Kashmir Explorer (4N/5D)",
+      "theme": "green",
+      "heroImage": "gulmarg.jpg.jpg",
+      "nights": { "srinagar": 2, "houseboat": 1, "pahalgam": 1 },
+      "days": [
+        { "day": 1, "title": "Arrive Srinagar", "details": "On arrival at Srinagar Airport (15 km), our representative will meet and greet you. Transfer to the hotel. Visit the Mughal Gardens. In the evening, enjoy a Shikara ride on Dal Lake. Dinner & overnight at Srinagar Hotel.", "image": "srinagarview.jpg.jpg" },
+        { "day": 2, "title": "Sonamarg Day Trip", "details": "After breakfast, proceed for a full-day excursion to Sonamarg (80 km / 2.5 hours), also known as the 'Meadow of Gold.' Visit Thajiwas Glacier (accessible by pony or local union taxi at your own cost). Enjoy the scenic drive along the Sindh River. Return to Srinagar. Dinner & overnight at Srinagar Hotel.", "image": "sonamarg1.jpg" },
+        { "day": 3, "title": "Srinagar → Pahalgam", "details": "After breakfast, drive to Pahalgam (95 km / 2.5 hours) via saffron fields and apple orchards. Visit Aru Valley, Betaab Valley, and Chandanwari (by local union taxi/pony at your own cost). Dinner & overnight at Pahalgam Hotel.", "image": "pahalgam.jpg.jpg" },
+        { "day": 4, "title": "Pahalgam → Srinagar Houseboat", "details": "After breakfast, return to Srinagar (95 km / 2.5 hours). Visit the Mughal Gardens and Shankaracharya Temple. In the evening, check in to a traditional Houseboat on Dal Lake. Enjoy a complimentary Shikara ride. Dinner & overnight at Houseboat.", "image": "02houseboat.jpg.jpg" },
+        { "day": 5, "title": "Srinagar Airport Drop", "details": "After breakfast, transfer to Srinagar Airport (15 km) for your onward journey. Depart with beautiful memories of Kashmir.", "image": "dallakeview.jpg.jpg" }
+      ]
+    },
+    "amazing": {
+      "title": "Amazing Kashmir (5N/6D)",
+      "theme": "green",
+      "heroImage": "pahalgam.jpg.jpg",
+      "nights": { "srinagar": 2, "pahalgam": 2, "houseboat": 1 },
+      "days": [
+        { "day": 1, "title": "Arrive Srinagar → Pahalgam", "details": "On arrival at Srinagar Airport (15 km), transfer to Pahalgam (95 km / 2.5 hours) via saffron fields and apple orchards. On the way, visit Awantipura Ruins (9th-century temple ruins) and Pampore Saffron Fields. Evening free to explore the local market or relax by the Lidder River. Dinner & overnight at Pahalgam Hotel.", "image": "pahalgam.jpg.jpg" },
+        { "day": 2, "title": "Pahalgam Local Sightseeing", "details": "After breakfast, proceed for local sightseeing of Pahalgam. Visit Aru Valley (12 km), Chandanwari (16 km — starting point of Amarnath Yatra), Betaab Valley (famous from the Bollywood movie Betaab), and Baisaran (Mini Switzerland). Note: These points are accessed by local union taxi or pony at your own cost. Dinner & overnight at Pahalgam Hotel.", "image": "pahalgam.jpg.jpg" },
+        { "day": 3, "title": "Pahalgam → Srinagar", "details": "After breakfast, return to Srinagar (95 km / 2.5 hours). Visit the Mughal Gardens — Cheshma Shahi, Nishat Bagh, and Shalimar Bagh. Visit Shankaracharya Temple. In the evening, enjoy a 1-hour Shikara ride on Dal Lake. Dinner & overnight at Srinagar Hotel.", "image": "srinagarview.jpg.jpg" },
+        { "day": 4, "title": "Sonamarg Day Trip", "details": "After breakfast, proceed for a full-day excursion to Sonamarg (80 km / 2.5 hours), the 'Meadow of Gold.' Visit Thajiwas Glacier, Zero Point, and Sindh River (by local union taxi/pony at your own cost). Return to Srinagar. Dinner & overnight at Srinagar Hotel.", "image": "sonamarg2.jpg" },
+        { "day": 5, "title": "Gulmarg Day Trip", "details": "After breakfast, proceed for a full-day excursion to Gulmarg (50 km / 1.5 hours), the 'Meadow of Flowers.' Enjoy the Gulmarg Gondola (one of the highest cable cars in the world), visit Maharaja Palace, and the Golf Course (one of the highest in the world). Note: Gondola tickets are not included. Return to Srinagar. Dinner & overnight at Houseboat on Dal Lake.", "image": "gulmarg.jpg.jpg" },
+        { "day": 6, "title": "Srinagar Airport Drop", "details": "After breakfast, transfer to Srinagar Airport (15 km) for your onward journey. Depart with beautiful memories of Kashmir.", "image": "dallakeview.jpg.jpg" }
+      ]
+    },
+    "heaven": {
+      "title": "Kashmir Heaven on Earth (6N/7D)",
+      "theme": "green",
+      "heroImage": "mountainview.jpg.jpg",
+      "nights": { "srinagar": 2, "pahalgam": 2, "gulmarg": 1, "houseboat": 1 },
+      "days": [
+        { "day": 1, "title": "Arrive Srinagar", "details": "On arrival at Srinagar Airport (15 km), our representative will meet and greet you. Transfer to the hotel. Visit the Mughal Gardens. In the evening, enjoy a Shikara ride on Dal Lake. Dinner & overnight at Srinagar Hotel.", "image": "srinagarview.jpg.jpg" },
+        { "day": 2, "title": "Sonamarg Day Trip", "details": "After breakfast, proceed for a full-day excursion to Sonamarg (80 km / 2.5 hours), the 'Meadow of Gold.' Visit Thajiwas Glacier and the Sindh River (by local union taxi/pony at your own cost). Return to Srinagar. Dinner & overnight at Srinagar Hotel.", "image": "sonamarg1.jpg" },
+        { "day": 3, "title": "Srinagar → Pahalgam", "details": "After breakfast, drive to Pahalgam (95 km / 2.5 hours) via saffron fields and apple orchards. Evening free at leisure to explore the local market or relax by the Lidder River. Dinner & overnight at Pahalgam Hotel.", "image": "pahalgam.jpg.jpg" },
+        { "day": 4, "title": "Pahalgam Local Sightseeing", "details": "After breakfast, proceed for local sightseeing of Pahalgam. Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran (Mini Switzerland), and Denow Valley. Note: These points are accessed by local union taxi or pony at your own cost. Dinner & overnight at Pahalgam Hotel.", "image": "pahalgam.jpg.jpg" },
+        { "day": 5, "title": "Pahalgam → Gulmarg", "details": "After breakfast, drive to Gulmarg (140 km / 4 hours), the 'Meadow of Flowers.' Evening free at leisure to enjoy the meadows. Dinner & overnight at Gulmarg Hotel.", "image": "gulmarg.jpg.jpg" },
+        { "day": 6, "title": "Gulmarg → Srinagar Houseboat", "details": "After breakfast, enjoy Gulmarg sightseeing — Gondola ride (optional), Maharaja Palace, golf course, and church. Return to Srinagar (50 km / 1.5 hours). In the evening, check in to a traditional Houseboat on Dal Lake. Enjoy a complimentary Shikara ride. Dinner & overnight at Houseboat.", "image": "02houseboat.jpg.jpg" },
+        { "day": 7, "title": "Srinagar Airport Drop", "details": "After breakfast, transfer to Srinagar Airport (15 km) for your onward journey. Depart with beautiful memories of Kashmir.", "image": "dallakeview.jpg.jpg" }
+      ]
+    },
+    "honeymoon": {
+      "title": "Kashmir Honeymoon Special (5N/6D)",
+      "theme": "pink",
+      "heroImage": "02houseboat.jpg.jpg",
+      "nights": { "srinagar": 2, "pahalgam": 2, "houseboat": 1 },
+      "days": [
+        { "day": 1, "title": "Arrive Srinagar → Pahalgam", "details": "On arrival at Srinagar Airport (15 km), transfer to Pahalgam (95 km / 2.5 hours), the 'Valley of Shepherds,' via saffron fields and apple orchards. Visit Awantipura Ruins and Pampore Saffron Fields on the way. Evening free to relax by the Lidder River. Dinner & overnight at Pahalgam Hotel.", "image": "pahalgam.jpg.jpg" },
+        { "day": 2, "title": "Pahalgam Local → Srinagar", "details": "After breakfast, proceed for local sightseeing of Pahalgam. Visit Aru Valley, Chandanwari, Betaab Valley, and Baisaran (Mini Switzerland). Note: These points are accessed by local union taxi or pony at your own cost. In the afternoon, drive back to Srinagar (95 km / 2.5 hours). Dinner & overnight at Srinagar Hotel.", "image": "pahalgam.jpg.jpg" },
+        { "day": 3, "title": "Srinagar Local Sightseeing", "details": "After breakfast, proceed for local sightseeing of Srinagar. Visit the Mughal Gardens — Cheshma Shahi, Nishat Bagh, and Shalimar Bagh. Visit Shankaracharya Temple. In the evening, enjoy a 1-hour Shikara ride on Dal Lake. Dinner & overnight at Srinagar Hotel.", "image": "srinagarview.jpg.jpg" },
+        { "day": 4, "title": "Gulmarg Day Trip", "details": "After breakfast, proceed for a full-day excursion to Gulmarg (50 km / 1.5 hours), the 'Meadow of Flowers.' Enjoy the Gulmarg Gondola (optional), snow activities, and the meadows. Return to Srinagar. Dinner & overnight at Houseboat on Dal Lake.", "image": "gulmarg.jpg.jpg" },
+        { "day": 5, "title": "Sonamarg Day Trip", "details": "After breakfast, proceed for a full-day excursion to Sonamarg (80 km / 2.5 hours), the 'Meadow of Gold.' Visit Thajiwas Glacier and the Sindh River. Return to Srinagar. Dinner & overnight at Houseboat on Dal Lake.", "image": "sonamarg2.jpg" },
+        { "day": 6, "title": "Srinagar Airport Drop", "details": "After breakfast, check out from the houseboat. Transfer to Srinagar Airport (15 km) with beautiful memories. Honeymoon Inclusions: Chocolate Cake, Candle Light Dinner, and Bed Decoration (once during the houseboat stay).", "image": "02houseboat.jpg.jpg" }
+      ]
+    }
+  }
+}
