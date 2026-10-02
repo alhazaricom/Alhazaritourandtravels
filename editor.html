@@ -38,6 +38,10 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 .tracker-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
 .tracker-table th, .tracker-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
 .tracker-table th { background: var(--light); }
+.filter-btn { display: inline-block; padding: 5px 12px; font-size: 12px; margin-right: 5px; border: 1px solid var(--border); border-radius: 20px; cursor: pointer; background: #fff; }
+.filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.follow-up { color: #d32f2f; font-weight: bold; font-size: 11px; }
+.follow-up-overdue { color: #c62828; background: #ffebee; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
 </style>
 </head>
 <body>
@@ -53,7 +57,7 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
     <h3>2. Send Mode</h3>
     <div class="row">
         <div class="col-wide"><label>What are you sending?</label>
-            <select id="sendMode" onchange="onSendModeChange()">
+            <select id="sendMode">
                 <option value="final">Final Confirmation (show hotel names & payment)</option>
                 <option value="general">General Inquiry (hide hotel names & payment)</option>
                 <option value="draft">Draft (internal - show DRAFT banner)</option>
@@ -95,7 +99,7 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
         <div class="col"><label>Children Without Bed</label><input type="number" id="childWOB" value="0"></div>
     </div>
     <div class="row">
-        <div class="col"><label>Start Date</label><input type="date" id="startDate"></div>
+        <div class="col"><label>Start Date</label><input type="date" id="startDate" onchange="autoCalcEndDate()"></div>
         <div class="col"><label>End Date</label><input type="date" id="endDate"></div>
         <div class="col"><label>Nights</label><input type="number" id="nights" value="5"></div>
         <div class="col"><label>Booking Ref</label><input type="text" id="bookingRef" placeholder="ALH-2026-001"></div>
@@ -188,6 +192,7 @@ Anything not mentioned in Inclusions</textarea></div>
 
     <h3>13. Generate & Save to GitHub</h3>
     <button class="btn" onclick="saveToGitHub()">💾 GENERATE & SAVE TO GITHUB</button>
+    <button class="btn btn-blue" onclick="duplicateLastClient()">📋 Duplicate Last Client</button>
 
     <div class="error-box" id="errorBox"></div>
 
@@ -200,6 +205,12 @@ Anything not mentioned in Inclusions</textarea></div>
     </div>
 
     <h3>14. Client Tracker</h3>
+    <div style="margin-bottom:10px;">
+        <button class="filter-btn active" onclick="setFilter('all')" id="filterAll">All Clients</button>
+        <button class="filter-btn" onclick="setFilter('today')" id="filterToday">Today</button>
+        <button class="filter-btn" onclick="setFilter('yesterday')" id="filterYesterday">Yesterday</button>
+        <a href="https://docs.google.com/spreadsheets/d/1_VeTdCMwziMJ_2L8p9-CpyloXSfk3BAc8DCvs9AWhbM/edit" target="_blank" class="filter-btn" style="text-decoration:none; color:var(--primary);">📊 Open My Google Sheet</a>
+    </div>
     <div id="trackerContainer"></div>
     <button class="btn btn-red btn-sm" onclick="clearTracker()">Clear Tracker</button>
 </div>
@@ -209,6 +220,8 @@ let packagesData = {};
 let availableImages = [];
 let distances = {};
 let savedHotels = JSON.parse(localStorage.getItem('alhazari_hotels_by_location')) || {};
+let lastClientData = JSON.parse(localStorage.getItem('alhazari_last_client')) || null;
+let trackerFilter = 'all';
 
 async function loadPackages() {
     try {
@@ -259,9 +272,16 @@ function loadBankDetails() {
     });
 }
 
-function onSendModeChange() {
-    const mode = document.getElementById('sendMode').value;
-    // No special action needed here; handled during generation
+function autoCalcEndDate() {
+    const pkg = document.getElementById('packageName').value;
+    if(pkg === 'custom') return;
+    const startDate = document.getElementById('startDate').value;
+    const nights = parseInt(document.getElementById('nights').value) || 0;
+    if(startDate && nights > 0) {
+        const d = new Date(startDate);
+        d.setDate(d.getDate() + nights);
+        document.getElementById('endDate').value = d.toISOString().split('T')[0];
+    }
 }
 
 function onPackageChange() {
@@ -281,13 +301,15 @@ function onPackageChange() {
     document.getElementById('sonNights').value = data.nights.sonamarg || 0;
     document.getElementById('houNights').value = data.nights.houseboat || 0;
 
+    let totalNights = 0;
+    Object.values(data.nights).forEach(n => totalNights += n);
+    document.getElementById('nights').value = totalNights;
+
     const container = document.getElementById('itineraryDays');
     container.innerHTML = '';
     data.days.forEach(d => { addDayWithData(d.day, d.title, d.details, d.image); });
 
-    let totalNights = 0;
-    Object.values(data.nights).forEach(n => totalNights += n);
-    document.getElementById('nights').value = totalNights;
+    autoCalcEndDate();
 }
 
 function onCustomPlaceChange() {
@@ -366,6 +388,55 @@ function applyMealPlanToAll() {
     });
 }
 
+function duplicateLastClient() {
+    if(!lastClientData) {
+        alert("No previous client found. Save a client first.");
+        return;
+    }
+    const d = lastClientData;
+    document.getElementById('clientName').value = d.clientName || '';
+    document.getElementById('adults').value = d.adults || 2;
+    document.getElementById('children').value = d.children || 0;
+    document.getElementById('childWOB').value = d.childWOB || 0;
+    document.getElementById('startDate').value = d.startDate || '';
+    document.getElementById('endDate').value = d.endDate || '';
+    document.getElementById('nights').value = d.nights || 5;
+    document.getElementById('bookingRef').value = d.bookingRef || '';
+    document.getElementById('clientPhone').value = d.clientPhone || '';
+    document.getElementById('packageName').value = d.packageName || 'charming';
+    document.getElementById('mealPlan').value = d.mealPlan || 'MAP';
+    document.getElementById('sriNights').value = d.sriNights || 0;
+    document.getElementById('sriHotel').value = d.sriHotel || '';
+    document.getElementById('sriRoom').value = d.sriRoom || '';
+    document.getElementById('sriMeal').value = d.sriMeal || 'MAP';
+    document.getElementById('gulNights').value = d.gulNights || 0;
+    document.getElementById('gulHotel').value = d.gulHotel || '';
+    document.getElementById('gulRoom').value = d.gulRoom || '';
+    document.getElementById('gulMeal').value = d.gulMeal || 'MAP';
+    document.getElementById('pahNights').value = d.pahNights || 0;
+    document.getElementById('pahHotel').value = d.pahHotel || '';
+    document.getElementById('pahRoom').value = d.pahRoom || '';
+    document.getElementById('pahMeal').value = d.pahMeal || 'MAP';
+    document.getElementById('sonNights').value = d.sonNights || 0;
+    document.getElementById('sonHotel').value = d.sonHotel || '';
+    document.getElementById('sonRoom').value = d.sonRoom || '';
+    document.getElementById('sonMeal').value = d.sonMeal || 'MAP';
+    document.getElementById('houNights').value = d.houNights || 0;
+    document.getElementById('houHotel').value = d.houHotel || '';
+    document.getElementById('houRoom').value = d.houRoom || '';
+    document.getElementById('houMeal').value = d.houMeal || 'MAP';
+    document.getElementById('vehicleType').value = d.vehicleType || 'Innova Crysta (AC)';
+    document.getElementById('vehicleNote').value = d.vehicleNote || '';
+    document.getElementById('totalPrice').value = d.totalPrice || '';
+    document.getElementById('priceBasis').value = d.priceBasis || '';
+    document.getElementById('validityDate').value = d.validityDate || '';
+    document.getElementById('clientNotes').value = d.clientNotes || '';
+    document.getElementById('termsText').value = d.termsText || '';
+    document.getElementById('bookingStatus').value = d.bookingStatus || 'Draft';
+
+    alert("Last client data loaded. Please update the name and dates.");
+}
+
 async function saveToGitHub() {
     const token = document.getElementById('githubToken').value.trim();
     const clientName = document.getElementById('clientName').value.trim();
@@ -409,7 +480,6 @@ async function saveToGitHub() {
     const inclusionsHTML = inclusions.map(i => `<li>${i}</li>`).join('');
     const exclusionsHTML = exclusions.map(e => `<li>${e}</li>`).join('');
 
-    // Build accommodation HTML based on send mode
     let accHTML = '';
     const accData = [
         { id: 'sri', name: 'Srinagar', nights: document.getElementById('sriNights').value, hotel: document.getElementById('sriHotel').value.trim() || 'To be confirmed', room: document.getElementById('sriRoom').value.trim() || 'Deluxe', meal: document.getElementById('sriMeal').value, img: 'Srinagarview.jpg.jpg' },
@@ -443,7 +513,6 @@ async function saveToGitHub() {
         draftBanner = `<div class="draft-banner">⚠️ DRAFT - NOT FOR CUSTOMER. FOR INTERNAL REVIEW ONLY.</div><div class="draft-watermark"><span>DRAFT</span></div>`;
     }
 
-    // Payment section - only show for final confirmation
     let paymentHTML = '';
     if(sendMode === 'final') {
         paymentHTML = `<div class="section"><h2>Payment Details</h2><div class="payment-box">
@@ -579,7 +648,32 @@ ${notesHTML}
         document.getElementById('clientLink').href = link;
         document.getElementById('clientLink').textContent = link;
 
-        saveToTracker(clientName, document.getElementById('packageName').options[document.getElementById('packageName').selectedIndex].text, new Date().toLocaleDateString('en-GB'), document.getElementById('bookingStatus').value);
+        // Save client data for duplicate
+        const lastClient = {
+            clientName, adults: document.getElementById('adults').value, children: document.getElementById('children').value,
+            childWOB: document.getElementById('childWOB').value, startDate: document.getElementById('startDate').value,
+            endDate: document.getElementById('endDate').value, nights: document.getElementById('nights').value,
+            bookingRef: document.getElementById('bookingRef').value, clientPhone: document.getElementById('clientPhone').value,
+            packageName: pkg, mealPlan: document.getElementById('mealPlan').value,
+            sriNights: document.getElementById('sriNights').value, sriHotel: document.getElementById('sriHotel').value,
+            sriRoom: document.getElementById('sriRoom').value, sriMeal: document.getElementById('sriMeal').value,
+            gulNights: document.getElementById('gulNights').value, gulHotel: document.getElementById('gulHotel').value,
+            gulRoom: document.getElementById('gulRoom').value, gulMeal: document.getElementById('gulMeal').value,
+            pahNights: document.getElementById('pahNights').value, pahHotel: document.getElementById('pahHotel').value,
+            pahRoom: document.getElementById('pahRoom').value, pahMeal: document.getElementById('pahMeal').value,
+            sonNights: document.getElementById('sonNights').value, sonHotel: document.getElementById('sonHotel').value,
+            sonRoom: document.getElementById('sonRoom').value, sonMeal: document.getElementById('sonMeal').value,
+            houNights: document.getElementById('houNights').value, houHotel: document.getElementById('houHotel').value,
+            houRoom: document.getElementById('houRoom').value, houMeal: document.getElementById('houMeal').value,
+            vehicleType: document.getElementById('vehicleType').value, vehicleNote: document.getElementById('vehicleNote').value,
+            totalPrice: document.getElementById('totalPrice').value, priceBasis: document.getElementById('priceBasis').value,
+            validityDate: document.getElementById('validityDate').value, clientNotes: document.getElementById('clientNotes').value,
+            termsText: document.getElementById('termsText').value, bookingStatus: document.getElementById('bookingStatus').value
+        };
+        localStorage.setItem('alhazari_last_client', JSON.stringify(lastClient));
+        lastClientData = lastClient;
+
+        saveToTracker(clientName, document.getElementById('packageName').options[document.getElementById('packageName').selectedIndex].text, new Date().toLocaleDateString('en-GB'), document.getElementById('bookingStatus').value, link);
 
         alert("✅ Itinerary saved to GitHub successfully!");
     } catch(err) {
@@ -602,22 +696,55 @@ function showError(msg) {
     setTimeout(() => { box.style.display = 'none'; }, 8000);
 }
 
-function saveToTracker(name, pkg, date, status) {
+function saveToTracker(name, pkg, date, status, link) {
     let tracker = JSON.parse(localStorage.getItem('alhazari_tracker')) || [];
-    tracker.unshift({ name, pkg, date, status });
-    if(tracker.length > 50) tracker = tracker.slice(0, 50);
+    tracker.unshift({ name, pkg, date, status, link, timestamp: Date.now() });
+    if(tracker.length > 100) tracker = tracker.slice(0, 100);
     localStorage.setItem('alhazari_tracker', JSON.stringify(tracker));
+    renderTracker();
+}
+
+function setFilter(filter) {
+    trackerFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    if(filter === 'all') document.getElementById('filterAll').classList.add('active');
+    if(filter === 'today') document.getElementById('filterToday').classList.add('active');
+    if(filter === 'yesterday') document.getElementById('filterYesterday').classList.add('active');
     renderTracker();
 }
 
 function renderTracker() {
     const tracker = JSON.parse(localStorage.getItem('alhazari_tracker')) || [];
     const container = document.getElementById('trackerContainer');
-    if(tracker.length === 0) { container.innerHTML = '<p>No clients yet.</p>'; return; }
-    let html = '<table class="tracker-table"><tr><th>Client</th><th>Package</th><th>Date</th><th>Status</th></tr>';
-    tracker.forEach(t => { html += `<tr><td>${t.name}</td><td>${t.pkg}</td><td>${t.date}</td><td>${t.status}</td></tr>`; });
+    const today = new Date().toLocaleDateString('en-GB');
+    const yesterday = new Date(Date.now() - 86400000).toLocaleDateString('en-GB');
+
+    let filtered = tracker;
+    if(trackerFilter === 'today') filtered = tracker.filter(t => t.date === today);
+    if(trackerFilter === 'yesterday') filtered = tracker.filter(t => t.date === yesterday);
+
+    if(filtered.length === 0) { container.innerHTML = '<p>No clients found for this filter.</p>'; return; }
+
+    let html = '<table class="tracker-table"><tr><th>Client</th><th>Package</th><th>Date</th><th>Status</th><th>Follow Up</th></tr>';
+    filtered.forEach(t => {
+        const daysAgo = Math.floor((Date.now() - t.timestamp) / 86400000);
+        let followUp = '';
+        if((t.status === 'Sent to Client' || t.status === 'Draft') && daysAgo >= 2) {
+            followUp = `<button class="filter-btn" onclick="followUp('${t.name}','${t.link}')">⚠️ Follow Up</button>`;
+        } else if(t.status === 'Sent to Client' || t.status === 'Draft') {
+            followUp = 'Waiting';
+        } else {
+            followUp = '✅';
+        }
+        html += `<tr><td>${t.name}</td><td>${t.pkg}</td><td>${t.date}</td><td>${t.status}</td><td>${followUp}</td></tr>`;
+    });
     html += '</table>';
     container.innerHTML = html;
+}
+
+function followUp(name, link) {
+    const message = "Hello " + name + ", just checking if you had a chance to review the itinerary I sent you: " + link + ". Please let me know if you have any questions. - Al Hazari Tour and Travels";
+    window.open("https://wa.me/?text=" + encodeURIComponent(message), '_blank');
 }
 
 function clearTracker() {
