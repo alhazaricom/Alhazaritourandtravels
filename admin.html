@@ -168,7 +168,7 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
     <button class="btn" onclick="saveToDatabase()">💾 SAVE & GENERATE ITINERARY LINK</button>
 
     <div class="output-box" id="outputBox">
-        <h3 class="success">✅ Itinerary Saved to Database!</h3>
+        <h3 class="success">✅ Itinerary Saved!</h3>
         <p><strong>Step 1:</strong> Copy the link below.</p>
         <p><strong>Step 2:</strong> Send this link to your client:</p>
         <p><a id="clientLink" href="#" target="_blank" style="color:blue; font-weight:bold; word-break:break-all; font-size:16px;">Link will appear here</a></p>
@@ -179,7 +179,7 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 
 <script>
 // --- GOOGLE APPS SCRIPT API URL ---
-const API_URL = 'https://script.google.com/macros/s/AKfycbzgtL1g0LEhszd0e8y99oSfUUQiUh10omweQyMh4MVFwU1Aq2aFF4XbaBTfNCwUd3uyjQ/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbx_VqJtgpnsCcM5g31PZNnW64nVSeNpbTA5Q1_OcLBGwsB_aWQxF6kQlOJ99N6sJQ3HAA/exec';
 
 var packages = {
     charming: { days: [
@@ -329,7 +329,7 @@ async function saveToDatabase() {
         document.getElementById('clientLink').href = clientLink;
         document.getElementById('clientLink').textContent = clientLink;
         
-        alert("✅ Itinerary saved to Google Sheets! Copy the link below.");
+        alert("✅ Itinerary saved! Copy the link below.");
     } catch (err) {
         alert("Connection error: " + err.message);
         console.error(err);
