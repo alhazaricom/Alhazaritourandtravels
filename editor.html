@@ -29,15 +29,22 @@ textarea { height: 60px; resize: vertical; }
 code { display: block; background: #333; color: #fff; padding: 15px; margin-top: 10px; border-radius: 5px; word-wrap: break-word; white-space: pre-wrap; max-height: 300px; overflow-y: auto; font-size: 11px; }
 .hint { color: #d32f2f; font-size: 12px; font-style: italic; margin-bottom: 8px; }
 .success { color: #2e7d32; font-weight: bold; }
+.error-box { background: #ffebee; border: 2px solid #ffcdd2; color: #c62828; padding: 15px; border-radius: 8px; margin-top: 15px; display: none; }
 </style>
 </head>
 <body>
 
 <div class="container">
     <h2>Al Hazari Itinerary Editor</h2>
-    <p class="hint">Fill in the client details below. The system will generate the complete HTML code for that client.</p>
+    <p class="hint">Fill in the client details below. The editor will automatically save the file to your GitHub repository.</p>
 
-    <h3>1. Client Details</h3>
+    <h3>1. GitHub Setup (First Time Only)</h3>
+    <div class="row">
+        <div class="col-wide"><label>GitHub Personal Access Token</label><input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxx"></div>
+    </div>
+    <p class="hint">Your token is stored only in your browser. It is never sent anywhere else.</p>
+
+    <h3>2. Client Details</h3>
     <div class="row">
         <div class="col"><label>Client Name</label><input type="text" id="clientName" placeholder="Mr. & Mrs. Sharma"></div>
         <div class="col"><label>Adults</label><input type="number" id="adults" value="2"></div>
@@ -49,8 +56,11 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
         <div class="col"><label>Nights</label><input type="number" id="nights" value="5"></div>
         <div class="col"><label>Booking Ref</label><input type="text" id="bookingRef" placeholder="ALH-2026-001"></div>
     </div>
+    <div class="row">
+        <div class="col-wide"><label>Client's WhatsApp Number (with country code)</label><input type="text" id="clientPhone" placeholder="e.g. 919541722366"></div>
+    </div>
 
-    <h3>2. Package & Theme</h3>
+    <h3>3. Package & Theme</h3>
     <div class="row">
         <div class="col-wide"><label>Package Name</label>
             <select id="packageName">
@@ -63,20 +73,21 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
         </div>
     </div>
 
-    <h3>3. Accommodation (Srinagar / Gulmarg / Pahalgam / Sonamarg / Houseboat)</h3>
-    <div class="acc-row"><strong>Srinagar</strong><input type="number" id="sriNights" value="2" placeholder="Nights"><input type="text" id="sriHotel" placeholder="Hotel Name"><input type="text" id="sriRoom" placeholder="Room Type"><input type="text" id="sriMeal" placeholder="Meal Plan"></div>
-    <div class="acc-row"><strong>Gulmarg</strong><input type="number" id="gulNights" value="0" placeholder="Nights"><input type="text" id="gulHotel" placeholder="Hotel Name"><input type="text" id="gulRoom" placeholder="Room Type"><input type="text" id="gulMeal" placeholder="Meal Plan"></div>
-    <div class="acc-row"><strong>Pahalgam</strong><input type="number" id="pahNights" value="0" placeholder="Nights"><input type="text" id="pahHotel" placeholder="Hotel Name"><input type="text" id="pahRoom" placeholder="Room Type"><input type="text" id="pahMeal" placeholder="Meal Plan"></div>
-    <div class="acc-row"><strong>Sonamarg</strong><input type="number" id="sonNights" value="0" placeholder="Nights"><input type="text" id="sonHotel" placeholder="Hotel Name"><input type="text" id="sonRoom" placeholder="Room Type"><input type="text" id="sonMeal" placeholder="Meal Plan"></div>
-    <div class="acc-row"><strong>Houseboat</strong><input type="number" id="houNights" value="1" placeholder="Nights"><input type="text" id="houHotel" placeholder="Houseboat Name"><input type="text" id="houRoom" placeholder="Room Type"><input type="text" id="houMeal" placeholder="Meal Plan"></div>
+    <h3>4. Accommodation</h3>
+    <div class="acc-row"><strong>Srinagar</strong><input type="number" id="sriNights" value="2" placeholder="Nights"><input type="text" class="hotel-name" id="sriHotel" placeholder="Hotel Name" list="hotelList"><input type="text" id="sriRoom" placeholder="Room Type"><input type="text" id="sriMeal" placeholder="Meal Plan"></div>
+    <div class="acc-row"><strong>Gulmarg</strong><input type="number" id="gulNights" value="0" placeholder="Nights"><input type="text" class="hotel-name" id="gulHotel" placeholder="Hotel Name" list="hotelList"><input type="text" id="gulRoom" placeholder="Room Type"><input type="text" id="gulMeal" placeholder="Meal Plan"></div>
+    <div class="acc-row"><strong>Pahalgam</strong><input type="number" id="pahNights" value="0" placeholder="Nights"><input type="text" class="hotel-name" id="pahHotel" placeholder="Hotel Name" list="hotelList"><input type="text" id="pahRoom" placeholder="Room Type"><input type="text" id="pahMeal" placeholder="Meal Plan"></div>
+    <div class="acc-row"><strong>Sonamarg</strong><input type="number" id="sonNights" value="0" placeholder="Nights"><input type="text" class="hotel-name" id="sonHotel" placeholder="Hotel Name" list="hotelList"><input type="text" id="sonRoom" placeholder="Room Type"><input type="text" id="sonMeal" placeholder="Meal Plan"></div>
+    <div class="acc-row"><strong>Houseboat</strong><input type="number" id="houNights" value="1" placeholder="Nights"><input type="text" class="hotel-name" id="houHotel" placeholder="Houseboat Name" list="hotelList"><input type="text" id="houRoom" placeholder="Room Type"><input type="text" id="houMeal" placeholder="Meal Plan"></div>
+    <datalist id="hotelList"></datalist>
 
-    <h3>4. Vehicle</h3>
+    <h3>5. Vehicle</h3>
     <div class="row">
         <div class="col-wide"><label>Vehicle Type</label><input type="text" id="vehicleType" value="Innova Crysta (AC)"></div>
         <div class="col-wide"><label>Vehicle Note (Optional)</label><input type="text" id="vehicleNote" placeholder="e.g. In winter, cab drops at Tangmarg."></div>
     </div>
 
-    <h3>5. Inclusions & Exclusions</h3>
+    <h3>6. Inclusions & Exclusions</h3>
     <div class="row">
         <div class="col"><label>Inclusions (one per line)</label><textarea id="inclusions">Airport Transfers
 Accommodation on Double Sharing
@@ -92,14 +103,14 @@ Personal Expenses
 Anything not mentioned in Inclusions</textarea></div>
     </div>
 
-    <h3 class="pink">6. Pricing</h3>
+    <h3 class="pink">7. Pricing</h3>
     <div class="row">
         <div class="col"><label>Total Price (₹)</label><input type="text" id="totalPrice" placeholder="45,000"></div>
         <div class="col-wide"><label>Price Basis</label><input type="text" id="priceBasis" value="MAPAI Basis, Double Sharing Room"></div>
         <div class="col"><label>Validity Date</label><input type="text" id="validityDate" placeholder="31 Oct 2026"></div>
     </div>
 
-    <h3 class="pink">7. Payment Details</h3>
+    <h3 class="pink">8. Payment Details</h3>
     <div class="row">
         <div class="col"><label>Bank Name</label><input type="text" id="bankName" placeholder="J&K Bank"></div>
         <div class="col"><label>Account Holder</label><input type="text" id="accountHolder" placeholder="Al Hazari Tour and Travels"></div>
@@ -108,70 +119,108 @@ Anything not mentioned in Inclusions</textarea></div>
         <div class="col"><label>UPI ID</label><input type="text" id="upiId" placeholder="alhazari@upi"></div>
     </div>
 
-    <h3>8. Generate</h3>
-    <button class="btn" onclick="generateHTML()">📄 GENERATE CLIENT HTML FILE</button>
+    <h3>9. Generate & Save to GitHub</h3>
+    <button class="btn" onclick="saveToGitHub()">💾 GENERATE & SAVE TO GITHUB</button>
+
+    <div class="error-box" id="errorBox"></div>
 
     <div class="output-box" id="outputBox">
-        <h3 class="success">✅ HTML Generated!</h3>
-        <p><strong>Step 1:</strong> Click the "Copy HTML" button below.</p>
-        <p><strong>Step 2:</strong> Go to GitHub → Add file → Create new file.</p>
-        <p><strong>Step 3:</strong> Name the file: <code id="fileNameDisplay" style="display:inline; padding:2px 8px;">client.html</code></p>
-        <p><strong>Step 4:</strong> Paste the code and commit changes.</p>
-        <p><strong>Step 5:</strong> Send this link to the client: <br><a id="clientLink" href="#" target="_blank" style="color:blue; word-break:break-all;">link</a></p>
-        <button class="btn btn-pink" onclick="copyHTML()">📋 Copy HTML Code</button>
+        <h3 class="success">✅ Itinerary Saved to GitHub!</h3>
+        <p><strong>Step 1:</strong> Send this link to your client:</p>
+        <p><a id="clientLink" href="#" target="_blank" style="color:blue; font-weight:bold; word-break:break-all; font-size:15px;">Link will appear here</a></p>
+        <p><strong>Step 2:</strong> Or send it directly on WhatsApp:</p>
+        <button class="btn" onclick="sendWhatsApp()" style="background:#25D366;">📱 Send on WhatsApp</button>
+        <p style="margin-top:15px;"><strong>Generated HTML (for your records):</strong></p>
         <code id="htmlOutput"></code>
     </div>
 </div>
 
 <script>
-function generateHTML() {
-    var clientName = document.getElementById('clientName').value.trim() || "[CLIENT NAME]";
-    var adults = document.getElementById('adults').value;
-    var children = document.getElementById('children').value;
-    var startDate = document.getElementById('startDate').value.trim() || "[START DATE]";
-    var endDate = document.getElementById('endDate').value.trim() || "[END DATE]";
-    var nights = document.getElementById('nights').value;
-    var bookingRef = document.getElementById('bookingRef').value.trim() || "[REF]";
-    var pkg = document.getElementById('packageName').value;
-    var isHoneymoon = pkg === 'honeymoon';
+// --- LOAD SAVED DATA FROM BROWSER MEMORY ---
+const savedHotels = JSON.parse(localStorage.getItem('alhazari_hotels')) || [];
+const hotelList = document.getElementById('hotelList');
+savedHotels.forEach(h => { const o = document.createElement('option'); o.value = h; hotelList.appendChild(o); });
 
-    var sriNights = document.getElementById('sriNights').value; var sriHotel = document.getElementById('sriHotel').value.trim() || "To be confirmed"; var sriRoom = document.getElementById('sriRoom').value.trim() || "Deluxe"; var sriMeal = document.getElementById('sriMeal').value.trim() || "MAP";
-    var gulNights = document.getElementById('gulNights').value; var gulHotel = document.getElementById('gulHotel').value.trim() || "To be confirmed"; var gulRoom = document.getElementById('gulRoom').value.trim() || "Deluxe"; var gulMeal = document.getElementById('gulMeal').value.trim() || "MAP";
-    var pahNights = document.getElementById('pahNights').value; var pahHotel = document.getElementById('pahHotel').value.trim() || "To be confirmed"; var pahRoom = document.getElementById('pahRoom').value.trim() || "Deluxe"; var pahMeal = document.getElementById('pahMeal').value.trim() || "MAP";
-    var sonNights = document.getElementById('sonNights').value; var sonHotel = document.getElementById('sonHotel').value.trim() || "To be confirmed"; var sonRoom = document.getElementById('sonRoom').value.trim() || "Deluxe"; var sonMeal = document.getElementById('sonMeal').value.trim() || "MAP";
-    var houNights = document.getElementById('houNights').value; var houHotel = document.getElementById('houHotel').value.trim() || "To be confirmed"; var houRoom = document.getElementById('houRoom').value.trim() || "Deluxe"; var houMeal = document.getElementById('houMeal').value.trim() || "MAP";
+// Save hotel names when typed
+document.querySelectorAll('.hotel-name').forEach(input => {
+    input.addEventListener('change', function() {
+        const val = this.value.trim();
+        if(val && !savedHotels.includes(val)) {
+            savedHotels.push(val);
+            localStorage.setItem('alhazari_hotels', JSON.stringify(savedHotels));
+            const o = document.createElement('option'); o.value = val; hotelList.appendChild(o);
+        }
+    });
+});
 
-    var vehicleType = document.getElementById('vehicleType').value.trim();
-    var vehicleNote = document.getElementById('vehicleNote').value.trim();
-    var inclusions = document.getElementById('inclusions').value.split('\n').filter(l => l.trim() !== '');
-    var exclusions = document.getElementById('exclusions').value.split('\n').filter(l => l.trim() !== '');
-    var totalPrice = document.getElementById('totalPrice').value.trim();
-    var priceBasis = document.getElementById('priceBasis').value.trim();
-    var validityDate = document.getElementById('validityDate').value.trim();
-    var bankName = document.getElementById('bankName').value.trim();
-    var accountHolder = document.getElementById('accountHolder').value.trim();
-    var accountNumber = document.getElementById('accountNumber').value.trim();
-    var ifsc = document.getElementById('ifsc').value.trim();
-    var upiId = document.getElementById('upiId').value.trim();
+// Load saved bank details
+const bankFields = ['bankName', 'accountNumber', 'ifsc', 'accountHolder', 'upiId', 'githubToken'];
+bankFields.forEach(id => {
+    const el = document.getElementById(id);
+    if(el) {
+        el.value = localStorage.getItem('alhazari_' + id) || '';
+        el.addEventListener('input', function() { localStorage.setItem('alhazari_' + id, this.value); });
+    }
+});
 
-    var accent = isHoneymoon ? '#e91e63' : '#075e54';
-    var accentSoft = isHoneymoon ? '#fce4ec' : '#f5faf8';
-    var headerBg = isHoneymoon ? 'linear-gradient(135deg, #e91e63, #ad1457)' : '#075e54';
-    var heroImg = isHoneymoon ? '02houseboat.jpg.jpg' : 'dallake.jpg.jpg';
+let lastGeneratedLink = "";
 
-    var inclusionsHTML = inclusions.map(i => `<li>${i}</li>`).join('');
-    var exclusionsHTML = exclusions.map(e => `<li>${e}</li>`).join('');
+async function saveToGitHub() {
+    const token = document.getElementById('githubToken').value.trim();
+    const clientName = document.getElementById('clientName').value.trim();
+    const clientPhone = document.getElementById('clientPhone').value.trim();
 
-    var accHTML = '';
-    if(sriNights > 0) accHTML += `<div class="acc-item"><h4>Srinagar (${sriNights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${sriHotel}<br><strong>Room Type:</strong> ${sriRoom}<br><strong>Meal Plan:</strong> ${sriMeal}</div></div>`;
-    if(gulNights > 0) accHTML += `<div class="acc-item"><h4>Gulmarg (${gulNights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${gulHotel}<br><strong>Room Type:</strong> ${gulRoom}<br><strong>Meal Plan:</strong> ${gulMeal}</div></div>`;
-    if(pahNights > 0) accHTML += `<div class="acc-item"><h4>Pahalgam (${pahNights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${pahHotel}<br><strong>Room Type:</strong> ${pahRoom}<br><strong>Meal Plan:</strong> ${pahMeal}</div></div>`;
-    if(sonNights > 0) accHTML += `<div class="acc-item"><h4>Sonamarg (${sonNights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${sonHotel}<br><strong>Room Type:</strong> ${sonRoom}<br><strong>Meal Plan:</strong> ${sonMeal}</div></div>`;
-    if(houNights > 0) accHTML += `<div class="acc-item"><h4>Houseboat (${houNights} Nights)</h4><div class="details"><strong>Houseboat:</strong> ${houHotel}<br><strong>Room Type:</strong> ${houRoom}<br><strong>Meal Plan:</strong> ${houMeal}</div></div>`;
+    if(!token) { showError("Please enter your GitHub Token in Section 1."); return; }
+    if(!clientName) { showError("Please enter the Client Name."); return; }
 
-    var vehicleNoteHTML = vehicleNote ? `<p style="font-size:13px; color:#856404; background:#fff8e1; padding:10px; border-radius:5px; margin-top:8px;">${vehicleNote}</p>` : '';
+    // Gather all data
+    const data = {
+        clientName, clientPhone,
+        adults: document.getElementById('adults').value,
+        children: document.getElementById('children').value,
+        startDate: document.getElementById('startDate').value.trim() || "[START DATE]",
+        endDate: document.getElementById('endDate').value.trim() || "[END DATE]",
+        nights: document.getElementById('nights').value,
+        bookingRef: document.getElementById('bookingRef').value.trim() || "[REF]",
+        pkg: document.getElementById('packageName').value,
+        sri: { nights: document.getElementById('sriNights').value, hotel: document.getElementById('sriHotel').value.trim() || "To be confirmed", room: document.getElementById('sriRoom').value.trim() || "Deluxe", meal: document.getElementById('sriMeal').value.trim() || "MAP" },
+        gul: { nights: document.getElementById('gulNights').value, hotel: document.getElementById('gulHotel').value.trim() || "To be confirmed", room: document.getElementById('gulRoom').value.trim() || "Deluxe", meal: document.getElementById('gulMeal').value.trim() || "MAP" },
+        pah: { nights: document.getElementById('pahNights').value, hotel: document.getElementById('pahHotel').value.trim() || "To be confirmed", room: document.getElementById('pahRoom').value.trim() || "Deluxe", meal: document.getElementById('pahMeal').value.trim() || "MAP" },
+        son: { nights: document.getElementById('sonNights').value, hotel: document.getElementById('sonHotel').value.trim() || "To be confirmed", room: document.getElementById('sonRoom').value.trim() || "Deluxe", meal: document.getElementById('sonMeal').value.trim() || "MAP" },
+        hou: { nights: document.getElementById('houNights').value, hotel: document.getElementById('houHotel').value.trim() || "To be confirmed", room: document.getElementById('houRoom').value.trim() || "Deluxe", meal: document.getElementById('houMeal').value.trim() || "MAP" },
+        vehicleType: document.getElementById('vehicleType').value.trim(),
+        vehicleNote: document.getElementById('vehicleNote').value.trim(),
+        inclusions: document.getElementById('inclusions').value.split('\n').filter(l => l.trim() !== ''),
+        exclusions: document.getElementById('exclusions').value.split('\n').filter(l => l.trim() !== ''),
+        totalPrice: document.getElementById('totalPrice').value.trim(),
+        priceBasis: document.getElementById('priceBasis').value.trim(),
+        validityDate: document.getElementById('validityDate').value.trim(),
+        bankName: document.getElementById('bankName').value.trim(),
+        accountHolder: document.getElementById('accountHolder').value.trim(),
+        accountNumber: document.getElementById('accountNumber').value.trim(),
+        ifsc: document.getElementById('ifsc').value.trim(),
+        upiId: document.getElementById('upiId').value.trim()
+    };
 
-    var html = `<!DOCTYPE html>
+    const isHoneymoon = data.pkg === 'honeymoon';
+    const accent = isHoneymoon ? '#e91e63' : '#075e54';
+    const accentSoft = isHoneymoon ? '#fce4ec' : '#f5faf8';
+    const headerBg = isHoneymoon ? 'linear-gradient(135deg, #e91e63, #ad1457)' : '#075e54';
+    const heroImg = isHoneymoon ? '02houseboat.jpg.jpg' : 'dallake.jpg.jpg';
+
+    const inclusionsHTML = data.inclusions.map(i => `<li>${i}</li>`).join('');
+    const exclusionsHTML = data.exclusions.map(e => `<li>${e}</li>`).join('');
+
+    let accHTML = '';
+    if(data.sri.nights > 0) accHTML += `<div class="acc-item"><h4>Srinagar (${data.sri.nights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${data.sri.hotel}<br><strong>Room Type:</strong> ${data.sri.room}<br><strong>Meal Plan:</strong> ${data.sri.meal}</div></div>`;
+    if(data.gul.nights > 0) accHTML += `<div class="acc-item"><h4>Gulmarg (${data.gul.nights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${data.gul.hotel}<br><strong>Room Type:</strong> ${data.gul.room}<br><strong>Meal Plan:</strong> ${data.gul.meal}</div></div>`;
+    if(data.pah.nights > 0) accHTML += `<div class="acc-item"><h4>Pahalgam (${data.pah.nights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${data.pah.hotel}<br><strong>Room Type:</strong> ${data.pah.room}<br><strong>Meal Plan:</strong> ${data.pah.meal}</div></div>`;
+    if(data.son.nights > 0) accHTML += `<div class="acc-item"><h4>Sonamarg (${data.son.nights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${data.son.hotel}<br><strong>Room Type:</strong> ${data.son.room}<br><strong>Meal Plan:</strong> ${data.son.meal}</div></div>`;
+    if(data.hou.nights > 0) accHTML += `<div class="acc-item"><h4>Houseboat (${data.hou.nights} Nights)</h4><div class="details"><strong>Houseboat:</strong> ${data.hou.hotel}<br><strong>Room Type:</strong> ${data.hou.room}<br><strong>Meal Plan:</strong> ${data.hou.meal}</div></div>`;
+
+    const vehicleNoteHTML = data.vehicleNote ? `<p style="font-size:13px; color:#856404; background:#fff8e1; padding:10px; border-radius:5px; margin-top:8px;">${data.vehicleNote}</p>` : '';
+
+    const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -233,8 +282,8 @@ body { font-family: Arial, Helvetica, sans-serif; background: #eef2f5; color: va
 <div class="header"><div class="logo-icon">AH</div><div class="header-text"><strong>AL HAZARI TOUR AND TRAVELS</strong><span>Your Local Travel Partner in Kashmir</span></div></div>
 <img src="${heroImg}" class="hero-img" alt="Kashmir">
 <div class="client-info">
-<h1>${clientName}'s Kashmir Trip</h1>
-<div class="meta"><strong>Dates:</strong> ${startDate} - ${endDate} (${nights} Nights) | <strong>Adults:</strong> ${adults}${children > 0 ? ' | <strong>Children:</strong> ' + children : ''} | <strong>Ref:</strong> ${bookingRef}</div>
+<h1>${data.clientName}'s Kashmir Trip</h1>
+<div class="meta"><strong>Dates:</strong> ${data.startDate} - ${data.endDate} (${data.nights} Nights) | <strong>Adults:</strong> ${data.adults}${data.children > 0 ? ' | <strong>Children:</strong> ' + data.children : ''} | <strong>Ref:</strong> ${data.bookingRef}</div>
 </div>
 <div class="section"><h2>Day-wise Itinerary</h2>
 <div class="day-item"><h4>Day 1: Arrive Srinagar → Pahalgam</h4><p>Airport pickup, transfer to Pahalgam via saffron fields and apple gardens.</p></div>
@@ -245,12 +294,12 @@ body { font-family: Arial, Helvetica, sans-serif; background: #eef2f5; color: va
 <div class="day-item"><h4>Day 6: Srinagar Airport Drop</h4><p>After breakfast, transfer to Srinagar Airport with beautiful memories.</p></div>
 </div>
 <div class="section"><h2>Accommodation Details</h2>${accHTML}</div>
-<div class="section"><h2>Vehicle & Transport</h2><p style="font-size:14px;"><strong>Vehicle:</strong> ${vehicleType}</p>${vehicleNoteHTML}</div>
+<div class="section"><h2>Vehicle & Transport</h2><p style="font-size:14px;"><strong>Vehicle:</strong> ${data.vehicleType}</p>${vehicleNoteHTML}</div>
 <div class="section"><h2>Inclusions & Exclusions</h2><div class="list-grid"><div class="list-box"><h4>✅ Cost Includes</h4><ul>${inclusionsHTML}</ul></div><div class="list-box excl"><h4>❌ Cost Excludes</h4><ul>${exclusionsHTML}</ul></div></div></div>
-<div class="section"><h2>Package Cost</h2><div class="price-box"><div class="total">₹${totalPrice}</div><div class="basis">${priceBasis}</div>${validityDate ? `<div class="validity">This quotation is valid until: ${validityDate}</div>` : ''}</div></div>
+<div class="section"><h2>Package Cost</h2><div class="price-box"><div class="total">₹${data.totalPrice}</div><div class="basis">${data.priceBasis}</div>${data.validityDate ? `<div class="validity">This quotation is valid until: ${data.validityDate}</div>` : ''}</div></div>
 <div class="section"><h2>Payment Details</h2><div class="payment-box">
-<p><strong>Bank:</strong> ${bankName}</p><p><strong>Account Holder:</strong> ${accountHolder}</p><p><strong>Account Number:</strong> ${accountNumber}</p><p><strong>IFSC:</strong> ${ifsc}</p><p><strong>UPI ID:</strong> ${upiId}</p>
-<div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=${upiId}" alt="UPI QR"><br><small>Scan to pay via UPI</small></div>
+<p><strong>Bank:</strong> ${data.bankName}</p><p><strong>Account Holder:</strong> ${data.accountHolder}</p><p><strong>Account Number:</strong> ${data.accountNumber}</p><p><strong>IFSC:</strong> ${data.ifsc}</p><p><strong>UPI ID:</strong> ${data.upiId}</p>
+<div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=${data.upiId}" alt="UPI QR"><br><small>Scan to pay via UPI</small></div>
 </div></div>
 <div class="section"><h2>Terms & Conditions</h2><div class="terms-box">1. 50% advance required to confirm booking.
 2. Cancellation policy as per hotel rules.
@@ -263,22 +312,60 @@ body { font-family: Arial, Helvetica, sans-serif; background: #eef2f5; color: va
 </body>
 </html>`;
 
-    var safeFileName = clientName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '') + ".html";
-    
-    document.getElementById('outputBox').style.display = 'block';
-    document.getElementById('htmlOutput').textContent = html;
-    document.getElementById('fileNameDisplay').textContent = safeFileName;
-    
-    var baseURL = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
-    var link = baseURL + "/" + safeFileName;
-    document.getElementById('clientLink').href = link;
-    document.getElementById('clientLink').textContent = link;
+    const fileName = clientName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '') + ".html";
+    const filePath = "itineraries/" + fileName;
+    const repoOwner = "alhazaricom";
+    const repoName = "Alhazaritourandtravels";
+    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: `Add itinerary for ${clientName}`,
+                content: btoa(unescape(encodeURIComponent(html))),
+                branch: 'main'
+            })
+        });
+
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.message || "Failed to save to GitHub");
+        }
+
+        const link = `https://${repoOwner}.github.io/${repoName}/${filePath}`;
+        lastGeneratedLink = link;
+
+        document.getElementById('outputBox').style.display = 'block';
+        document.getElementById('clientLink').href = link;
+        document.getElementById('clientLink').textContent = link;
+        document.getElementById('htmlOutput').textContent = html;
+
+        alert("✅ Itinerary saved to GitHub successfully!");
+    } catch(err) {
+        showError("Error saving to GitHub: " + err.message);
+    }
 }
 
-function copyHTML() {
-    var code = document.getElementById('htmlOutput').textContent;
-    navigator.clipboard.writeText(code);
-    alert("✅ HTML code copied to clipboard!");
+function sendWhatsApp() {
+    const phone = document.getElementById('clientPhone').value.trim();
+    const clientName = document.getElementById('clientName').value.trim();
+    if(!phone) { showError("Please enter the client's WhatsApp number."); return; }
+    if(!lastGeneratedLink) { showError("Please generate the itinerary first."); return; }
+
+    const message = "Hello " + clientName + ", here is your Kashmir itinerary: " + lastGeneratedLink + ". Please review it and let me know if you have any questions. - Al Hazari Tour and Travels";
+    window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), '_blank');
+}
+
+function showError(msg) {
+    const box = document.getElementById('errorBox');
+    box.textContent = msg;
+    box.style.display = 'block';
+    setTimeout(() => { box.style.display = 'none'; }, 8000);
 }
 </script>
 
