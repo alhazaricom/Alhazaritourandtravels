@@ -119,7 +119,15 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 
     <h3>5. Vehicle</h3>
     <div class="row">
-        <div class="col-wide"><label>Vehicle Type</label><input type="text" id="vehicleType" value="Innova Crysta (AC)"></div>
+        <div class="col-wide"><label>Vehicle Type</label>
+            <select id="vehicleType">
+                <option>Sedan (Dzire/Etios)</option>
+                <option>SUV (Innova/Ertiga)</option>
+                <option>Luxury (Innova Crysta)</option>
+                <option>Tempo Traveller</option>
+                <option>Force Urbania</option>
+            </select>
+        </div>
         <div class="col-wide"><label>Vehicle Note (Optional)</label><input type="text" id="vehicleNote" placeholder="e.g. In winter, cab drops at Tangmarg."></div>
     </div>
 
@@ -198,7 +206,6 @@ let availableImages = [];
 let distances = {};
 let savedHotels = JSON.parse(localStorage.getItem('alhazari_hotels_by_location')) || {};
 
-// --- LOAD PACKAGES FROM JSON ---
 async function loadPackages() {
     try {
         const response = await fetch('packages.json');
@@ -207,7 +214,6 @@ async function loadPackages() {
         availableImages = data.images;
         distances = data.distances;
 
-        // Build custom places list
         const customList = document.getElementById('customPlacesList');
         data.places.forEach(p => {
             const label = document.createElement('label');
@@ -220,13 +226,8 @@ async function loadPackages() {
             customList.appendChild(label);
         });
 
-        // Load hotel datalists
         loadHotelSuggestions();
-
-        // Load saved bank details
         loadBankDetails();
-
-        // Initial load
         onPackageChange();
     } catch(err) {
         showError("Error loading packages.json. Please check the file.");
@@ -244,7 +245,7 @@ function loadHotelSuggestions() {
 }
 
 function loadBankDetails() {
-    const fields = ['githubToken', 'bankName', 'accountNumber', 'ifsc', 'accountHolder', 'upiId', 'vehicleType'];
+    const fields = ['githubToken', 'bankName', 'accountNumber', 'ifsc', 'accountHolder', 'upiId'];
     fields.forEach(id => {
         const el = document.getElementById(id);
         if(el) {
@@ -265,21 +266,16 @@ function onPackageChange() {
     const data = packagesData[pkg];
     if(!data) return;
 
-    // Set nights
     document.getElementById('sriNights').value = data.nights.srinagar || 0;
     document.getElementById('gulNights').value = data.nights.gulmarg || 0;
     document.getElementById('pahNights').value = data.nights.pahalgam || 0;
     document.getElementById('sonNights').value = data.nights.sonamarg || 0;
     document.getElementById('houNights').value = data.nights.houseboat || 0;
 
-    // Build day-wise itinerary
     const container = document.getElementById('itineraryDays');
     container.innerHTML = '';
-    data.days.forEach(d => {
-        addDayWithData(d.day, d.title, d.details, d.image);
-    });
+    data.days.forEach(d => { addDayWithData(d.day, d.title, d.details, d.image); });
 
-    // Set nights total
     let totalNights = 0;
     Object.values(data.nights).forEach(n => totalNights += n);
     document.getElementById('nights').value = totalNights;
@@ -289,35 +285,25 @@ function onCustomPlaceChange() {
     const checkboxes = document.querySelectorAll('#customPlacesList input[type="checkbox"]:checked');
     const container = document.getElementById('itineraryDays');
     container.innerHTML = '';
-
     if(checkboxes.length === 0) return;
 
     let dayNum = 1;
-
-    // Day 1: Arrive Srinagar
     addDayWithData(dayNum++, "Arrive Srinagar", "On arrival at Srinagar Airport (15 km), our representative will meet and greet you. Visit the Mughal Gardens and enjoy a Shikara ride on Dal Lake. Dinner & overnight at Srinagar Hotel.", "srinagarview.jpg.jpg");
 
     const places = Array.from(checkboxes).map(cb => cb.value);
-
-    // For each place (except srinagar), add a day
     places.forEach(place => {
         if(place === 'srinagar') return;
-        const placeData = packagesData.places ? null : null;
         const placeName = place.charAt(0).toUpperCase() + place.slice(1);
         const distanceKey = 'srinagar-' + place;
         const dist = distances[distanceKey] || '';
         const img = place === 'gulmarg' ? 'gulmarg.jpg.jpg' : place === 'pahalgam' ? 'pahalgam.jpg.jpg' : place === 'sonamarg' ? 'sonamarg1.jpg' : place === 'doodhpathri' ? 'doodhpathri.jpg.jpg' : place === 'yusmarg' ? 'yousmarg.jpg.jpg' : place === 'gurez' ? 'mountainview.jpg.jpg' : place === 'houseboat' ? '02houseboat.jpg.jpg' : 'srinagarview.jpg.jpg';
-
         addDayWithData(dayNum++, placeName + " Visit", "Full day excursion to " + placeName + (dist ? " (" + dist + ")" : "") + ". Visit the local attractions. Return to Srinagar. Dinner & overnight at Srinagar Hotel.", img);
     });
 
-    // Last day: Departure
     addDayWithData(dayNum, "Srinagar Airport Drop", "After breakfast, transfer to Srinagar Airport (15 km) for your onward journey. Depart with beautiful memories of Kashmir.", "dallakeview.jpg.jpg");
 }
 
-function addDay() {
-    addDayWithData('', '', '', '');
-}
+function addDay() { addDayWithData('', '', '', ''); }
 
 function addDayWithData(dayNum, title, details, image) {
     const container = document.getElementById('itineraryDays');
@@ -353,9 +339,15 @@ function addDayWithData(dayNum, title, details, image) {
                 <select class="day-image-select">${imageOptions}</select>
             </div>
         </div>
-        <button class="btn btn-red btn-sm" onclick="this.parentElement.remove()">Remove Day</button>
+        <button class="btn btn-red btn-sm" onclick="removeDay(this)">Remove Day</button>
     `;
     container.appendChild(div);
+}
+
+function removeDay(btn) {
+    if(confirm("Are you sure you want to remove this day?")) {
+        btn.parentElement.remove();
+    }
 }
 
 function applyMealPlanToAll() {
@@ -368,12 +360,9 @@ function applyMealPlanToAll() {
 async function saveToGitHub() {
     const token = document.getElementById('githubToken').value.trim();
     const clientName = document.getElementById('clientName').value.trim();
-    const clientPhone = document.getElementById('clientPhone').value.trim();
-
     if(!token) { showError("Please enter your GitHub Token in Section 1."); return; }
     if(!clientName) { showError("Please enter the Client Name."); return; }
 
-    // Collect hotel names for memory
     ['sri', 'gul', 'pah', 'son', 'hou'].forEach(loc => {
         const val = document.getElementById(loc + 'Hotel').value.trim();
         if(val) {
@@ -386,7 +375,6 @@ async function saveToGitHub() {
     });
     loadHotelSuggestions();
 
-    // Collect data
     const days = [];
     document.querySelectorAll('#itineraryDays .day-box').forEach(div => {
         const title = div.querySelector('.day-title').value.trim();
@@ -437,9 +425,7 @@ async function saveToGitHub() {
     });
 
     const vehicleNoteHTML = document.getElementById('vehicleNote').value.trim() ? `<p style="font-size:13px; color:#856404; background:#fff8e1; padding:10px; border-radius:5px; margin-top:8px;">${document.getElementById('vehicleNote').value.trim()}</p>` : '';
-
     const notesHTML = notes ? `<div class="section"><h2>Special Notes</h2><div style="font-size:14px; color:var(--text);">${notes}</div></div>` : '';
-
     const draftBanner = draftMode ? `<div class="draft-banner">⚠️ DRAFT - NOT FOR CUSTOMER. FOR INTERNAL REVIEW ONLY.</div><div class="draft-watermark"><span>DRAFT</span></div>` : '';
 
     const html = `<!DOCTYPE html>
@@ -538,15 +524,27 @@ ${notesHTML}
     const repoName = "Alhazaritourandtravels";
     const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
 
+    let sha = null;
     try {
+        const getRes = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } });
+        if (getRes.ok) {
+            const getData = await getRes.json();
+            sha = getData.sha;
+        }
+    } catch(e) {}
+
+    try {
+        const body = {
+            message: `Add itinerary for ${clientName}`,
+            content: btoa(unescape(encodeURIComponent(html))),
+            branch: 'main'
+        };
+        if(sha) body.sha = sha;
+
         const response = await fetch(apiUrl, {
             method: 'PUT',
             headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                message: `Add itinerary for ${clientName}`,
-                content: btoa(unescape(encodeURIComponent(html))),
-                branch: 'main'
-            })
+            body: JSON.stringify(body)
         });
 
         if (!response.ok) {
@@ -561,7 +559,6 @@ ${notesHTML}
         document.getElementById('clientLink').textContent = link;
         document.getElementById('htmlOutput').textContent = html;
 
-        // Save to tracker
         saveToTracker(clientName, document.getElementById('packageName').options[document.getElementById('packageName').selectedIndex].text, new Date().toLocaleDateString('en-GB'), document.getElementById('bookingStatus').value);
 
         alert("✅ Itinerary saved to GitHub successfully!");
@@ -574,11 +571,11 @@ function sendWhatsApp() {
     const phone = document.getElementById('clientPhone').value.trim();
     const clientName = document.getElementById('clientName').value.trim();
     const link = document.getElementById('clientLink').href;
-    if(!phone) { showError("Please enter the client's WhatsApp number."); return; }
     if(!link || link === "#") { showError("Please generate the itinerary first."); return; }
 
     const message = "Hello " + clientName + ", here is your Kashmir itinerary: " + link + ". Please review it and let me know if you have any questions. - Al Hazari Tour and Travels";
-    window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), '_blank');
+    const waUrl = phone ? "https://wa.me/" + phone + "?text=" + encodeURIComponent(message) : "https://wa.me/?text=" + encodeURIComponent(message);
+    window.open(waUrl, '_blank');
 }
 
 function showError(msg) {
@@ -588,7 +585,6 @@ function showError(msg) {
     setTimeout(() => { box.style.display = 'none'; }, 8000);
 }
 
-// --- CLIENT TRACKER ---
 function saveToTracker(name, pkg, date, status) {
     let tracker = JSON.parse(localStorage.getItem('alhazari_tracker')) || [];
     tracker.unshift({ name, pkg, date, status });
@@ -616,7 +612,6 @@ function clearTracker() {
     }
 }
 
-// --- INIT ---
 loadPackages();
 renderTracker();
 </script>
