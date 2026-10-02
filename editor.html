@@ -8,28 +8,36 @@
 :root { --primary: #075e54; --secondary: #d4a017; --whatsapp: #25D366; --light: #f5faf8; --border: #e5e9e7; --dark: #17211f; --pink: #e91e63; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; color: var(--dark); line-height: 1.6; }
-.container { max-width: 1000px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.container { max-width: 1100px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
 h2 { color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 10px; margin-bottom: 20px; }
 h3 { color: var(--primary); margin-top: 25px; margin-bottom: 12px; padding: 10px; background: var(--light); border-left: 4px solid var(--secondary); border-radius: 4px; font-size: 16px; }
 h3.pink { color: var(--pink); background: #fce4ec; border-left-color: var(--pink); }
 label { font-weight: 600; font-size: 13px; display: block; margin-bottom: 4px; color: #444; }
 input, select, textarea { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: inherit; font-size: 13px; }
-textarea { height: 60px; resize: vertical; }
+textarea { height: 80px; resize: vertical; }
 .row { display: flex; gap: 10px; flex-wrap: wrap; }
 .col { flex: 1; min-width: 130px; }
 .col-wide { flex: 2; min-width: 200px; }
 .acc-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr; gap: 6px; margin-bottom: 8px; background: #fafafa; padding: 8px; border-radius: 6px; border: 1px solid var(--border); align-items: center; }
 .acc-row input, .acc-row select { margin-bottom: 0; padding: 5px; font-size: 12px; }
 .acc-row strong { font-size: 12px; color: var(--primary); }
+.day-box { background: #fafafa; padding: 12px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 6px; }
+.day-box .row { margin-bottom: 6px; }
 .btn { background: var(--whatsapp); color: #fff; border: none; padding: 14px 25px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; }
 .btn:hover { background: #128C7E; }
 .btn-pink { background: var(--pink); }
 .btn-pink:hover { background: #ad1457; }
+.btn-blue { background: #007bff; color: #fff; }
+.btn-red { background: #dc3545; color: #fff; }
+.btn-sm { width: auto; padding: 6px 12px; font-size: 12px; margin-top: 5px; }
 .output-box { margin-top: 25px; padding: 20px; background: #e8f5e9; border: 2px solid #c8e6c9; border-radius: 8px; display: none; }
 code { display: block; background: #333; color: #fff; padding: 15px; margin-top: 10px; border-radius: 5px; word-wrap: break-word; white-space: pre-wrap; max-height: 300px; overflow-y: auto; font-size: 11px; }
 .hint { color: #d32f2f; font-size: 12px; font-style: italic; margin-bottom: 8px; }
 .success { color: #2e7d32; font-weight: bold; }
 .error-box { background: #ffebee; border: 2px solid #ffcdd2; color: #c62828; padding: 15px; border-radius: 8px; margin-top: 15px; display: none; }
+.tracker-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+.tracker-table th, .tracker-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+.tracker-table th { background: var(--light); }
 </style>
 </head>
 <body>
@@ -44,42 +52,70 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
     </div>
     <p class="hint">Your token is stored only in your browser. It is never sent anywhere else.</p>
 
-    <h3>2. Client Details</h3>
+    <h3>2. Package & Meal Plan</h3>
+    <div class="row">
+        <div class="col-wide"><label>Package</label>
+            <select id="packageName" onchange="onPackageChange()">
+                <option value="charming">Charming Kashmir (3N/4D)</option>
+                <option value="explorer">Kashmir Explorer (4N/5D)</option>
+                <option value="amazing">Amazing Kashmir (5N/6D)</option>
+                <option value="heaven">Kashmir Heaven on Earth (6N/7D)</option>
+                <option value="honeymoon">Kashmir Honeymoon Special (5N/6D)</option>
+                <option value="custom">Custom Package</option>
+            </select>
+        </div>
+        <div class="col"><label>Meal Plan</label>
+            <select id="mealPlan" onchange="applyMealPlanToAll()">
+                <option value="EP">EP (Room Only)</option>
+                <option value="CP">CP (Room + Breakfast)</option>
+                <option value="MAP" selected>MAP (Breakfast + Dinner)</option>
+                <option value="AP">AP (All Meals)</option>
+            </select>
+        </div>
+    </div>
+    <div id="customPlacesDiv" style="display:none; margin-top:10px;">
+        <label>Select Places for Custom Package:</label>
+        <div id="customPlacesList" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:5px;"></div>
+    </div>
+
+    <h3>3. Client Details</h3>
     <div class="row">
         <div class="col"><label>Client Name</label><input type="text" id="clientName" placeholder="Mr. & Mrs. Sharma"></div>
         <div class="col"><label>Adults</label><input type="number" id="adults" value="2"></div>
         <div class="col"><label>Children</label><input type="number" id="children" value="0"></div>
+        <div class="col"><label>Children Without Bed</label><input type="number" id="childWOB" value="0"></div>
     </div>
     <div class="row">
-        <div class="col"><label>Start Date</label><input type="text" id="startDate" placeholder="15 Oct 2026"></div>
-        <div class="col"><label>End Date</label><input type="text" id="endDate" placeholder="20 Oct 2026"></div>
+        <div class="col"><label>Start Date</label><input type="date" id="startDate"></div>
+        <div class="col"><label>End Date</label><input type="date" id="endDate"></div>
         <div class="col"><label>Nights</label><input type="number" id="nights" value="5"></div>
         <div class="col"><label>Booking Ref</label><input type="text" id="bookingRef" placeholder="ALH-2026-001"></div>
     </div>
     <div class="row">
         <div class="col-wide"><label>Client's WhatsApp Number (with country code)</label><input type="text" id="clientPhone" placeholder="e.g. 919541722366"></div>
-    </div>
-
-    <h3>3. Package & Theme</h3>
-    <div class="row">
-        <div class="col-wide"><label>Package Name</label>
-            <select id="packageName">
-                <option value="honeymoon">Kashmir Honeymoon Special (Pink Theme)</option>
-                <option value="charming">Charming Kashmir (Green Theme)</option>
-                <option value="explorer">Kashmir Explorer (Green Theme)</option>
-                <option value="amazing">Amazing Kashmir (Green Theme)</option>
-                <option value="heaven">Kashmir Heaven on Earth (Green Theme)</option>
+        <div class="col"><label>Booking Status</label>
+            <select id="bookingStatus">
+                <option>Draft</option>
+                <option>Sent to Client</option>
+                <option>Advance Received</option>
+                <option>Fully Paid</option>
+                <option>Cancelled</option>
             </select>
         </div>
     </div>
 
     <h3>4. Accommodation</h3>
-    <div class="acc-row"><strong>Srinagar</strong><input type="number" id="sriNights" value="2" placeholder="Nights"><input type="text" class="hotel-name" id="sriHotel" placeholder="Hotel Name" list="hotelList"><input type="text" id="sriRoom" placeholder="Room Type"><input type="text" id="sriMeal" placeholder="Meal Plan"></div>
-    <div class="acc-row"><strong>Gulmarg</strong><input type="number" id="gulNights" value="0" placeholder="Nights"><input type="text" class="hotel-name" id="gulHotel" placeholder="Hotel Name" list="hotelList"><input type="text" id="gulRoom" placeholder="Room Type"><input type="text" id="gulMeal" placeholder="Meal Plan"></div>
-    <div class="acc-row"><strong>Pahalgam</strong><input type="number" id="pahNights" value="0" placeholder="Nights"><input type="text" class="hotel-name" id="pahHotel" placeholder="Hotel Name" list="hotelList"><input type="text" id="pahRoom" placeholder="Room Type"><input type="text" id="pahMeal" placeholder="Meal Plan"></div>
-    <div class="acc-row"><strong>Sonamarg</strong><input type="number" id="sonNights" value="0" placeholder="Nights"><input type="text" class="hotel-name" id="sonHotel" placeholder="Hotel Name" list="hotelList"><input type="text" id="sonRoom" placeholder="Room Type"><input type="text" id="sonMeal" placeholder="Meal Plan"></div>
-    <div class="acc-row"><strong>Houseboat</strong><input type="number" id="houNights" value="1" placeholder="Nights"><input type="text" class="hotel-name" id="houHotel" placeholder="Houseboat Name" list="hotelList"><input type="text" id="houRoom" placeholder="Room Type"><input type="text" id="houMeal" placeholder="Meal Plan"></div>
-    <datalist id="hotelList"></datalist>
+    <p class="hint">Only fill places where the client stays. Leave "Nights" as 0 for places not included.</p>
+    <div class="acc-row"><strong>Srinagar</strong><input type="number" id="sriNights" value="1" placeholder="Nights"><input type="text" class="hotel-name" id="sriHotel" placeholder="Hotel Name" list="hotelListSri"><input type="text" id="sriRoom" placeholder="Room Type"><select id="sriMeal"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div>
+    <div class="acc-row"><strong>Gulmarg</strong><input type="number" id="gulNights" value="0" placeholder="Nights"><input type="text" class="hotel-name" id="gulHotel" placeholder="Hotel Name" list="hotelListGul"><input type="text" id="gulRoom" placeholder="Room Type"><select id="gulMeal"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div>
+    <div class="acc-row"><strong>Pahalgam</strong><input type="number" id="pahNights" value="1" placeholder="Nights"><input type="text" class="hotel-name" id="pahHotel" placeholder="Hotel Name" list="hotelListPah"><input type="text" id="pahRoom" placeholder="Room Type"><select id="pahMeal"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div>
+    <div class="acc-row"><strong>Sonamarg</strong><input type="number" id="sonNights" value="0" placeholder="Nights"><input type="text" class="hotel-name" id="sonHotel" placeholder="Hotel Name" list="hotelListSon"><input type="text" id="sonRoom" placeholder="Room Type"><select id="sonMeal"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div>
+    <div class="acc-row"><strong>Houseboat</strong><input type="number" id="houNights" value="1" placeholder="Nights"><input type="text" class="hotel-name" id="houHotel" placeholder="Houseboat Name" list="hotelListHou"><input type="text" id="houRoom" placeholder="Room Type"><select id="houMeal"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div>
+    <datalist id="hotelListSri"></datalist>
+    <datalist id="hotelListGul"></datalist>
+    <datalist id="hotelListPah"></datalist>
+    <datalist id="hotelListSon"></datalist>
+    <datalist id="hotelListHou"></datalist>
 
     <h3>5. Vehicle</h3>
     <div class="row">
@@ -87,7 +123,11 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
         <div class="col-wide"><label>Vehicle Note (Optional)</label><input type="text" id="vehicleNote" placeholder="e.g. In winter, cab drops at Tangmarg."></div>
     </div>
 
-    <h3>6. Inclusions & Exclusions</h3>
+    <h3>6. Day-wise Itinerary</h3>
+    <div id="itineraryDays"></div>
+    <button class="btn btn-blue btn-sm" onclick="addDay()">+ Add Day</button>
+
+    <h3>7. Inclusions & Exclusions</h3>
     <div class="row">
         <div class="col"><label>Inclusions (one per line)</label><textarea id="inclusions">Airport Transfers
 Accommodation on Double Sharing
@@ -103,14 +143,14 @@ Personal Expenses
 Anything not mentioned in Inclusions</textarea></div>
     </div>
 
-    <h3 class="pink">7. Pricing</h3>
+    <h3 class="pink">8. Pricing</h3>
     <div class="row">
         <div class="col"><label>Total Price (₹)</label><input type="text" id="totalPrice" placeholder="45,000"></div>
         <div class="col-wide"><label>Price Basis</label><input type="text" id="priceBasis" value="MAPAI Basis, Double Sharing Room"></div>
-        <div class="col"><label>Validity Date</label><input type="text" id="validityDate" placeholder="31 Oct 2026"></div>
+        <div class="col"><label>Validity Date</label><input type="date" id="validityDate"></div>
     </div>
 
-    <h3 class="pink">8. Payment Details</h3>
+    <h3 class="pink">9. Payment Details</h3>
     <div class="row">
         <div class="col"><label>Bank Name</label><input type="text" id="bankName" placeholder="J&K Bank"></div>
         <div class="col"><label>Account Holder</label><input type="text" id="accountHolder" placeholder="Al Hazari Tour and Travels"></div>
@@ -119,7 +159,20 @@ Anything not mentioned in Inclusions</textarea></div>
         <div class="col"><label>UPI ID</label><input type="text" id="upiId" placeholder="alhazari@upi"></div>
     </div>
 
-    <h3>9. Generate & Save to GitHub</h3>
+    <h3>10. Terms & Conditions (Editable)</h3>
+    <textarea id="termsText" style="height:100px;">1. 50% advance required to confirm booking.
+2. Cancellation policy as per hotel rules.
+3. Rates subject to change without prior notice.
+4. In case of bad weather or road closure, itinerary may change.
+5. Any dispute subject to Srinagar jurisdiction.</textarea>
+
+    <h3>11. Notes for Client (Optional)</h3>
+    <textarea id="clientNotes" placeholder="e.g. Gondola tickets need to be booked in advance."></textarea>
+
+    <h3>12. Draft Mode</h3>
+    <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="draftMode" style="width:auto;"> <strong>Enable Draft Mode (Yellow Banner + Watermark)</strong></label>
+
+    <h3>13. Generate & Save to GitHub</h3>
     <button class="btn" onclick="saveToGitHub()">💾 GENERATE & SAVE TO GITHUB</button>
 
     <div class="error-box" id="errorBox"></div>
@@ -133,37 +186,184 @@ Anything not mentioned in Inclusions</textarea></div>
         <p style="margin-top:15px;"><strong>Generated HTML (for your records):</strong></p>
         <code id="htmlOutput"></code>
     </div>
+
+    <h3>14. Client Tracker</h3>
+    <div id="trackerContainer"></div>
+    <button class="btn btn-red btn-sm" onclick="clearTracker()">Clear Tracker</button>
 </div>
 
 <script>
-// --- LOAD SAVED DATA FROM BROWSER MEMORY ---
-const savedHotels = JSON.parse(localStorage.getItem('alhazari_hotels')) || [];
-const hotelList = document.getElementById('hotelList');
-savedHotels.forEach(h => { const o = document.createElement('option'); o.value = h; hotelList.appendChild(o); });
+let packagesData = {};
+let availableImages = [];
+let distances = {};
+let savedHotels = JSON.parse(localStorage.getItem('alhazari_hotels_by_location')) || {};
 
-// Save hotel names when typed
-document.querySelectorAll('.hotel-name').forEach(input => {
-    input.addEventListener('change', function() {
-        const val = this.value.trim();
-        if(val && !savedHotels.includes(val)) {
-            savedHotels.push(val);
-            localStorage.setItem('alhazari_hotels', JSON.stringify(savedHotels));
-            const o = document.createElement('option'); o.value = val; hotelList.appendChild(o);
+// --- LOAD PACKAGES FROM JSON ---
+async function loadPackages() {
+    try {
+        const response = await fetch('packages.json');
+        const data = await response.json();
+        packagesData = data.packages;
+        availableImages = data.images;
+        distances = data.distances;
+
+        // Build custom places list
+        const customList = document.getElementById('customPlacesList');
+        data.places.forEach(p => {
+            const label = document.createElement('label');
+            label.style.fontWeight = 'normal';
+            label.style.display = 'flex';
+            label.style.alignItems = 'center';
+            label.style.gap = '5px';
+            label.style.fontSize = '13px';
+            label.innerHTML = `<input type="checkbox" value="${p.id}" onchange="onCustomPlaceChange()"> ${p.name}`;
+            customList.appendChild(label);
+        });
+
+        // Load hotel datalists
+        loadHotelSuggestions();
+
+        // Load saved bank details
+        loadBankDetails();
+
+        // Initial load
+        onPackageChange();
+    } catch(err) {
+        showError("Error loading packages.json. Please check the file.");
+    }
+}
+
+function loadHotelSuggestions() {
+    ['sri', 'gul', 'pah', 'son', 'hou'].forEach(loc => {
+        const datalist = document.getElementById('hotelList' + loc.charAt(0).toUpperCase() + loc.slice(1));
+        if(datalist && savedHotels[loc]) {
+            datalist.innerHTML = '';
+            savedHotels[loc].forEach(h => { const o = document.createElement('option'); o.value = h; datalist.appendChild(o); });
         }
     });
-});
+}
 
-// Load saved bank details
-const bankFields = ['bankName', 'accountNumber', 'ifsc', 'accountHolder', 'upiId', 'githubToken'];
-bankFields.forEach(id => {
-    const el = document.getElementById(id);
-    if(el) {
-        el.value = localStorage.getItem('alhazari_' + id) || '';
-        el.addEventListener('input', function() { localStorage.setItem('alhazari_' + id, this.value); });
+function loadBankDetails() {
+    const fields = ['githubToken', 'bankName', 'accountNumber', 'ifsc', 'accountHolder', 'upiId', 'vehicleType'];
+    fields.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) {
+            el.value = localStorage.getItem('alhazari_' + id) || '';
+            el.addEventListener('input', function() { localStorage.setItem('alhazari_' + id, this.value); });
+        }
+    });
+}
+
+function onPackageChange() {
+    const pkg = document.getElementById('packageName').value;
+    if(pkg === 'custom') {
+        document.getElementById('customPlacesDiv').style.display = 'block';
+        document.getElementById('itineraryDays').innerHTML = '';
+        return;
     }
-});
+    document.getElementById('customPlacesDiv').style.display = 'none';
+    const data = packagesData[pkg];
+    if(!data) return;
 
-let lastGeneratedLink = "";
+    // Set nights
+    document.getElementById('sriNights').value = data.nights.srinagar || 0;
+    document.getElementById('gulNights').value = data.nights.gulmarg || 0;
+    document.getElementById('pahNights').value = data.nights.pahalgam || 0;
+    document.getElementById('sonNights').value = data.nights.sonamarg || 0;
+    document.getElementById('houNights').value = data.nights.houseboat || 0;
+
+    // Build day-wise itinerary
+    const container = document.getElementById('itineraryDays');
+    container.innerHTML = '';
+    data.days.forEach(d => {
+        addDayWithData(d.day, d.title, d.details, d.image);
+    });
+
+    // Set nights total
+    let totalNights = 0;
+    Object.values(data.nights).forEach(n => totalNights += n);
+    document.getElementById('nights').value = totalNights;
+}
+
+function onCustomPlaceChange() {
+    const checkboxes = document.querySelectorAll('#customPlacesList input[type="checkbox"]:checked');
+    const container = document.getElementById('itineraryDays');
+    container.innerHTML = '';
+
+    if(checkboxes.length === 0) return;
+
+    let dayNum = 1;
+
+    // Day 1: Arrive Srinagar
+    addDayWithData(dayNum++, "Arrive Srinagar", "On arrival at Srinagar Airport (15 km), our representative will meet and greet you. Visit the Mughal Gardens and enjoy a Shikara ride on Dal Lake. Dinner & overnight at Srinagar Hotel.", "srinagarview.jpg.jpg");
+
+    const places = Array.from(checkboxes).map(cb => cb.value);
+
+    // For each place (except srinagar), add a day
+    places.forEach(place => {
+        if(place === 'srinagar') return;
+        const placeData = packagesData.places ? null : null;
+        const placeName = place.charAt(0).toUpperCase() + place.slice(1);
+        const distanceKey = 'srinagar-' + place;
+        const dist = distances[distanceKey] || '';
+        const img = place === 'gulmarg' ? 'gulmarg.jpg.jpg' : place === 'pahalgam' ? 'pahalgam.jpg.jpg' : place === 'sonamarg' ? 'sonamarg1.jpg' : place === 'doodhpathri' ? 'doodhpathri.jpg.jpg' : place === 'yusmarg' ? 'yousmarg.jpg.jpg' : place === 'gurez' ? 'mountainview.jpg.jpg' : place === 'houseboat' ? '02houseboat.jpg.jpg' : 'srinagarview.jpg.jpg';
+
+        addDayWithData(dayNum++, placeName + " Visit", "Full day excursion to " + placeName + (dist ? " (" + dist + ")" : "") + ". Visit the local attractions. Return to Srinagar. Dinner & overnight at Srinagar Hotel.", img);
+    });
+
+    // Last day: Departure
+    addDayWithData(dayNum, "Srinagar Airport Drop", "After breakfast, transfer to Srinagar Airport (15 km) for your onward journey. Depart with beautiful memories of Kashmir.", "dallakeview.jpg.jpg");
+}
+
+function addDay() {
+    addDayWithData('', '', '', '');
+}
+
+function addDayWithData(dayNum, title, details, image) {
+    const container = document.getElementById('itineraryDays');
+    const n = container.children.length + 1;
+    const div = document.createElement('div');
+    div.className = 'day-box';
+
+    let imageOptions = '<option value="">-- None --</option>';
+    availableImages.forEach(img => {
+        const selected = img === image ? 'selected' : '';
+        imageOptions += `<option value="${img}" ${selected}>${img}</option>`;
+    });
+
+    div.innerHTML = `
+        <div class="row">
+            <div class="col" style="flex:0.3;"><label>Day</label><input type="number" class="day-num" value="${dayNum || n}" min="1"></div>
+            <div class="col-wide"><label>Title</label><input type="text" class="day-title" value="${title || ''}" placeholder="Title"></div>
+        </div>
+        <label>Details</label>
+        <textarea class="day-details" placeholder="Details...">${details || ''}</textarea>
+        <div class="row">
+            <div class="col"><label>Day Note</label>
+                <select class="day-note-select">
+                    <option value="">-- None --</option>
+                    <option value="Note: In Gulmarg during winter, if there is heavy snow on Gulmarg Road, our cab will drop you at Tangmarg (12 kms before Gulmarg). From there, you have to hire a snow jeep to Gulmarg at your own cost.">Gulmarg Winter Note</option>
+                    <option value="Note: Inner line sightseeing at Pahalgam is done by local union taxi or pony at your own cost.">Pahalgam Union Taxi Note</option>
+                    <option value="Note: Thajiwas Glacier, Zero Point at Sonamarg are accessed by local union taxi or pony at your own cost.">Sonamarg Union Taxi Note</option>
+                    <option value="Note: Children under 3 years are not permitted on the Gulmarg Gondola.">Child Policy - Gondola</option>
+                    <option value="Note: Child policy varies by hotel. Please confirm age limits and extra bed charges at the time of booking.">Child Policy - Hotel</option>
+                </select>
+            </div>
+            <div class="col"><label>Day Image</label>
+                <select class="day-image-select">${imageOptions}</select>
+            </div>
+        </div>
+        <button class="btn btn-red btn-sm" onclick="this.parentElement.remove()">Remove Day</button>
+    `;
+    container.appendChild(div);
+}
+
+function applyMealPlanToAll() {
+    const meal = document.getElementById('mealPlan').value;
+    ['sriMeal', 'gulMeal', 'pahMeal', 'sonMeal', 'houMeal'].forEach(id => {
+        document.getElementById(id).value = meal;
+    });
+}
 
 async function saveToGitHub() {
     const token = document.getElementById('githubToken').value.trim();
@@ -173,52 +373,74 @@ async function saveToGitHub() {
     if(!token) { showError("Please enter your GitHub Token in Section 1."); return; }
     if(!clientName) { showError("Please enter the Client Name."); return; }
 
-    // Gather all data
-    const data = {
-        clientName, clientPhone,
-        adults: document.getElementById('adults').value,
-        children: document.getElementById('children').value,
-        startDate: document.getElementById('startDate').value.trim() || "[START DATE]",
-        endDate: document.getElementById('endDate').value.trim() || "[END DATE]",
-        nights: document.getElementById('nights').value,
-        bookingRef: document.getElementById('bookingRef').value.trim() || "[REF]",
-        pkg: document.getElementById('packageName').value,
-        sri: { nights: document.getElementById('sriNights').value, hotel: document.getElementById('sriHotel').value.trim() || "To be confirmed", room: document.getElementById('sriRoom').value.trim() || "Deluxe", meal: document.getElementById('sriMeal').value.trim() || "MAP" },
-        gul: { nights: document.getElementById('gulNights').value, hotel: document.getElementById('gulHotel').value.trim() || "To be confirmed", room: document.getElementById('gulRoom').value.trim() || "Deluxe", meal: document.getElementById('gulMeal').value.trim() || "MAP" },
-        pah: { nights: document.getElementById('pahNights').value, hotel: document.getElementById('pahHotel').value.trim() || "To be confirmed", room: document.getElementById('pahRoom').value.trim() || "Deluxe", meal: document.getElementById('pahMeal').value.trim() || "MAP" },
-        son: { nights: document.getElementById('sonNights').value, hotel: document.getElementById('sonHotel').value.trim() || "To be confirmed", room: document.getElementById('sonRoom').value.trim() || "Deluxe", meal: document.getElementById('sonMeal').value.trim() || "MAP" },
-        hou: { nights: document.getElementById('houNights').value, hotel: document.getElementById('houHotel').value.trim() || "To be confirmed", room: document.getElementById('houRoom').value.trim() || "Deluxe", meal: document.getElementById('houMeal').value.trim() || "MAP" },
-        vehicleType: document.getElementById('vehicleType').value.trim(),
-        vehicleNote: document.getElementById('vehicleNote').value.trim(),
-        inclusions: document.getElementById('inclusions').value.split('\n').filter(l => l.trim() !== ''),
-        exclusions: document.getElementById('exclusions').value.split('\n').filter(l => l.trim() !== ''),
-        totalPrice: document.getElementById('totalPrice').value.trim(),
-        priceBasis: document.getElementById('priceBasis').value.trim(),
-        validityDate: document.getElementById('validityDate').value.trim(),
-        bankName: document.getElementById('bankName').value.trim(),
-        accountHolder: document.getElementById('accountHolder').value.trim(),
-        accountNumber: document.getElementById('accountNumber').value.trim(),
-        ifsc: document.getElementById('ifsc').value.trim(),
-        upiId: document.getElementById('upiId').value.trim()
-    };
+    // Collect hotel names for memory
+    ['sri', 'gul', 'pah', 'son', 'hou'].forEach(loc => {
+        const val = document.getElementById(loc + 'Hotel').value.trim();
+        if(val) {
+            if(!savedHotels[loc]) savedHotels[loc] = [];
+            if(!savedHotels[loc].includes(val)) {
+                savedHotels[loc].push(val);
+                localStorage.setItem('alhazari_hotels_by_location', JSON.stringify(savedHotels));
+            }
+        }
+    });
+    loadHotelSuggestions();
 
-    const isHoneymoon = data.pkg === 'honeymoon';
+    // Collect data
+    const days = [];
+    document.querySelectorAll('#itineraryDays .day-box').forEach(div => {
+        const title = div.querySelector('.day-title').value.trim();
+        const details = div.querySelector('.day-details').value.trim();
+        const note = div.querySelector('.day-note-select').value;
+        const image = div.querySelector('.day-image-select').value;
+        if(title || details) days.push({ title, details, note, image });
+    });
+
+    const pkg = document.getElementById('packageName').value;
+    const isHoneymoon = pkg === 'honeymoon';
     const accent = isHoneymoon ? '#e91e63' : '#075e54';
     const accentSoft = isHoneymoon ? '#fce4ec' : '#f5faf8';
     const headerBg = isHoneymoon ? 'linear-gradient(135deg, #e91e63, #ad1457)' : '#075e54';
-    const heroImg = isHoneymoon ? '02houseboat.jpg.jpg' : 'dallake.jpg.jpg';
+    const heroImg = packagesData[pkg] ? packagesData[pkg].heroImage : 'dallakeview.jpg.jpg';
 
-    const inclusionsHTML = data.inclusions.map(i => `<li>${i}</li>`).join('');
-    const exclusionsHTML = data.exclusions.map(e => `<li>${e}</li>`).join('');
+    const inclusions = document.getElementById('inclusions').value.split('\n').filter(l => l.trim() !== '');
+    const exclusions = document.getElementById('exclusions').value.split('\n').filter(l => l.trim() !== '');
+    const terms = document.getElementById('termsText').value;
+    const notes = document.getElementById('clientNotes').value.trim();
+    const draftMode = document.getElementById('draftMode').checked;
+
+    const inclusionsHTML = inclusions.map(i => `<li>${i}</li>`).join('');
+    const exclusionsHTML = exclusions.map(e => `<li>${e}</li>`).join('');
 
     let accHTML = '';
-    if(data.sri.nights > 0) accHTML += `<div class="acc-item"><h4>Srinagar (${data.sri.nights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${data.sri.hotel}<br><strong>Room Type:</strong> ${data.sri.room}<br><strong>Meal Plan:</strong> ${data.sri.meal}</div></div>`;
-    if(data.gul.nights > 0) accHTML += `<div class="acc-item"><h4>Gulmarg (${data.gul.nights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${data.gul.hotel}<br><strong>Room Type:</strong> ${data.gul.room}<br><strong>Meal Plan:</strong> ${data.gul.meal}</div></div>`;
-    if(data.pah.nights > 0) accHTML += `<div class="acc-item"><h4>Pahalgam (${data.pah.nights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${data.pah.hotel}<br><strong>Room Type:</strong> ${data.pah.room}<br><strong>Meal Plan:</strong> ${data.pah.meal}</div></div>`;
-    if(data.son.nights > 0) accHTML += `<div class="acc-item"><h4>Sonamarg (${data.son.nights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${data.son.hotel}<br><strong>Room Type:</strong> ${data.son.room}<br><strong>Meal Plan:</strong> ${data.son.meal}</div></div>`;
-    if(data.hou.nights > 0) accHTML += `<div class="acc-item"><h4>Houseboat (${data.hou.nights} Nights)</h4><div class="details"><strong>Houseboat:</strong> ${data.hou.hotel}<br><strong>Room Type:</strong> ${data.hou.room}<br><strong>Meal Plan:</strong> ${data.hou.meal}</div></div>`;
+    const accData = [
+        { id: 'sri', name: 'Srinagar', nights: document.getElementById('sriNights').value, hotel: document.getElementById('sriHotel').value.trim() || 'To be confirmed', room: document.getElementById('sriRoom').value.trim() || 'Deluxe', meal: document.getElementById('sriMeal').value, img: 'srinagarview.jpg.jpg' },
+        { id: 'gul', name: 'Gulmarg', nights: document.getElementById('gulNights').value, hotel: document.getElementById('gulHotel').value.trim() || 'To be confirmed', room: document.getElementById('gulRoom').value.trim() || 'Deluxe', meal: document.getElementById('gulMeal').value, img: 'gulmarg.jpg.jpg' },
+        { id: 'pah', name: 'Pahalgam', nights: document.getElementById('pahNights').value, hotel: document.getElementById('pahHotel').value.trim() || 'To be confirmed', room: document.getElementById('pahRoom').value.trim() || 'Deluxe', meal: document.getElementById('pahMeal').value, img: 'pahalgam.jpg.jpg' },
+        { id: 'son', name: 'Sonamarg', nights: document.getElementById('sonNights').value, hotel: document.getElementById('sonHotel').value.trim() || 'To be confirmed', room: document.getElementById('sonRoom').value.trim() || 'Deluxe', meal: document.getElementById('sonMeal').value, img: 'sonamarg1.jpg' },
+        { id: 'hou', name: 'Houseboat', nights: document.getElementById('houNights').value, hotel: document.getElementById('houHotel').value.trim() || 'To be confirmed', room: document.getElementById('houRoom').value.trim() || 'Deluxe', meal: document.getElementById('houMeal').value, img: '02houseboat.jpg.jpg' }
+    ];
 
-    const vehicleNoteHTML = data.vehicleNote ? `<p style="font-size:13px; color:#856404; background:#fff8e1; padding:10px; border-radius:5px; margin-top:8px;">${data.vehicleNote}</p>` : '';
+    accData.forEach(a => {
+        if(parseInt(a.nights) > 0) {
+            accHTML += `<div class="acc-item"><img src="../images/${a.img}" class="acc-img" alt="${a.name}"><h4>${a.name} (${a.nights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${a.hotel}<br><strong>Room Type:</strong> ${a.room}<br><strong>Meal Plan:</strong> ${a.meal}</div></div>`;
+        }
+    });
+
+    let daysHTML = '';
+    days.forEach((d, i) => {
+        daysHTML += `<div class="day-item">`;
+        if(d.image) daysHTML += `<img src="../images/${d.image}" class="day-img" alt="Day ${i+1}">`;
+        daysHTML += `<h4>Day ${i+1}: ${d.title}</h4><p>${d.details}</p>`;
+        if(d.note) daysHTML += `<div class="day-note">${d.note}</div>`;
+        daysHTML += `</div>`;
+    });
+
+    const vehicleNoteHTML = document.getElementById('vehicleNote').value.trim() ? `<p style="font-size:13px; color:#856404; background:#fff8e1; padding:10px; border-radius:5px; margin-top:8px;">${document.getElementById('vehicleNote').value.trim()}</p>` : '';
+
+    const notesHTML = notes ? `<div class="section"><h2>Special Notes</h2><div style="font-size:14px; color:var(--text);">${notes}</div></div>` : '';
+
+    const draftBanner = draftMode ? `<div class="draft-banner">⚠️ DRAFT - NOT FOR CUSTOMER. FOR INTERNAL REVIEW ONLY.</div><div class="draft-watermark"><span>DRAFT</span></div>` : '';
 
     const html = `<!DOCTYPE html>
 <html lang="en">
@@ -235,6 +457,9 @@ body { font-family: Arial, Helvetica, sans-serif; background: #eef2f5; color: va
 .logo-icon { width: 50px; height: 50px; background: #fff; color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; flex-shrink: 0; }
 .header-text strong { display: block; font-size: 17px; }
 .header-text span { font-size: 12px; opacity: 0.9; }
+.draft-banner { background: #ffc107; color: #856404; text-align: center; padding: 12px; font-weight: bold; font-size: 15px; }
+.draft-watermark { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; display: flex; align-items: center; justify-content: center; }
+.draft-watermark span { font-size: 100px; font-weight: bold; color: rgba(255, 193, 7, 0.12); transform: rotate(-30deg); white-space: nowrap; }
 .client-info { background: #fff; padding: 25px; }
 .client-info h1 { color: var(--accent); font-size: 24px; margin-bottom: 8px; }
 .client-info .meta { color: var(--text); font-size: 14px; }
@@ -246,10 +471,13 @@ body { font-family: Arial, Helvetica, sans-serif; background: #eef2f5; color: va
 .day-item { border-left: 3px solid var(--accent); padding-left: 15px; margin-bottom: 22px; }
 .day-item h4 { color: var(--accent); font-size: 16px; margin-bottom: 5px; }
 .day-item p { font-size: 14px; color: var(--text); }
+.day-img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+.day-note { background: #fff8e1; border-left: 3px solid var(--accent); padding: 10px; margin-top: 8px; font-size: 13px; color: #856404; border-radius: 4px; }
 .acc-item { background: var(--accent-soft); border-radius: 8px; padding: 15px; margin-bottom: 12px; border-left: 4px solid var(--accent); }
 .acc-item h4 { color: var(--accent); font-size: 16px; margin-bottom: 5px; }
 .acc-item .details { font-size: 13.5px; color: var(--text); }
 .acc-item .details strong { color: var(--dark); }
+.acc-img { width: 100%; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; }
 .list-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 .list-box { background: var(--accent-soft); padding: 15px; border-radius: 8px; }
 .list-box h4 { font-size: 15px; margin-bottom: 10px; color: var(--accent); }
@@ -278,33 +506,25 @@ body { font-family: Arial, Helvetica, sans-serif; background: #eef2f5; color: va
 </style>
 </head>
 <body>
+${draftBanner}
 <div class="container" style="padding:0;">
 <div class="header"><div class="logo-icon">AH</div><div class="header-text"><strong>AL HAZARI TOUR AND TRAVELS</strong><span>Your Local Travel Partner in Kashmir</span></div></div>
-<img src="${heroImg}" class="hero-img" alt="Kashmir">
+<img src="../images/${heroImg}" class="hero-img" alt="Kashmir">
 <div class="client-info">
-<h1>${data.clientName}'s Kashmir Trip</h1>
-<div class="meta"><strong>Dates:</strong> ${data.startDate} - ${data.endDate} (${data.nights} Nights) | <strong>Adults:</strong> ${data.adults}${data.children > 0 ? ' | <strong>Children:</strong> ' + data.children : ''} | <strong>Ref:</strong> ${data.bookingRef}</div>
+<h1>${clientName}'s Kashmir Trip</h1>
+<div class="meta"><strong>Dates:</strong> ${document.getElementById('startDate').value} - ${document.getElementById('endDate').value} (${document.getElementById('nights').value} Nights) | <strong>Adults:</strong> ${document.getElementById('adults').value}${parseInt(document.getElementById('children').value) > 0 ? ' | <strong>Children:</strong> ' + document.getElementById('children').value : ''}${parseInt(document.getElementById('childWOB').value) > 0 ? ' | <strong>Child WOB:</strong> ' + document.getElementById('childWOB').value : ''} | <strong>Ref:</strong> ${document.getElementById('bookingRef').value}</div>
 </div>
-<div class="section"><h2>Day-wise Itinerary</h2>
-<div class="day-item"><h4>Day 1: Arrive Srinagar → Pahalgam</h4><p>Airport pickup, transfer to Pahalgam via saffron fields and apple gardens.</p></div>
-<div class="day-item"><h4>Day 2: Pahalgam Local → Srinagar</h4><p>Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran. Evening return to Srinagar.</p></div>
-<div class="day-item"><h4>Day 3: Srinagar Local Sightseeing</h4><p>Mughal Gardens, Shankaracharya Temple, evening Shikara ride.</p></div>
-<div class="day-item"><h4>Day 4: Gulmarg Day Trip</h4><p>Full day Gulmarg — Gondola ride, snow activities, meadows.</p></div>
-<div class="day-item"><h4>Day 5: Sonamarg Day Trip</h4><p>Full day Sonamarg — Thajiwas Glacier, Sindh River. Evening at Houseboat.</p></div>
-<div class="day-item"><h4>Day 6: Srinagar Airport Drop</h4><p>After breakfast, transfer to Srinagar Airport with beautiful memories.</p></div>
-</div>
+<div class="section"><h2>Day-wise Itinerary</h2>${daysHTML}</div>
 <div class="section"><h2>Accommodation Details</h2>${accHTML}</div>
-<div class="section"><h2>Vehicle & Transport</h2><p style="font-size:14px;"><strong>Vehicle:</strong> ${data.vehicleType}</p>${vehicleNoteHTML}</div>
+<div class="section"><h2>Vehicle & Transport</h2><p style="font-size:14px;"><strong>Vehicle:</strong> ${document.getElementById('vehicleType').value}</p>${vehicleNoteHTML}</div>
 <div class="section"><h2>Inclusions & Exclusions</h2><div class="list-grid"><div class="list-box"><h4>✅ Cost Includes</h4><ul>${inclusionsHTML}</ul></div><div class="list-box excl"><h4>❌ Cost Excludes</h4><ul>${exclusionsHTML}</ul></div></div></div>
-<div class="section"><h2>Package Cost</h2><div class="price-box"><div class="total">₹${data.totalPrice}</div><div class="basis">${data.priceBasis}</div>${data.validityDate ? `<div class="validity">This quotation is valid until: ${data.validityDate}</div>` : ''}</div></div>
+<div class="section"><h2>Package Cost</h2><div class="price-box"><div class="total">₹${document.getElementById('totalPrice').value}</div><div class="basis">${document.getElementById('priceBasis').value}</div>${document.getElementById('validityDate').value ? `<div class="validity">This quotation is valid until: ${document.getElementById('validityDate').value}</div>` : ''}</div></div>
 <div class="section"><h2>Payment Details</h2><div class="payment-box">
-<p><strong>Bank:</strong> ${data.bankName}</p><p><strong>Account Holder:</strong> ${data.accountHolder}</p><p><strong>Account Number:</strong> ${data.accountNumber}</p><p><strong>IFSC:</strong> ${data.ifsc}</p><p><strong>UPI ID:</strong> ${data.upiId}</p>
-<div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=${data.upiId}" alt="UPI QR"><br><small>Scan to pay via UPI</small></div>
+<p><strong>Bank:</strong> ${document.getElementById('bankName').value}</p><p><strong>Account Holder:</strong> ${document.getElementById('accountHolder').value}</p><p><strong>Account Number:</strong> ${document.getElementById('accountNumber').value}</p><p><strong>IFSC:</strong> ${document.getElementById('ifsc').value}</p><p><strong>UPI ID:</strong> ${document.getElementById('upiId').value}</p>
+<div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=${document.getElementById('upiId').value}" alt="UPI QR"><br><small>Scan to pay via UPI</small></div>
 </div></div>
-<div class="section"><h2>Terms & Conditions</h2><div class="terms-box">1. 50% advance required to confirm booking.
-2. Cancellation policy as per hotel rules.
-3. Rates subject to change without prior notice.
-4. Any dispute subject to Srinagar jurisdiction.</div></div>
+${notesHTML}
+<div class="section"><h2>Terms & Conditions</h2><div class="terms-box">${terms}</div></div>
 <div class="section btn-container"><a class="btn btn-whatsapp" href="https://wa.me/919541722366" target="_blank">💬 Chat with Us on WhatsApp</a><button class="btn btn-primary" onclick="window.print()">📥 Download PDF</button></div>
 <div class="footer"><strong>AL HAZARI TOUR AND TRAVELS</strong><br>📍 Khanda Bhawan, Nawakadal, Srinagar<br>📞 <a href="tel:+919541722366">+91 9541722366</a> | <a href="https://wa.me/919541722366" target="_blank">WhatsApp</a></div>
 <div class="copyright">This is a computer-generated itinerary. For any queries, contact us on WhatsApp.</div>
@@ -321,10 +541,7 @@ body { font-family: Arial, Helvetica, sans-serif; background: #eef2f5; color: va
     try {
         const response = await fetch(apiUrl, {
             method: 'PUT',
-            headers: {
-                'Authorization': `token ${token}`,
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 message: `Add itinerary for ${clientName}`,
                 content: btoa(unescape(encodeURIComponent(html))),
@@ -338,12 +555,14 @@ body { font-family: Arial, Helvetica, sans-serif; background: #eef2f5; color: va
         }
 
         const link = `https://${repoOwner}.github.io/${repoName}/${filePath}`;
-        lastGeneratedLink = link;
 
         document.getElementById('outputBox').style.display = 'block';
         document.getElementById('clientLink').href = link;
         document.getElementById('clientLink').textContent = link;
         document.getElementById('htmlOutput').textContent = html;
+
+        // Save to tracker
+        saveToTracker(clientName, document.getElementById('packageName').options[document.getElementById('packageName').selectedIndex].text, new Date().toLocaleDateString('en-GB'), document.getElementById('bookingStatus').value);
 
         alert("✅ Itinerary saved to GitHub successfully!");
     } catch(err) {
@@ -354,10 +573,11 @@ body { font-family: Arial, Helvetica, sans-serif; background: #eef2f5; color: va
 function sendWhatsApp() {
     const phone = document.getElementById('clientPhone').value.trim();
     const clientName = document.getElementById('clientName').value.trim();
+    const link = document.getElementById('clientLink').href;
     if(!phone) { showError("Please enter the client's WhatsApp number."); return; }
-    if(!lastGeneratedLink) { showError("Please generate the itinerary first."); return; }
+    if(!link || link === "#") { showError("Please generate the itinerary first."); return; }
 
-    const message = "Hello " + clientName + ", here is your Kashmir itinerary: " + lastGeneratedLink + ". Please review it and let me know if you have any questions. - Al Hazari Tour and Travels";
+    const message = "Hello " + clientName + ", here is your Kashmir itinerary: " + link + ". Please review it and let me know if you have any questions. - Al Hazari Tour and Travels";
     window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), '_blank');
 }
 
@@ -367,6 +587,38 @@ function showError(msg) {
     box.style.display = 'block';
     setTimeout(() => { box.style.display = 'none'; }, 8000);
 }
+
+// --- CLIENT TRACKER ---
+function saveToTracker(name, pkg, date, status) {
+    let tracker = JSON.parse(localStorage.getItem('alhazari_tracker')) || [];
+    tracker.unshift({ name, pkg, date, status });
+    if(tracker.length > 50) tracker = tracker.slice(0, 50);
+    localStorage.setItem('alhazari_tracker', JSON.stringify(tracker));
+    renderTracker();
+}
+
+function renderTracker() {
+    const tracker = JSON.parse(localStorage.getItem('alhazari_tracker')) || [];
+    const container = document.getElementById('trackerContainer');
+    if(tracker.length === 0) { container.innerHTML = '<p>No clients yet.</p>'; return; }
+    let html = '<table class="tracker-table"><tr><th>Client</th><th>Package</th><th>Date</th><th>Status</th></tr>';
+    tracker.forEach(t => {
+        html += `<tr><td>${t.name}</td><td>${t.pkg}</td><td>${t.date}</td><td>${t.status}</td></tr>`;
+    });
+    html += '</table>';
+    container.innerHTML = html;
+}
+
+function clearTracker() {
+    if(confirm("Clear all tracker records?")) {
+        localStorage.removeItem('alhazari_tracker');
+        renderTracker();
+    }
+}
+
+// --- INIT ---
+loadPackages();
+renderTracker();
 </script>
 
 </body>
