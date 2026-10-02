@@ -44,15 +44,24 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
 
 <div class="container">
     <h2>Al Hazari Itinerary Editor</h2>
-    <p class="hint">Fill in the client details below. The editor will automatically save the file to your GitHub repository.</p>
 
     <h3>1. GitHub Setup (First Time Only)</h3>
     <div class="row">
         <div class="col-wide"><label>GitHub Personal Access Token</label><input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxx"></div>
     </div>
-    <p class="hint">Your token is stored only in your browser. It is never sent anywhere else.</p>
 
-    <h3>2. Package & Meal Plan</h3>
+    <h3>2. Send Mode</h3>
+    <div class="row">
+        <div class="col-wide"><label>What are you sending?</label>
+            <select id="sendMode" onchange="onSendModeChange()">
+                <option value="final">Final Confirmation (show hotel names & payment)</option>
+                <option value="general">General Inquiry (hide hotel names & payment)</option>
+                <option value="draft">Draft (internal - show DRAFT banner)</option>
+            </select>
+        </div>
+    </div>
+
+    <h3>3. Package & Meal Plan</h3>
     <div class="row">
         <div class="col-wide"><label>Package</label>
             <select id="packageName" onchange="onPackageChange()">
@@ -78,7 +87,7 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
         <div id="customPlacesList" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:5px;"></div>
     </div>
 
-    <h3>3. Client Details</h3>
+    <h3>4. Client Details</h3>
     <div class="row">
         <div class="col"><label>Client Name</label><input type="text" id="clientName" placeholder="Mr. & Mrs. Sharma"></div>
         <div class="col"><label>Adults</label><input type="number" id="adults" value="2"></div>
@@ -104,7 +113,7 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
         </div>
     </div>
 
-    <h3>4. Accommodation</h3>
+    <h3>5. Accommodation</h3>
     <p class="hint">Only fill places where the client stays. Leave "Nights" as 0 for places not included.</p>
     <div class="acc-row"><strong>Srinagar</strong><input type="number" id="sriNights" value="1" placeholder="Nights"><input type="text" class="hotel-name" id="sriHotel" placeholder="Hotel Name" list="hotelListSri"><input type="text" id="sriRoom" placeholder="Room Type"><select id="sriMeal"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div>
     <div class="acc-row"><strong>Gulmarg</strong><input type="number" id="gulNights" value="0" placeholder="Nights"><input type="text" class="hotel-name" id="gulHotel" placeholder="Hotel Name" list="hotelListGul"><input type="text" id="gulRoom" placeholder="Room Type"><select id="gulMeal"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div>
@@ -117,7 +126,7 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
     <datalist id="hotelListSon"></datalist>
     <datalist id="hotelListHou"></datalist>
 
-    <h3>5. Vehicle</h3>
+    <h3>6. Vehicle</h3>
     <div class="row">
         <div class="col-wide"><label>Vehicle Type</label>
             <select id="vehicleType">
@@ -131,11 +140,11 @@ code { display: block; background: #333; color: #fff; padding: 15px; margin-top:
         <div class="col-wide"><label>Vehicle Note (Optional)</label><input type="text" id="vehicleNote" placeholder="e.g. In winter, cab drops at Tangmarg."></div>
     </div>
 
-    <h3>6. Day-wise Itinerary</h3>
+    <h3>7. Day-wise Itinerary</h3>
     <div id="itineraryDays"></div>
     <button class="btn btn-blue btn-sm" onclick="addDay()">+ Add Day</button>
 
-    <h3>7. Inclusions & Exclusions</h3>
+    <h3>8. Inclusions & Exclusions</h3>
     <div class="row">
         <div class="col"><label>Inclusions (one per line)</label><textarea id="inclusions">Airport Transfers
 Accommodation on Double Sharing
@@ -151,14 +160,14 @@ Personal Expenses
 Anything not mentioned in Inclusions</textarea></div>
     </div>
 
-    <h3 class="pink">8. Pricing</h3>
+    <h3 class="pink">9. Pricing</h3>
     <div class="row">
         <div class="col"><label>Total Price (₹)</label><input type="text" id="totalPrice" placeholder="45,000"></div>
         <div class="col-wide"><label>Price Basis</label><input type="text" id="priceBasis" value="MAPAI Basis, Double Sharing Room"></div>
         <div class="col"><label>Validity Date</label><input type="date" id="validityDate"></div>
     </div>
 
-    <h3 class="pink">9. Payment Details</h3>
+    <h3 class="pink">10. Payment Details (Only for Final Confirmation)</h3>
     <div class="row">
         <div class="col"><label>Bank Name</label><input type="text" id="bankName" placeholder="J&K Bank"></div>
         <div class="col"><label>Account Holder</label><input type="text" id="accountHolder" placeholder="Al Hazari Tour and Travels"></div>
@@ -167,18 +176,15 @@ Anything not mentioned in Inclusions</textarea></div>
         <div class="col"><label>UPI ID</label><input type="text" id="upiId" placeholder="alhazari@upi"></div>
     </div>
 
-    <h3>10. Terms & Conditions (Editable)</h3>
+    <h3>11. Terms & Conditions (Editable)</h3>
     <textarea id="termsText" style="height:100px;">1. 50% advance required to confirm booking.
 2. Cancellation policy as per hotel rules.
 3. Rates subject to change without prior notice.
 4. In case of bad weather or road closure, itinerary may change.
 5. Any dispute subject to Srinagar jurisdiction.</textarea>
 
-    <h3>11. Notes for Client (Optional)</h3>
+    <h3>12. Notes for Client (Optional)</h3>
     <textarea id="clientNotes" placeholder="e.g. Gondola tickets need to be booked in advance."></textarea>
-
-    <h3>12. Draft Mode</h3>
-    <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="draftMode" style="width:auto;"> <strong>Enable Draft Mode (Yellow Banner + Watermark)</strong></label>
 
     <h3>13. Generate & Save to GitHub</h3>
     <button class="btn" onclick="saveToGitHub()">💾 GENERATE & SAVE TO GITHUB</button>
@@ -189,10 +195,8 @@ Anything not mentioned in Inclusions</textarea></div>
         <h3 class="success">✅ Itinerary Saved to GitHub!</h3>
         <p><strong>Step 1:</strong> Send this link to your client:</p>
         <p><a id="clientLink" href="#" target="_blank" style="color:blue; font-weight:bold; word-break:break-all; font-size:15px;">Link will appear here</a></p>
-        <p><strong>Step 2:</strong> Or send it directly on WhatsApp:</p>
+        <p><strong>Step 2:</strong> Send on WhatsApp:</p>
         <button class="btn" onclick="sendWhatsApp()" style="background:#25D366;">📱 Send on WhatsApp</button>
-        <p style="margin-top:15px;"><strong>Generated HTML (for your records):</strong></p>
-        <code id="htmlOutput"></code>
     </div>
 
     <h3>14. Client Tracker</h3>
@@ -255,6 +259,11 @@ function loadBankDetails() {
     });
 }
 
+function onSendModeChange() {
+    const mode = document.getElementById('sendMode').value;
+    // No special action needed here; handled during generation
+}
+
 function onPackageChange() {
     const pkg = document.getElementById('packageName').value;
     if(pkg === 'custom') {
@@ -288,7 +297,7 @@ function onCustomPlaceChange() {
     if(checkboxes.length === 0) return;
 
     let dayNum = 1;
-    addDayWithData(dayNum++, "Arrive Srinagar", "On arrival at Srinagar Airport (15 km), our representative will meet and greet you. Visit the Mughal Gardens and enjoy a Shikara ride on Dal Lake. Dinner & overnight at Srinagar Hotel.", "srinagarview.jpg.jpg");
+    addDayWithData(dayNum++, "Arrive Srinagar", "On arrival at Srinagar Airport (15 km), our representative will meet and greet you. Visit the Mughal Gardens and enjoy a Shikara ride on Dal Lake. Dinner & overnight at Srinagar Hotel.", "Srinagarview.jpg.jpg");
 
     const places = Array.from(checkboxes).map(cb => cb.value);
     places.forEach(place => {
@@ -296,7 +305,7 @@ function onCustomPlaceChange() {
         const placeName = place.charAt(0).toUpperCase() + place.slice(1);
         const distanceKey = 'srinagar-' + place;
         const dist = distances[distanceKey] || '';
-        const img = place === 'gulmarg' ? 'gulmarg.jpg.jpg' : place === 'pahalgam' ? 'pahalgam.jpg.jpg' : place === 'sonamarg' ? 'sonamarg1.jpg' : place === 'doodhpathri' ? 'doodhpathri.jpg.jpg' : place === 'yusmarg' ? 'yousmarg.jpg.jpg' : place === 'gurez' ? 'mountainview.jpg.jpg' : place === 'houseboat' ? '02houseboat.jpg.jpg' : 'srinagarview.jpg.jpg';
+        const img = place === 'gulmarg' ? 'gulmarg.jpg.jpg' : place === 'pahalgam' ? 'pahalgam.jpg.jpg' : place === 'sonamarg' ? 'sonamarg1.jpg' : place === 'doodhpathri' ? 'doodhpathri.jpg.jpg' : place === 'yusmarg' ? 'yousmarg.jpg.jpg' : place === 'gurez' ? 'mountainview.jpg.jpg' : place === 'houseboat' ? '02houseboat.jpg.jpg' : 'Srinagarview.jpg.jpg';
         addDayWithData(dayNum++, placeName + " Visit", "Full day excursion to " + placeName + (dist ? " (" + dist + ")" : "") + ". Visit the local attractions. Return to Srinagar. Dinner & overnight at Srinagar Hotel.", img);
     });
 
@@ -385,6 +394,7 @@ async function saveToGitHub() {
     });
 
     const pkg = document.getElementById('packageName').value;
+    const sendMode = document.getElementById('sendMode').value;
     const isHoneymoon = pkg === 'honeymoon';
     const accent = isHoneymoon ? '#e91e63' : '#075e54';
     const accentSoft = isHoneymoon ? '#fce4ec' : '#f5faf8';
@@ -395,14 +405,14 @@ async function saveToGitHub() {
     const exclusions = document.getElementById('exclusions').value.split('\n').filter(l => l.trim() !== '');
     const terms = document.getElementById('termsText').value;
     const notes = document.getElementById('clientNotes').value.trim();
-    const draftMode = document.getElementById('draftMode').checked;
 
     const inclusionsHTML = inclusions.map(i => `<li>${i}</li>`).join('');
     const exclusionsHTML = exclusions.map(e => `<li>${e}</li>`).join('');
 
+    // Build accommodation HTML based on send mode
     let accHTML = '';
     const accData = [
-        { id: 'sri', name: 'Srinagar', nights: document.getElementById('sriNights').value, hotel: document.getElementById('sriHotel').value.trim() || 'To be confirmed', room: document.getElementById('sriRoom').value.trim() || 'Deluxe', meal: document.getElementById('sriMeal').value, img: 'srinagarview.jpg.jpg' },
+        { id: 'sri', name: 'Srinagar', nights: document.getElementById('sriNights').value, hotel: document.getElementById('sriHotel').value.trim() || 'To be confirmed', room: document.getElementById('sriRoom').value.trim() || 'Deluxe', meal: document.getElementById('sriMeal').value, img: 'Srinagarview.jpg.jpg' },
         { id: 'gul', name: 'Gulmarg', nights: document.getElementById('gulNights').value, hotel: document.getElementById('gulHotel').value.trim() || 'To be confirmed', room: document.getElementById('gulRoom').value.trim() || 'Deluxe', meal: document.getElementById('gulMeal').value, img: 'gulmarg.jpg.jpg' },
         { id: 'pah', name: 'Pahalgam', nights: document.getElementById('pahNights').value, hotel: document.getElementById('pahHotel').value.trim() || 'To be confirmed', room: document.getElementById('pahRoom').value.trim() || 'Deluxe', meal: document.getElementById('pahMeal').value, img: 'pahalgam.jpg.jpg' },
         { id: 'son', name: 'Sonamarg', nights: document.getElementById('sonNights').value, hotel: document.getElementById('sonHotel').value.trim() || 'To be confirmed', room: document.getElementById('sonRoom').value.trim() || 'Deluxe', meal: document.getElementById('sonMeal').value, img: 'sonamarg1.jpg' },
@@ -411,7 +421,8 @@ async function saveToGitHub() {
 
     accData.forEach(a => {
         if(parseInt(a.nights) > 0) {
-            accHTML += `<div class="acc-item"><img src="../images/${a.img}" class="acc-img" alt="${a.name}"><h4>${a.name} (${a.nights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${a.hotel}<br><strong>Room Type:</strong> ${a.room}<br><strong>Meal Plan:</strong> ${a.meal}</div></div>`;
+            const hotelDisplay = sendMode === 'general' ? 'Hotel (To be confirmed)' : a.hotel;
+            accHTML += `<div class="acc-item"><img src="../images/${a.img}" class="acc-img" alt="${a.name}"><h4>${a.name} (${a.nights} Nights)</h4><div class="details"><strong>Hotel:</strong> ${hotelDisplay}<br><strong>Room Type:</strong> ${a.room}<br><strong>Meal Plan:</strong> ${a.meal}</div></div>`;
         }
     });
 
@@ -426,7 +437,20 @@ async function saveToGitHub() {
 
     const vehicleNoteHTML = document.getElementById('vehicleNote').value.trim() ? `<p style="font-size:13px; color:#856404; background:#fff8e1; padding:10px; border-radius:5px; margin-top:8px;">${document.getElementById('vehicleNote').value.trim()}</p>` : '';
     const notesHTML = notes ? `<div class="section"><h2>Special Notes</h2><div style="font-size:14px; color:var(--text);">${notes}</div></div>` : '';
-    const draftBanner = draftMode ? `<div class="draft-banner">⚠️ DRAFT - NOT FOR CUSTOMER. FOR INTERNAL REVIEW ONLY.</div><div class="draft-watermark"><span>DRAFT</span></div>` : '';
+
+    let draftBanner = '';
+    if(sendMode === 'draft') {
+        draftBanner = `<div class="draft-banner">⚠️ DRAFT - NOT FOR CUSTOMER. FOR INTERNAL REVIEW ONLY.</div><div class="draft-watermark"><span>DRAFT</span></div>`;
+    }
+
+    // Payment section - only show for final confirmation
+    let paymentHTML = '';
+    if(sendMode === 'final') {
+        paymentHTML = `<div class="section"><h2>Payment Details</h2><div class="payment-box">
+<p><strong>Bank:</strong> ${document.getElementById('bankName').value}</p><p><strong>Account Holder:</strong> ${document.getElementById('accountHolder').value}</p><p><strong>Account Number:</strong> ${document.getElementById('accountNumber').value}</p><p><strong>IFSC:</strong> ${document.getElementById('ifsc').value}</p><p><strong>UPI ID:</strong> ${document.getElementById('upiId').value}</p>
+<div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=${document.getElementById('upiId').value}" alt="UPI QR"><br><small>Scan to pay via UPI</small></div>
+</div></div>`;
+    }
 
     const html = `<!DOCTYPE html>
 <html lang="en">
@@ -505,10 +529,7 @@ ${draftBanner}
 <div class="section"><h2>Vehicle & Transport</h2><p style="font-size:14px;"><strong>Vehicle:</strong> ${document.getElementById('vehicleType').value}</p>${vehicleNoteHTML}</div>
 <div class="section"><h2>Inclusions & Exclusions</h2><div class="list-grid"><div class="list-box"><h4>✅ Cost Includes</h4><ul>${inclusionsHTML}</ul></div><div class="list-box excl"><h4>❌ Cost Excludes</h4><ul>${exclusionsHTML}</ul></div></div></div>
 <div class="section"><h2>Package Cost</h2><div class="price-box"><div class="total">₹${document.getElementById('totalPrice').value}</div><div class="basis">${document.getElementById('priceBasis').value}</div>${document.getElementById('validityDate').value ? `<div class="validity">This quotation is valid until: ${document.getElementById('validityDate').value}</div>` : ''}</div></div>
-<div class="section"><h2>Payment Details</h2><div class="payment-box">
-<p><strong>Bank:</strong> ${document.getElementById('bankName').value}</p><p><strong>Account Holder:</strong> ${document.getElementById('accountHolder').value}</p><p><strong>Account Number:</strong> ${document.getElementById('accountNumber').value}</p><p><strong>IFSC:</strong> ${document.getElementById('ifsc').value}</p><p><strong>UPI ID:</strong> ${document.getElementById('upiId').value}</p>
-<div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=${document.getElementById('upiId').value}" alt="UPI QR"><br><small>Scan to pay via UPI</small></div>
-</div></div>
+${paymentHTML}
 ${notesHTML}
 <div class="section"><h2>Terms & Conditions</h2><div class="terms-box">${terms}</div></div>
 <div class="section btn-container"><a class="btn btn-whatsapp" href="https://wa.me/919541722366" target="_blank">💬 Chat with Us on WhatsApp</a><button class="btn btn-primary" onclick="window.print()">📥 Download PDF</button></div>
@@ -557,7 +578,6 @@ ${notesHTML}
         document.getElementById('outputBox').style.display = 'block';
         document.getElementById('clientLink').href = link;
         document.getElementById('clientLink').textContent = link;
-        document.getElementById('htmlOutput').textContent = html;
 
         saveToTracker(clientName, document.getElementById('packageName').options[document.getElementById('packageName').selectedIndex].text, new Date().toLocaleDateString('en-GB'), document.getElementById('bookingStatus').value);
 
@@ -568,14 +588,11 @@ ${notesHTML}
 }
 
 function sendWhatsApp() {
-    const phone = document.getElementById('clientPhone').value.trim();
     const clientName = document.getElementById('clientName').value.trim();
     const link = document.getElementById('clientLink').href;
     if(!link || link === "#") { showError("Please generate the itinerary first."); return; }
-
     const message = "Hello " + clientName + ", here is your Kashmir itinerary: " + link + ". Please review it and let me know if you have any questions. - Al Hazari Tour and Travels";
-    const waUrl = phone ? "https://wa.me/" + phone + "?text=" + encodeURIComponent(message) : "https://wa.me/?text=" + encodeURIComponent(message);
-    window.open(waUrl, '_blank');
+    window.open("https://wa.me/?text=" + encodeURIComponent(message), '_blank');
 }
 
 function showError(msg) {
@@ -598,9 +615,7 @@ function renderTracker() {
     const container = document.getElementById('trackerContainer');
     if(tracker.length === 0) { container.innerHTML = '<p>No clients yet.</p>'; return; }
     let html = '<table class="tracker-table"><tr><th>Client</th><th>Package</th><th>Date</th><th>Status</th></tr>';
-    tracker.forEach(t => {
-        html += `<tr><td>${t.name}</td><td>${t.pkg}</td><td>${t.date}</td><td>${t.status}</td></tr>`;
-    });
+    tracker.forEach(t => { html += `<tr><td>${t.name}</td><td>${t.pkg}</td><td>${t.date}</td><td>${t.status}</td></tr>`; });
     html += '</table>';
     container.innerHTML = html;
 }
