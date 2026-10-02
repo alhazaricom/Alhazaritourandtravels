@@ -3,337 +3,356 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin - Al Hazari Itinerary Builder</title>
+<title>Your Itinerary - Al Hazari Tour and Travels</title>
 <style>
-:root { --primary: #075e54; --secondary: #d4a017; --whatsapp: #25D366; --light: #f5faf8; --border: #e5e9e7; --dark: #17211f; }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; color: var(--dark); line-height: 1.6; }
-.container { max-width: 1100px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-h2 { color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 10px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-.logo-icon { width: 40px; height: 40px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; }
-h3 { color: var(--primary); margin-top: 30px; margin-bottom: 12px; padding: 10px; background: var(--light); border-left: 4px solid var(--secondary); border-radius: 4px; font-size: 17px; }
-.section { margin-bottom: 20px; padding: 18px; border: 1px solid var(--border); border-radius: 8px; background: #fafafa; }
-label { font-weight: 600; font-size: 13.5px; display: block; margin-bottom: 5px; color: #444; }
-input, select, textarea { width: 100%; padding: 9px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: inherit; font-size: 14px; background: #fff; }
-textarea { height: 70px; resize: vertical; }
-.row { display: flex; gap: 12px; flex-wrap: wrap; }
-.col { flex: 1; min-width: 140px; }
-.col-wide { flex: 2; min-width: 200px; }
-.checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px; }
-.checkbox-group label { font-weight: normal; display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; margin-bottom: 0; }
-.checkbox-group input[type="checkbox"] { width: auto; margin: 0; }
-.btn { background: var(--whatsapp); color: #fff; border: none; padding: 14px 25px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; }
-.btn:hover { background: #128C7E; }
-.btn-sec { background: var(--secondary); color: var(--dark); }
+:root { --primary: #075e54; --secondary: #d4a017; --light: #f5faf8; --border: #e5e9e7; --text: #52605d; --dark: #17211f; --whatsapp: #25D366; --pink: #e91e63; --pink-soft: #fce4ec; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, Helvetica, sans-serif; background: #eef2f5; color: var(--dark); line-height: 1.6; }
+.container { max-width: 800px; margin: auto; padding: 20px; }
+.header { background: var(--primary); color: #fff; padding: 25px 20px; border-radius: 12px 12px 0 0; display: flex; align-items: center; gap: 15px; }
+.header.honeymoon { background: linear-gradient(135deg, #e91e63, #ad1457); }
+.logo-icon { width: 50px; height: 50px; background: #fff; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; flex-shrink: 0; }
+.header.honeymoon .logo-icon { color: var(--pink); }
+.header-text strong { display: block; font-size: 17px; }
+.header-text span { font-size: 12px; opacity: 0.9; }
+.draft-banner { background: #ffc107; color: #856404; text-align: center; padding: 12px; font-weight: bold; font-size: 15px; border-bottom: 2px solid #ffca2c; }
+.draft-watermark { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; display: flex; align-items: center; justify-content: center; }
+.draft-watermark span { font-size: 100px; font-weight: bold; color: rgba(255, 193, 7, 0.12); transform: rotate(-30deg); white-space: nowrap; }
+.honeymoon-badge { display: inline-block; background: var(--pink); color: #fff; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 10px; }
+.client-info { background: #fff; padding: 25px; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+.client-info h1 { color: var(--primary); font-size: 24px; margin-bottom: 8px; }
+.client-info.honeymoon h1 { color: var(--pink); }
+.client-info .meta { color: var(--text); font-size: 14px; }
+.client-info .meta strong { color: var(--dark); }
+.hero-img { width: 100%; height: 220px; object-fit: cover; }
+.section { background: #fff; padding: 25px; border: 1px solid var(--border); border-top: none; }
+.section:last-child { border-radius: 0 0 12px 12px; margin-bottom: 20px; }
+.section h2 { color: var(--primary); font-size: 20px; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid var(--secondary); display: inline-block; }
+.section.honeymoon h2 { color: var(--pink); border-color: var(--pink); }
+.day-item { border-left: 3px solid var(--secondary); padding-left: 15px; margin-bottom: 22px; }
+.day-item.honeymoon { border-color: var(--pink); }
+.day-item h4 { color: var(--primary); font-size: 16px; margin-bottom: 5px; }
+.day-item.honeymoon h4 { color: var(--pink); }
+.day-item p { font-size: 14px; color: var(--text); white-space: pre-wrap; }
+.day-note { background: #fff8e1; border-left: 3px solid var(--secondary); padding: 10px; margin-top: 8px; font-size: 13px; color: #856404; border-radius: 4px; }
+.acc-item { background: var(--light); border-radius: 8px; padding: 15px; margin-bottom: 12px; border-left: 4px solid var(--primary); }
+.acc-item.honeymoon { background: var(--pink-soft); border-color: var(--pink); }
+.acc-item h4 { color: var(--primary); font-size: 16px; margin-bottom: 5px; }
+.acc-item.honeymoon h4 { color: var(--pink); }
+.acc-item .details { font-size: 13.5px; color: var(--text); }
+.acc-item .details strong { color: var(--dark); }
+.acc-img { width: 100%; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; }
+.list-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.list-box { background: #f9fbfa; padding: 15px; border-radius: 8px; }
+.list-box.honeymoon { background: var(--pink-soft); }
+.list-box h4 { font-size: 15px; margin-bottom: 10px; }
+.list-box ul { list-style: none; padding: 0; }
+.list-box li { font-size: 13.5px; color: var(--text); padding: 4px 0; padding-left: 18px; position: relative; }
+.list-box li::before { content: "✓"; color: var(--secondary); font-weight: bold; position: absolute; left: 0; }
+.list-box.excl li::before { content: "✕"; color: #dc3545; }
+.list-box.honeymoon li::before { color: var(--pink); }
+.price-box { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border: 2px solid var(--secondary); border-radius: 10px; padding: 20px; margin-top: 15px; text-align: center; }
+.price-box.honeymoon { background: linear-gradient(135deg, var(--pink-soft), #f8bbd0); border-color: var(--pink); }
+.price-box .total { font-size: 32px; font-weight: bold; color: var(--primary); }
+.price-box.honeymoon .total { color: var(--pink); }
+.price-box .basis { font-size: 14px; color: var(--text); margin-top: 5px; }
+.price-box .validity { font-size: 13px; color: #856404; margin-top: 8px; font-style: italic; }
+.payment-box { background: var(--light); border: 1px dashed var(--primary); border-radius: 8px; padding: 18px; }
+.payment-box.honeymoon { background: var(--pink-soft); border-color: var(--pink); }
+.payment-box p { font-size: 14px; margin-bottom: 5px; }
+.payment-box strong { color: var(--primary); }
+.payment-box.honeymoon strong { color: var(--pink); }
+.qr-box { text-align: center; margin-top: 15px; }
+.qr-box img { max-width: 180px; border: 1px solid var(--border); border-radius: 8px; padding: 5px; background: #fff; }
+.terms-box { background: #f9fbfa; padding: 15px; border-radius: 8px; font-size: 13px; color: var(--text); white-space: pre-wrap; }
+.terms-box.honeymoon { background: var(--pink-soft); }
+.btn { display: inline-block; padding: 12px 22px; border-radius: 7px; font-weight: bold; text-decoration: none; margin: 5px; font-size: 14px; transition: 0.2s; cursor: pointer; border: none; }
+.btn-whatsapp { background: var(--whatsapp); color: #fff; }
+.btn-whatsapp:hover { background: #128C7E; }
+.btn-primary { background: var(--secondary); color: var(--dark); }
+.btn-primary:hover { background: #b88a10; }
 .btn-blue { background: #007bff; color: #fff; }
-.output-box { margin-top: 25px; padding: 20px; background: #e8f5e9; border: 2px solid #c8e6c9; border-radius: 8px; display: none; }
-code { display: block; background: #333; color: #fff; padding: 15px; margin-top: 10px; border-radius: 5px; word-wrap: break-word; white-space: pre-wrap; max-height: 250px; overflow-y: auto; font-size: 12px; }
-.hint { color: #d32f2f; font-size: 12px; font-style: italic; margin-bottom: 8px; }
-.success { color: #2e7d32; font-weight: bold; }
-.acc-header, .acc-row { display: grid; grid-template-columns: 1fr 0.6fr 1.5fr 1fr 0.7fr 0.7fr 0.7fr 0.7fr 0.7fr 0.9fr; gap: 5px; padding: 8px; border-radius: 6px; align-items: center; font-size: 12px; }
-.acc-header { background: var(--primary); color: #fff; font-weight: bold; margin-bottom: 5px; }
-.acc-row { background: #fff; border: 1px solid var(--border); margin-bottom: 5px; }
-.acc-row input, .acc-row select { margin-bottom: 0; padding: 5px; font-size: 11px; }
-.acc-row strong { font-size: 12px; color: var(--primary); }
-.pkg-option { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-.pkg-option label { font-weight: normal; display: flex; align-items: center; gap: 5px; font-size: 13px; background: #fff; padding: 6px 12px; border: 1px solid var(--border); border-radius: 20px; cursor: pointer; }
-.pkg-option input[type="radio"] { width: auto; margin: 0; }
-.day-box { background: #fff; padding: 12px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 6px; }
+.btn-blue:hover { background: #0056b3; }
+.btn-honeymoon { background: var(--pink); color: #fff; }
+.btn-honeymoon:hover { background: #ad1457; }
+.btn-container { text-align: center; padding: 20px; }
+.footer { background: var(--primary); color: #fff; text-align: center; padding: 20px; font-size: 13px; margin-top: 20px; border-radius: 0 0 12px 12px; }
+.footer.honeymoon { background: var(--pink); }
+.footer a { color: #fff; }
+.loading { text-align: center; padding: 80px; font-size: 18px; color: var(--text); }
+.error { text-align: center; padding: 80px; color: #dc3545; font-size: 18px; }
+.copyright { text-align: center; font-size: 12px; color: #888; padding: 15px; }
+@media (max-width: 600px) {
+    .list-grid { grid-template-columns: 1fr; }
+    .client-info h1 { font-size: 20px; }
+    .price-box .total { font-size: 26px; }
+    .header { flex-direction: column; text-align: center; }
+    .draft-watermark span { font-size: 60px; }
+}
 </style>
 </head>
 <body>
 
-<div class="container">
-    <h2><span class="logo-icon">AH</span> Al Hazari Itinerary Builder</h2>
+<div id="loading" class="loading">Loading your itinerary...</div>
 
-    <h3>1. Client Details</h3>
-    <div class="section">
-        <div class="row">
-            <div class="col"><label>Client Name *</label><input type="text" id="clientName" placeholder="e.g. Mr. Sharma"></div>
-            <div class="col"><label>Adults</label><input type="number" id="adults" value="2" min="1"></div>
-            <div class="col"><label>Children</label><input type="number" id="children" value="0" min="0"></div>
-        </div>
-        <div class="row">
-            <div class="col"><label>Start Date *</label><input type="date" id="startDate"></div>
-            <div class="col"><label>End Date *</label><input type="date" id="endDate"></div>
-            <div class="col"><label>Booking Ref</label><input type="text" id="bookingRef" placeholder="e.g. ALH-2026-001"></div>
-        </div>
-    </div>
+<div id="content" style="display:none;">
+    <div id="draftWatermark" class="draft-watermark" style="display:none;"><span>DRAFT</span></div>
+    <div id="draftBanner" class="draft-banner" style="display:none;">⚠️ DRAFT - NOT FOR CUSTOMER. FOR INTERNAL REVIEW ONLY.</div>
 
-    <h3>2. Package Selection</h3>
-    <div class="section">
-        <div class="pkg-option">
-            <label><input type="radio" name="pkg" value="charming" checked> Charming Kashmir</label>
-            <label><input type="radio" name="pkg" value="explorer"> Kashmir Explorer</label>
-            <label><input type="radio" name="pkg" value="amazing"> Amazing Kashmir</label>
-            <label><input type="radio" name="pkg" value="heaven"> Heaven on Earth</label>
-            <label><input type="radio" name="pkg" value="honeymoon"> Honeymoon Special</label>
-            <label><input type="radio" name="pkg" value="custom"> Custom Package</label>
-        </div>
-    </div>
-
-    <h3>3. Accommodation</h3>
-    <div class="section">
-        <p class="hint">Only fill places where client stays. Leave "Nights" as 0 for places not included.</p>
-        <div class="acc-header"><div>Place</div><div>Nights</div><div>Hotel</div><div>Room Type</div><div>Double</div><div>Triple</div><div>Extra</div><div>Child WOB</div><div>Single</div><div>Meal</div></div>
-        <div class="acc-row"><div><strong>Srinagar</strong></div><div><input type="number" class="nights" value="2" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
-        <div class="acc-row"><div><strong>Gulmarg</strong></div><div><input type="number" class="nights" value="0" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
-        <div class="acc-row"><div><strong>Pahalgam</strong></div><div><input type="number" class="nights" value="0" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
-        <div class="acc-row"><div><strong>Sonamarg</strong></div><div><input type="number" class="nights" value="0" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
-        <div class="acc-row"><div><strong>Doodhpathri</strong></div><div><input type="number" class="nights" value="0" min="0"></div><div><input type="text" class="hotel-name" placeholder="Hotel Name"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
-        <div class="acc-row"><div><strong>Houseboat</strong></div><div><input type="number" class="nights" value="1" min="0"></div><div><input type="text" class="hotel-name" placeholder="Houseboat Name"></div><div><select class="room-type"><option>Standard</option><option selected>Deluxe</option><option>Super Deluxe</option><option>Suite</option></select></div><div><input type="number" class="double" value="1" min="0"></div><div><input type="number" class="triple" value="0" min="0"></div><div><input type="number" class="extra" value="0" min="0"></div><div><input type="number" class="child" value="0" min="0"></div><div><input type="number" class="single" value="0" min="0"></div><div><select class="meal-plan"><option value="EP">EP</option><option value="CP">CP</option><option value="MAP" selected>MAP</option><option value="AP">AP</option></select></div></div>
-    </div>
-
-    <h3>4. Vehicle</h3>
-    <div class="section">
-        <div class="row">
-            <div class="col"><label>Vehicle Type</label><select id="vehicleType"><option>Sedan (Dzire/Etios)</option><option>SUV (Innova/Ertiga)</option><option>Luxury (Innova Crysta)</option><option>Tempo Traveller</option><option>Force Urbania</option></select></div>
-            <div class="col"><label>AC / Non-AC</label><select id="acType"><option>AC</option><option>Non-AC</option><option>AC + Heater</option><option>Heater Only</option></select></div>
-        </div>
-        <label>Vehicle Note</label><input type="text" id="vehicleNote" placeholder="e.g. In winter, cab drops at Tangmarg.">
-    </div>
-
-    <h3>5. Inclusions & Exclusions</h3>
-    <div class="section">
-        <div class="row">
-            <div class="col"><label>✅ Inclusions</label>
-                <div class="checkbox-group" id="inclusionsGroup">
-                    <label><input type="checkbox" value="Airport Transfers" checked> Airport Transfers</label>
-                    <label><input type="checkbox" value="Accommodation on Double Sharing" checked> Accommodation</label>
-                    <label><input type="checkbox" value="Meals as per Plan" checked> Meals as per Plan</label>
-                    <label><input type="checkbox" value="All Transfers & Sightseeing" checked> Transfers & Sightseeing</label>
-                    <label><input type="checkbox" value="Shikara Ride (1 Hour)" checked> Shikara Ride</label>
-                    <label><input type="checkbox" value="All Taxes & Driver Allowance" checked> Taxes & Driver</label>
-                </div>
-            </div>
-            <div class="col"><label>❌ Exclusions</label>
-                <div class="checkbox-group" id="exclusionsGroup">
-                    <label><input type="checkbox" value="Airfare / Train Fare" checked> Airfare / Train</label>
-                    <label><input type="checkbox" value="Gondola Tickets / Pony Ride" checked> Gondola / Pony</label>
-                    <label><input type="checkbox" value="Union Taxi at Pahalgam/Sonamarg" checked> Union Taxi</label>
-                    <label><input type="checkbox" value="Entry Fees & Guide Charges" checked> Entry Fees</label>
-                    <label><input type="checkbox" value="Personal Expenses" checked> Personal Expenses</label>
-                </div>
+    <div class="container" style="padding:0;">
+        <div class="header" id="headerSection">
+            <div class="logo-icon">AH</div>
+            <div class="header-text">
+                <strong>AL HAZARI TOUR AND TRAVELS</strong>
+                <span>Your Local Travel Partner in Kashmir</span>
             </div>
         </div>
-    </div>
 
-    <h3>6. Day-wise Itinerary</h3>
-    <div class="section">
-        <p class="hint">Auto-filled based on package. Edit any day, remove a day, or add a new one.</p>
-        <div id="itineraryDays"></div>
-        <button class="btn btn-blue" style="width:auto; padding:8px 15px; font-size:13px;" onclick="addDay()">+ Add Day</button>
-    </div>
+        <div id="heroSection"></div>
 
-    <h3>7. Pricing (Optional)</h3>
-    <div class="section">
-        <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="showPricing" style="width:auto;"> <strong>Show Pricing</strong></label>
-        <div id="pricingSection" style="display:none; margin-top:10px;">
-            <div class="row">
-                <div class="col"><label>Total Price</label><input type="text" id="totalPrice" placeholder="e.g. 24,500"></div>
-                <div class="col"><label>Validity Date</label><input type="date" id="validityDate"></div>
+        <div class="client-info" id="clientInfoSection">
+            <div id="honeymoonBadge" style="display:none;"><span class="honeymoon-badge">💕 For Couples</span></div>
+            <h1 id="clientNameDisplay"></h1>
+            <div class="meta" id="clientMetaDisplay"></div>
+        </div>
+
+        <div class="section" id="itinerarySection">
+            <h2>Day-wise Itinerary</h2>
+            <div id="daysContainer"></div>
+        </div>
+
+        <div class="section" id="accommodationSection">
+            <h2>Accommodation Details</h2>
+            <div id="accommodationContainer"></div>
+        </div>
+
+        <div class="section" id="vehicleSection">
+            <h2>Vehicle & Transport</h2>
+            <div id="vehicleContainer"></div>
+        </div>
+
+        <div class="section" id="inclusionsSection">
+            <h2>Inclusions & Exclusions</h2>
+            <div class="list-grid">
+                <div class="list-box" id="incBox"><h4>✅ Cost Includes</h4><ul id="inclusionsList"></ul></div>
+                <div class="list-box excl" id="excBox"><h4>❌ Cost Excludes</h4><ul id="exclusionsList"></ul></div>
             </div>
         </div>
-    </div>
 
-    <h3>8. Payment Details (Optional)</h3>
-    <div class="section">
-        <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="showPayment" style="width:auto;"> <strong>Show Payment Details</strong></label>
-        <p class="hint">Bank details are saved only in your browser for privacy.</p>
-        <div class="row">
-            <div class="col"><label>Bank Name</label><input type="text" id="bankName" placeholder="Bank Name"></div>
-            <div class="col"><label>Account Number</label><input type="text" id="accountNumber" placeholder="Account No"></div>
-            <div class="col"><label>IFSC</label><input type="text" id="ifsc" placeholder="IFSC"></div>
+        <div class="section" id="pricingSection" style="display:none;">
+            <h2>Package Cost</h2>
+            <div id="pricingContainer"></div>
         </div>
-        <div class="row">
-            <div class="col"><label>Account Holder</label><input type="text" id="accountHolder" placeholder="Name"></div>
-            <div class="col"><label>UPI ID</label><input type="text" id="upiId" placeholder="UPI ID"></div>
+
+        <div class="section" id="paymentSection" style="display:none;">
+            <h2>Payment Details</h2>
+            <div class="payment-box" id="paymentContainer"></div>
         </div>
-    </div>
 
-    <h3>9. Terms (Optional)</h3>
-    <div class="section">
-        <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="showTerms" checked style="width:auto;"> <strong>Show Terms</strong></label>
-        <textarea id="termsText" style="height:80px;">1. 50% advance required to confirm booking.
-2. Cancellation policy as per hotel rules.
-3. Rates subject to change without prior notice.
-4. Any dispute subject to Srinagar jurisdiction.</textarea>
-    </div>
+        <div class="section" id="termsSection" style="display:none;">
+            <h2>Terms & Conditions</h2>
+            <div class="terms-box" id="termsContainer"></div>
+        </div>
 
-    <h3>10. Draft Mode</h3>
-    <div class="section">
-        <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="draftMode" style="width:auto;"> <strong>Enable Draft Mode</strong></label>
-    </div>
+        <div class="section btn-container">
+            <a id="whatsappBtn" class="btn btn-whatsapp" href="#" target="_blank">💬 Chat with Us on WhatsApp</a>
+            <button class="btn btn-primary" onclick="window.print()">📥 Download PDF</button>
+            <button class="btn btn-blue" onclick="copyLink()">🔗 Copy Link</button>
+        </div>
 
-    <button class="btn" onclick="saveToDatabase()">💾 SAVE & GENERATE ITINERARY LINK</button>
-
-    <div class="output-box" id="outputBox">
-        <h3 class="success">✅ Itinerary Saved!</h3>
-        <p><strong>Step 1:</strong> Copy the link below.</p>
-        <p><strong>Step 2:</strong> Send this link to your client:</p>
-        <p><a id="clientLink" href="#" target="_blank" style="color:blue; font-weight:bold; word-break:break-all; font-size:16px;">Link will appear here</a></p>
-        <p><strong>JSON Data (Saved to Database):</strong></p>
-        <code id="jsonOutput"></code>
+        <div class="footer" id="footerSection">
+            <strong>AL HAZARI TOUR AND TRAVELS</strong><br>
+            📍 Khanda Bhawan, Nawakadal, Srinagar<br>
+            📞 <a href="tel:+919541722366">+91 9541722366</a> |
+            <a href="https://wa.me/919541722366" target="_blank">WhatsApp</a>
+        </div>
+        <div class="copyright">This is a computer-generated itinerary. For any queries, contact us on WhatsApp.</div>
     </div>
 </div>
 
 <script>
-// --- GOOGLE APPS SCRIPT API URL ---
-const API_URL = 'https://script.google.com/macros/s/AKfycbzgtL1g0LEhszd0e8y99oSfUUQiUh10omweQyMh4MVFwU1Aq2aFF4XbaBTfNCwUd3uyjQ/exec';
+// --- GOOGLE SHEET CSV LINK ---
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSaJg3ETuvSx3DcooTERxfGNIrZUuydrygENzNbvnYCbuDD4K7uUweA_XmNgf_orlR6HVSy68aM0w09/pub?gid=0&single=true&output=csv';
 
-var packages = {
-    charming: { days: [
-        { day: 1, title: "Arrive Srinagar", details: "Airport pickup, Mughal Gardens (Cheshma Shahi, Nishat, Shalimar), Shankaracharya Temple, evening Shikara ride on Dal Lake." },
-        { day: 2, title: "Gulmarg Day Trip", details: "Full day trip to Gulmarg — Gondola ride, meadows, snow points, Maharaja Palace, golf course." },
-        { day: 3, title: "Pahalgam Day Trip", details: "Drive to Pahalgam via saffron fields and apple gardens. Visit Aru Valley, Betaab Valley, Chandanwari." },
-        { day: 4, title: "Srinagar Departure", details: "After breakfast, airport drop with beautiful memories." }
-    ]},
-    explorer: { days: [
-        { day: 1, title: "Arrive Srinagar", details: "Airport pickup, Mughal Gardens sightseeing, evening Shikara ride on Dal Lake." },
-        { day: 2, title: "Sonamarg Day Trip", details: "Full day excursion to Sonamarg — Meadow of Gold, Thajiwas Glacier, Sindh River." },
-        { day: 3, title: "Gulmarg Day Trip", details: "Gulmarg — Gondola cable car, meadows, snow activities, local shopping." },
-        { day: 4, title: "Srinagar to Pahalgam", details: "Drive to Pahalgam. Afternoon visit to Aru Valley, Betaab Valley, Chandanwari." },
-        { day: 5, title: "Pahalgam to Srinagar Airport", details: "After breakfast, transfer to Srinagar Airport for departure." }
-    ]},
-    amazing: { days: [
-        { day: 1, title: "Arrive Srinagar → Pahalgam", details: "Airport pickup, transfer to Pahalgam via saffron fields, apple gardens and Pine Valley." },
-        { day: 2, title: "Pahalgam Local → Srinagar", details: "Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran. Evening return to Srinagar." },
-        { day: 3, title: "Srinagar Local Sightseeing", details: "Mughal Gardens, Shankaracharya Temple, evening Shikara ride." },
-        { day: 4, title: "Sonamarg Day Trip", details: "Full day excursion to Sonamarg — Thajiwas Glacier, Zero Point, Sindh River." },
-        { day: 5, title: "Gulmarg Day Trip", details: "Full day Gulmarg — Gondola ride, snow activities, Maharaja Palace, golf course." },
-        { day: 6, title: "Srinagar Airport Drop", details: "After breakfast, transfer to Srinagar Airport for departure." }
-    ]},
-    heaven: { days: [
-        { day: 1, title: "Arrive Srinagar", details: "Airport pickup, Mughal Gardens sightseeing, evening Shikara ride on Dal Lake." },
-        { day: 2, title: "Sonamarg Day Trip", details: "Full day excursion to Sonamarg — Meadow of Gold, Thajiwas Glacier, Sindh River." },
-        { day: 3, title: "Srinagar → Pahalgam", details: "Drive to Pahalgam via saffron fields and apple gardens. Evening free at leisure." },
-        { day: 4, title: "Pahalgam Local Sightseeing", details: "Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran, Denow Valley." },
-        { day: 5, title: "Pahalgam → Gulmarg", details: "Drive to Gulmarg. Evening free at leisure." },
-        { day: 6, title: "Gulmarg Sightseeing → Srinagar", details: "Gulmarg — Gondola ride, Maharaja Palace, golf course, church. Evening return to Srinagar Houseboat." },
-        { day: 7, title: "Srinagar Airport Drop", details: "After breakfast, transfer to Srinagar Airport for departure." }
-    ]},
-    honeymoon: { days: [
-        { day: 1, title: "Arrive Srinagar → Pahalgam", details: "Airport pickup, transfer to Pahalgam via saffron fields and apple gardens." },
-        { day: 2, title: "Pahalgam Local → Srinagar", details: "Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran. Evening return to Srinagar." },
-        { day: 3, title: "Srinagar Local Sightseeing", details: "Mughal Gardens, Shankaracharya Temple, evening Shikara ride." },
-        { day: 4, title: "Gulmarg Day Trip", details: "Full day Gulmarg — Gondola ride, snow activities, meadows." },
-        { day: 5, title: "Sonamarg Day Trip", details: "Full day Sonamarg — Thajiwas Glacier, Sindh River. Evening at Houseboat." },
-        { day: 6, title: "Srinagar Airport Drop", details: "After breakfast, transfer to Srinagar Airport with beautiful memories." }
-    ]}
-};
+const urlParams = new URLSearchParams(window.location.search);
+const recordId = urlParams.get('id');
+const isDraft = urlParams.get('draft') === '1';
 
-document.querySelectorAll('input[name="pkg"]').forEach(function(radio) {
-    radio.addEventListener('change', function() {
-        loadPackageDays(this.value);
-    });
-});
-loadPackageDays('charming');
+if (!recordId) {
+    document.getElementById('loading').innerHTML = "No itinerary specified. Please check the link.";
+} else {
+    fetch(CSV_URL)
+        .then(response => response.text())
+        .then(csvText => {
+            const rows = csvText.split('\n');
+            let foundData = null;
+            
+            for (let i = 1; i < rows.length; i++) {
+                const cols = rows[i].split(',');
+                if (cols[0] && cols[0].trim() === recordId) {
+                    try {
+                        foundData = JSON.parse(cols[2].replace(/^"|"$/g, '').replace(/""/g, '"'));
+                    } catch(e) { console.error('Parse error', e); }
+                    break;
+                }
+            }
 
-function loadPackageDays(pkgKey) {
-    var c = document.getElementById('itineraryDays');
-    c.innerHTML = '';
-    if(pkgKey === 'custom') { addDay(); return; }
-    var pkg = packages[pkgKey];
-    if(!pkg) return;
-    pkg.days.forEach(function(d) { addDay(d.day, d.title, d.details); });
-}
+            if (!foundData) {
+                document.getElementById('loading').innerHTML = "<div class='error'>Sorry, we could not find this itinerary. Please ask us for a new link.</div>";
+                return;
+            }
 
-function addDay(dayNum, title, details) {
-    var c = document.getElementById('itineraryDays');
-    var n = c.children.length + 1;
-    var div = document.createElement('div');
-    div.className = 'day-box';
-    div.innerHTML = '<div class="row"><div class="col" style="flex:0.3;"><label>Day</label><input type="number" class="day-num" value="' + (dayNum || n) + '" min="1"></div><div class="col-wide"><label>Title</label><input type="text" class="day-title" value="' + (title || '') + '" placeholder="Title"></div></div><label>Details</label><textarea class="day-details" placeholder="Details...">' + (details || '') + '</textarea><label>Day Note</label><select class="day-note-select"><option value="">-- None --</option><option value="Note: In Gulmarg during winter, if there is heavy snow on Gulmarg Road, our cab will drop you at Tangmarg (12 kms before Gulmarg). From there, you have to hire a snow jeep to Gulmarg at your own cost.">Gulmarg Winter Note</option><option value="Note: Inner line sightseeing at Pahalgam is done by local union taxi or pony at your own cost.">Pahalgam Union Taxi Note</option><option value="Note: Thajiwas Glacier, Zero Point at Sonamarg are accessed by local union taxi or pony at your own cost.">Sonamarg Union Taxi Note</option><option value="Note: Children under 3 years are not permitted on the Gulmarg Gondola.">Child Policy - Gondola</option><option value="Note: Child policy varies by hotel. Please confirm age limits and extra bed charges at the time of booking.">Child Policy - Hotel</option></select><button class="btn" style="width:auto; padding:5px 10px; font-size:12px; background:#dc3545; margin-top:5px;" onclick="this.parentElement.remove()">Remove Day</button>';
-    c.appendChild(div);
-}
+            const data = foundData;
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
 
-document.getElementById('showPricing').addEventListener('change', function() { document.getElementById('pricingSection').style.display = this.checked ? 'block' : 'none'; });
+            if(isDraft || data.draftMode) {
+                document.getElementById('draftBanner').style.display = 'block';
+                document.getElementById('draftWatermark').style.display = 'flex';
+            }
 
-var bankFields = ['bankName', 'accountNumber', 'ifsc', 'accountHolder', 'upiId'];
-bankFields.forEach(function(id) {
-    var el = document.getElementById(id);
-    if(el) {
-        el.value = localStorage.getItem('alhazari_' + id) || '';
-        el.addEventListener('input', function() { localStorage.setItem('alhazari_' + id, this.value); });
-    }
-});
+            const isHoneymoon = data.packageName === 'honeymoon';
 
-async function saveToDatabase() {
-    var clientName = document.getElementById('clientName').value.trim();
-    var startDate = document.getElementById('startDate').value;
-    var endDate = document.getElementById('endDate').value;
-    if(!clientName || !startDate || !endDate) { alert("Please fill in Client Name, Start Date, and End Date."); return; }
+            if(isHoneymoon) {
+                document.getElementById('headerSection').classList.add('honeymoon');
+                document.getElementById('clientInfoSection').classList.add('honeymoon');
+                document.getElementById('honeymoonBadge').style.display = 'block';
+                document.getElementById('itinerarySection').classList.add('honeymoon');
+                document.getElementById('accommodationSection').classList.add('honeymoon');
+                document.getElementById('inclusionsSection').classList.add('honeymoon');
+                document.getElementById('incBox').classList.add('honeymoon');
+                document.getElementById('excBox').classList.add('honeymoon');
+                document.getElementById('footerSection').classList.add('honeymoon');
+                document.getElementById('whatsappBtn').classList.remove('btn-whatsapp');
+                document.getElementById('whatsappBtn').classList.add('btn-honeymoon');
+            }
 
-    var formatDate = function(d) { if(!d) return ""; var dt = new Date(d); return dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); };
-    var formattedDates = formatDate(startDate) + " - " + formatDate(endDate);
-    var totalNights = 0;
-    document.querySelectorAll('.nights').forEach(function(el) { totalNights += parseInt(el.value) || 0; });
-    var pkgRadio = document.querySelector('input[name="pkg"]:checked');
-    var pkgKey = pkgRadio ? pkgRadio.value : 'charming';
+            document.getElementById('clientNameDisplay').textContent = data.client + "'s Kashmir Trip";
+            let meta = `<strong>Dates:</strong> ${data.dates} (${data.totalNights} Nights) | <strong>Adults:</strong> ${data.adults}`;
+            if(data.children > 0) meta += ` | <strong>Children:</strong> ${data.children}`;
+            if(data.bookingRef) meta += ` | <strong>Ref:</strong> ${data.bookingRef}`;
+            document.getElementById('clientMetaDisplay').innerHTML = meta;
 
-    var accommodation = [];
-    document.querySelectorAll('.acc-row').forEach(function(row) {
-        var place = row.querySelector('strong').textContent.trim();
-        var nights = parseInt(row.querySelector('.nights').value) || 0;
-        if(nights <= 0) return;
-        accommodation.push({ place: place, nights: nights, hotel: row.querySelector('.hotel-name').value.trim() || "To be confirmed", roomType: row.querySelector('.room-type').value, double: parseInt(row.querySelector('.double').value) || 0, triple: parseInt(row.querySelector('.triple').value) || 0, extra: parseInt(row.querySelector('.extra').value) || 0, childNoBed: parseInt(row.querySelector('.child').value) || 0, single: parseInt(row.querySelector('.single').value) || 0, meal: row.querySelector('.meal-plan').value });
-    });
+            const heroImg = getHeroImage(data.packageName);
+            if(heroImg) {
+                document.getElementById('heroSection').innerHTML = `<img src="${heroImg}" class="hero-img" alt="Kashmir">`;
+            }
 
-    var inclusions = [], exclusions = [];
-    document.querySelectorAll('#inclusionsGroup input[type="checkbox"]:checked').forEach(function(cb) { inclusions.push(cb.value); });
-    document.querySelectorAll('#exclusionsGroup input[type="checkbox"]:checked').forEach(function(cb) { exclusions.push(cb.value); });
+            const daysContainer = document.getElementById('daysContainer');
+            if(data.days && data.days.length > 0) {
+                data.days.forEach((d, index) => {
+                    const div = document.createElement('div');
+                    div.className = isHoneymoon ? 'day-item honeymoon' : 'day-item';
+                    div.innerHTML = `<h4>Day ${index + 1}: ${d.title}</h4><p>${d.details}</p>${d.note ? `<div class="day-note">${d.note}</div>` : ''}`;
+                    daysContainer.appendChild(div);
+                });
+            } else {
+                daysContainer.innerHTML = "<p>Itinerary details will be shared shortly.</p>";
+            }
 
-    var days = [];
-    document.querySelectorAll('#itineraryDays .day-box').forEach(function(div) {
-        var title = div.querySelector('.day-title') ? div.querySelector('.day-title').value.trim() : '';
-        var details = div.querySelector('.day-details') ? div.querySelector('.day-details').value.trim() : '';
-        var note = div.querySelector('.day-note-select') ? div.querySelector('.day-note-select').value : '';
-        if(title || details) days.push({ title: title, details: details, note: note });
-    });
+            const accContainer = document.getElementById('accommodationContainer');
+            if(data.accommodation && data.accommodation.length > 0) {
+                data.accommodation.forEach(a => {
+                    const img = getImageForPlace(a.place);
+                    let bedding = [];
+                    if(a.double > 0) bedding.push(a.double + ' Double Sharing');
+                    if(a.triple > 0) bedding.push(a.triple + ' Triple Sharing');
+                    if(a.extra > 0) bedding.push(a.extra + ' Extra Bed');
+                    if(a.childNoBed > 0) bedding.push(a.childNoBed + ' Child Without Bed');
+                    if(a.single > 0) bedding.push(a.single + ' Single Occupancy');
+                    const beddingText = bedding.length > 0 ? bedding.join(' + ') : 'To be confirmed';
+                    const hotelName = a.hotel === 'To be confirmed' ? 'Hotel (To be confirmed)' : a.hotel;
+                    const div = document.createElement('div');
+                    div.className = isHoneymoon ? 'acc-item honeymoon' : 'acc-item';
+                    div.innerHTML = `${img ? `<img src="${img}" class="acc-img" alt="${a.place}">` : ''}<h4>${a.place} (${a.nights} Night${a.nights > 1 ? 's' : ''})</h4><div class="details"><strong>Hotel:</strong> ${hotelName}<br><strong>Room Type:</strong> ${a.roomType}<br><strong>Rooms:</strong> ${beddingText}<br><strong>Meal Plan:</strong> ${a.meal}</div>`;
+                    accContainer.appendChild(div);
+                });
+            } else {
+                accContainer.innerHTML = "<p>Accommodation details will be shared shortly.</p>";
+            }
 
-    var showPricing = document.getElementById('showPricing').checked;
-    var showPayment = document.getElementById('showPayment').checked;
-    var showTerms = document.getElementById('showTerms').checked;
-    var draftMode = document.getElementById('draftMode').checked;
+            const vehicleContainer = document.getElementById('vehicleContainer');
+            if(data.vehicle) {
+                vehicleContainer.innerHTML = `<p style="font-size:14px;"><strong>Vehicle:</strong> ${data.vehicle.type} (${data.vehicle.ac})</p>${data.vehicle.note ? `<p style="font-size:13px; color:#856404; background:#fff8e1; padding:10px; border-radius:5px; margin-top:8px;">${data.vehicle.note}</p>` : ''}`;
+            }
 
-    var data = {
-        client: clientName, adults: parseInt(document.getElementById('adults').value) || 0, children: parseInt(document.getElementById('children').value) || 0,
-        dates: formattedDates, totalNights: totalNights, bookingRef: document.getElementById('bookingRef').value.trim(),
-        packageName: pkgKey,
-        vehicle: { type: document.getElementById('vehicleType').value, ac: document.getElementById('acType').value, note: document.getElementById('vehicleNote').value.trim() },
-        accommodation: accommodation, inclusions: inclusions, exclusions: exclusions, days: days,
-        showPricing: showPricing,
-        pricing: showPricing ? { total: document.getElementById('totalPrice').value.trim(), validity: formatDate(document.getElementById('validityDate').value) } : null,
-        showPayment: showPayment,
-        payment: showPayment ? { bankName: document.getElementById('bankName').value.trim(), accountNumber: document.getElementById('accountNumber').value.trim(), ifsc: document.getElementById('ifsc').value.trim(), accountHolder: document.getElementById('accountHolder').value.trim(), upiId: document.getElementById('upiId').value.trim() } : null,
-        showTerms: showTerms, termsText: document.getElementById('termsText').value.trim(), draftMode: draftMode
-    };
+            const incList = document.getElementById('inclusionsList');
+            const excList = document.getElementById('exclusionsList');
+            if(data.inclusions && data.inclusions.length > 0) {
+                data.inclusions.forEach(i => { const li = document.createElement('li'); li.textContent = i; incList.appendChild(li); });
+            } else { incList.innerHTML = '<li>As per package</li>'; }
+            if(data.exclusions && data.exclusions.length > 0) {
+                data.exclusions.forEach(e => { const li = document.createElement('li'); li.textContent = e; excList.appendChild(li); });
+            } else { excList.innerHTML = '<li>As per package</li>'; }
 
-    // --- SAVE TO GOOGLE SHEETS ---
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify({ client_name: clientName, client_data: data })
+            if(data.showPricing && data.pricing) {
+                document.getElementById('pricingSection').style.display = 'block';
+                if(isHoneymoon) document.getElementById('pricingSection').classList.add('honeymoon');
+                const p = data.pricing;
+                let html = '';
+                if(p.total) {
+                    html += `<div class="price-box ${isHoneymoon ? 'honeymoon' : ''}"><div class="total">₹${p.total}</div>${p.validity ? `<div class="validity">This quotation is valid until: ${p.validity}</div>` : ''}</div>`;
+                }
+                document.getElementById('pricingContainer').innerHTML = html;
+            }
+
+            if(data.showPayment && data.payment) {
+                document.getElementById('paymentSection').style.display = 'block';
+                const pay = data.payment;
+                let payHtml = '';
+                if(pay.bankName) payHtml += `<p><strong>Bank:</strong> ${pay.bankName}</p>`;
+                if(pay.accountHolder) payHtml += `<p><strong>Account Holder:</strong> ${pay.accountHolder}</p>`;
+                if(pay.accountNumber) payHtml += `<p><strong>Account Number:</strong> ${pay.accountNumber}</p>`;
+                if(pay.ifsc) payHtml += `<p><strong>IFSC:</strong> ${pay.ifsc}</p>`;
+                if(pay.upiId) {
+                    payHtml += `<p><strong>UPI ID:</strong> ${pay.upiId}</p>`;
+                    payHtml += `<div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=${encodeURIComponent(pay.upiId)}" alt="UPI QR Code"><br><small>Scan to pay via UPI</small></div>`;
+                }
+                document.getElementById('paymentContainer').innerHTML = payHtml;
+            }
+
+            if(data.showTerms && data.termsText) {
+                document.getElementById('termsSection').style.display = 'block';
+                document.getElementById('termsContainer').textContent = data.termsText;
+            }
+
+            const waMsg = encodeURIComponent(`Hello, I am interested in the ${data.client} itinerary. Please share the final details.`);
+            document.getElementById('whatsappBtn').href = `https://wa.me/919541722366?text=${waMsg}`;
+        })
+        .catch(error => {
+            document.getElementById('loading').innerHTML = "<div class='error'>Sorry, we could not find this itinerary. Please ask us for a new link.</div>";
+            console.error('Error:', error);
         });
+}
 
-        const recordId = Date.now(); 
-        
-        document.getElementById('outputBox').style.display = 'block';
-        document.getElementById('jsonOutput').textContent = JSON.stringify(data, null, 2);
-        
-        var currentURL = window.location.href;
-        var baseURL = currentURL.substring(0, currentURL.lastIndexOf('/'));
-        var clientLink = baseURL + "/itinerary.html?id=" + recordId + (draftMode ? "&draft=1" : "");
-        document.getElementById('clientLink').href = clientLink;
-        document.getElementById('clientLink').textContent = clientLink;
-        
-        alert("✅ Itinerary saved! Copy the link below.");
-    } catch (err) {
-        alert("Connection error: " + err.message);
-        console.error(err);
+function getHeroImage(packageKey) {
+    switch(packageKey) {
+        case 'charming': return 'dallake.jpg.jpg';
+        case 'explorer': return 'gulmarg.jpg.jpg';
+        case 'amazing': return 'pahalgam.jpg.jpg';
+        case 'heaven': return 'mountainview.jpg.jpg';
+        case 'honeymoon': return '02houseboat.jpg.jpg';
+        default: return 'dallake.jpg.jpg';
     }
+}
+
+function getImageForPlace(place) {
+    const p = place.toLowerCase();
+    if(p.includes('srinagar')) return 'Srinagarview.jpg.jpg';
+    if(p.includes('gulmarg')) return 'gulmarg.jpg.jpg';
+    if(p.includes('pahalgam')) return 'pahalgam.jpg.jpg';
+    if(p.includes('sonamarg')) return 'mountainview.jpg.jpg';
+    if(p.includes('doodhpathri')) return 'doodhpathri.jpg.jpg';
+    if(p.includes('houseboat')) return '02houseboat.jpg.jpg';
+    if(p.includes('yusmarg')) return 'yousmarg.jpg.jpg';
+    if(p.includes('gurez')) return 'mountainview.jpg.jpg';
+    if(p.includes('dal')) return 'dallake.jpg.jpg';
+    return null;
+}
+
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href);
+    alert("Link copied to clipboard!");
 }
 </script>
 
