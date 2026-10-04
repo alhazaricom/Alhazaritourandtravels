@@ -1,0 +1,49 @@
+{
+  "destinations": [
+    {
+      "name": "Srinagar",
+      "image": "srinagar.jpg.jpg",
+      "description": "Explore Dal Lake, Mughal Gardens, local markets and the beautiful surroundings of Srinagar."
+    },
+    {
+      "name": "Gulmarg",
+      "image": "gulmarg.jpg.jpg",
+      "description": "Enjoy mountain scenery, meadows and the famous Gulmarg Gondola experience."
+    },
+    {
+      "name": "Pahalgam",
+      "image": "pahalgam.jpg.jpg",
+      "description": "Discover beautiful valleys, rivers and mountain landscapes around Pahalgam."
+    },
+    {
+      "name": "Sonamarg",
+      "image": "sonamarg1.jpg",
+      "description": "Experience alpine landscapes, green meadows and spectacular mountain views."
+    },
+    {
+      "name": "Doodhpathri",
+      "image": "doodhpathri.jpg.jpg",
+      "description": "Enjoy peaceful meadows, streams and natural scenery away from the busy city."
+    },
+    {
+      "name": "Yusmarg",
+      "image": "yousmarg.jpg.jpg",
+      "description": "A peaceful meadow destination surrounded by forests and mountain scenery."
+    },
+    {
+      "name": "Dal Lake",
+      "image": "dallakeview.jpg.jpg",
+      "description": "Enjoy the iconic Dal Lake and experience a traditional Shikara ride."
+    },
+    {
+      "name": "Mughal Gardens",
+      "image": "mughalgarden.jpg.jpg",
+      "description": "Visit Nishat Bagh, Shalimar Bagh and Chashme Shahi around Srinagar."
+    },
+    {
+      "name": "Lal Chowk",
+      "image": "lalchowk.jpg.jpg",
+      "description": "The heart of Srinagar city — famous clock tower, local markets, and vibrant Kashmiri culture."
+    }
+  ]
+}
