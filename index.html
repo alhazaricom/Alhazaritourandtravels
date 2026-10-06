@@ -7,7 +7,7 @@
 <meta name="description" content="AL HAZARI TOUR AND TRAVELS is a Srinagar, Kashmir based travel agency offering Kashmir tour packages, hotel booking, taxi and local transport services.">
 <meta name="keywords" content="Kashmir tour packages, Kashmir travel agency, Srinagar travel agency, Kashmir taxi, Kashmir hotel booking, Gulmarg, Pahalgam, Sonamarg, Dal Lake">
 <style>
-:root { --primary: #075e54; --primary-dark: #043f39; --secondary: #d4a017; --accent: #0ea5a5; --light: #f5faf8; --white: #ffffff; --dark: #17211f; --text: #52605d; --border: #e5e9e7; --whatsapp: #25D366; --shadow: 0 10px 35px rgba(0,0,0,0.08); --pink: #e91e63; --pink-soft: #fce4ec; }
+:root { --primary: #075e54; --primary-dark: #043f39; --secondary: #d4a017; --light: #f5faf8; --dark: #17211f; --text: #52605d; --border: #e5e9e7; --whatsapp: #25D366; --shadow: 0 10px 35px rgba(0,0,0,0.08); --pink: #e91e63; --pink-soft: #fce4ec; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { font-family: Arial, Helvetica, sans-serif; background: #ffffff; color: var(--dark); line-height: 1.6; }
@@ -20,7 +20,6 @@ a { text-decoration: none; }
 .top-bar .book-now { background: var(--secondary); color: #17211f; padding: 5px 14px; border-radius: 5px; font-weight: bold; margin-left: 8px; }
 .header { background: #fff; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.07); }
 .header-inner { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 25px; }
-.logo { display: flex; align-items: center; gap: 12px; }
 .logo-text strong { display: block; color: var(--primary); font-size: 18px; font-weight: bold; }
 .logo-text span { font-size: 11px; color: #777; display: block; }
 .nav { display: flex; align-items: center; gap: 20px; }
@@ -37,17 +36,9 @@ a { text-decoration: none; }
 .hero h1 { font-size: 55px; line-height: 1.1; margin-bottom: 22px; }
 .hero h1 span { color: #f1c84b; }
 .hero p { font-size: 19px; max-width: 680px; color: #f0f6f4; margin-bottom: 30px; }
-.hero .tagline { font-size: 16px; color: #f1c84b; font-weight: bold; margin-bottom: 15px; font-style: italic; }
 .btn { display: inline-block; padding: 13px 23px; border-radius: 7px; font-weight: bold; margin: 5px; transition: 0.3s; }
 .btn-primary { background: var(--secondary); color: #17211f; }
-.btn-primary:hover { transform: translateY(-2px); }
 .btn-whatsapp { background: var(--whatsapp); color: #fff; }
-.btn-whatsapp:hover { transform: translateY(-2px); }
-.destination-ticker { background: var(--primary); color: #fff; overflow: hidden; white-space: nowrap; border-bottom: 3px solid var(--secondary); position: relative; }
-.ticker-track { display: inline-flex; padding: 14px 0; animation: ticker 40s linear infinite; font-weight: bold; font-size: 16px; }
-.ticker-item { margin: 0 18px; display: inline-block; }
-.ticker-sep { color: var(--secondary); }
-@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 .section { padding: 80px 0; }
 .section-light { background: var(--light); }
 .section-heading { text-align: center; margin-bottom: 45px; }
@@ -55,24 +46,10 @@ a { text-decoration: none; }
 .section-heading h2 { color: var(--primary); font-size: 37px; margin: 8px 0 12px; }
 .section-heading p { max-width: 720px; margin: auto; color: var(--text); }
 .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 25px; }
-.service-card { padding: 32px; border: 1px solid var(--border); border-radius: 14px; background: #fff; box-shadow: var(--shadow); transition: 0.3s; }
-.service-card:hover { transform: translateY(-6px); }
+.service-card { padding: 32px; border: 1px solid var(--border); border-radius: 14px; background: #fff; box-shadow: var(--shadow); }
 .service-icon { width: 55px; height: 55px; border-radius: 12px; background: #e7f5f1; color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 25px; margin-bottom: 20px; }
 .service-card h3 { color: var(--primary); margin-bottom: 10px; }
 .service-card p { color: var(--text); font-size: 15px; }
-.destination-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
-.destination-card { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); }
-.destination-card img { width: 100%; height: 220px; object-fit: cover; }
-.destination-content { padding: 20px; }
-.destination-content h3 { color: var(--primary); margin-bottom: 7px; }
-.destination-content p { font-size: 14px; color: var(--text); }
-.destination-link { display: inline-block; margin-top: 12px; color: var(--primary); font-weight: bold; font-size: 14px; }
-.why-band { background: var(--primary); color: #fff; padding: 40px 0; }
-.why-band-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 25px; text-align: center; }
-.why-band-item { padding: 15px; }
-.why-band-icon { font-size: 34px; margin-bottom: 10px; }
-.why-band-item h4 { font-size: 18px; margin-bottom: 6px; }
-.why-band-item p { font-size: 14px; color: #d6e6e2; }
 .packages-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 30px; }
 .package-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); display: flex; flex-direction: column; position: relative; }
 .package-card.honeymoon { border: 2px solid var(--pink); }
@@ -87,150 +64,37 @@ a { text-decoration: none; }
 .package-desc { color: var(--text); font-size: 15px; margin-bottom: 16px; }
 .package-includes { background: #f5faf8; padding: 14px 18px; border-radius: 10px; margin-bottom: 16px; }
 .package-card.honeymoon .package-includes { background: var(--pink-soft); }
-.package-includes h4 { color: var(--primary); font-size: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.package-includes h4 { color: var(--primary); font-size: 14px; margin-bottom: 8px; text-transform: uppercase; }
 .package-card.honeymoon .package-includes h4 { color: var(--pink); }
 .package-includes ul { list-style: none; padding: 0; }
 .package-includes li { font-size: 13.5px; color: var(--text); padding: 3px 0; }
 .package-includes li::before { content: "✓ "; color: var(--secondary); font-weight: bold; }
 .package-card.honeymoon .package-includes li::before { color: var(--pink); }
-.honeymoon-extras { background: linear-gradient(135deg, #fce4ec, #f8bbd0); padding: 16px 20px; border-radius: 12px; margin-bottom: 16px; border: 1px dashed var(--pink); }
-.honeymoon-extras h4 { color: var(--pink); font-size: 14px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
-.honeymoon-extras ul { list-style: none; padding: 0; }
-.honeymoon-extras li { font-size: 14px; color: #4a4a4a; padding: 4px 0; text-align: center; }
-.itinerary-toggle { background: #f5faf8; color: var(--primary); border: 1px solid var(--border); padding: 10px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; margin-bottom: 14px; display: block; width: 100%; text-align: left; transition: 0.3s; }
-.itinerary-toggle:hover { background: #e7f5f1; }
-.package-card.honeymoon .itinerary-toggle { background: var(--pink-soft); color: var(--pink); border-color: var(--pink); }
-.itinerary-content { display: none; background: #f9fbfa; border-radius: 10px; padding: 18px; margin-bottom: 16px; }
-.itinerary-content.open { display: block; }
-.itinerary-day { border-bottom: 1px solid var(--border); padding: 12px 0; }
-.itinerary-day:last-child { border-bottom: none; }
-.itinerary-day strong { color: var(--primary); font-size: 14px; }
-.package-card.honeymoon .itinerary-day strong { color: var(--pink); }
-.itinerary-day p { font-size: 13.5px; color: var(--text); margin-top: 4px; }
 .package-actions { display: flex; gap: 10px; margin-top: auto; flex-wrap: wrap; }
 .package-actions .btn { flex: 1; text-align: center; padding: 12px 15px; font-size: 14px; }
-.seasons-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
-.season-card { text-align: center; padding: 30px 20px; background: #fff; border-radius: 14px; border: 1px solid var(--border); box-shadow: var(--shadow); transition: 0.3s; }
-.season-card:hover { transform: translateY(-6px); }
-.season-icon { font-size: 40px; margin-bottom: 12px; }
-.season-card h3 { color: var(--primary); font-size: 19px; margin-bottom: 5px; }
-.season-card .months { color: var(--secondary); font-weight: bold; font-size: 13px; margin-bottom: 10px; }
-.season-card p { font-size: 13.5px; color: var(--text); }
-.best-time-banner { width: 100%; height: 320px; object-fit: cover; border-radius: 16px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
-.faq-list { max-width: 850px; margin: auto; }
-.faq-item { background: #fff; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 14px; overflow: hidden; }
-.faq-question { padding: 20px 25px; cursor: pointer; font-weight: bold; color: var(--primary); display: flex; justify-content: space-between; align-items: center; font-size: 16px; }
-.faq-question::after { content: "▼"; font-size: 12px; color: var(--secondary); transition: 0.3s; }
-.faq-item.open .faq-question::after { transform: rotate(180deg); }
-.faq-answer { display: none; padding: 0 25px 20px; color: var(--text); font-size: 15px; line-height: 1.7; }
-.faq-item.open .faq-answer { display: block; }
-.experience-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
-.experience-card { position: relative; min-height: 260px; border-radius: 14px; overflow: hidden; background: #222; }
-.experience-card img { width: 100%; height: 100%; min-height: 260px; object-fit: cover; transition: 0.4s; }
-.experience-card:hover img { transform: scale(1.05); }
-.experience-overlay { position: absolute; inset: 0; background: linear-gradient(transparent, rgba(0,0,0,0.82)); display: flex; align-items: flex-end; padding: 22px; color: #fff; }
-.experience-overlay h3 { font-size: 20px; }
-.experience-overlay p { font-size: 13px; }
-.tour-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
-.tour-card { padding: 28px 20px; text-align: center; border: 1px solid var(--border); border-radius: 12px; background: #fff; }
-.tour-card h3 { color: var(--primary); margin-bottom: 8px; }
-.tour-card p { color: var(--text); font-size: 14px; }
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 55px; align-items: center; }
-.about-text h2 { color: var(--primary); font-size: 37px; margin-bottom: 20px; }
-.about-text p { color: var(--text); margin-bottom: 15px; }
-.about-box { background: var(--primary); color: #fff; border-radius: 16px; padding: 40px; }
-.about-box h3 { font-size: 25px; margin-bottom: 15px; }
-.about-box p { color: #e4efec; }
-.about-banner-img { width: 100%; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
-.offer-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 2px solid var(--secondary); display: flex; flex-direction: column; position: relative; }
-.offer-card::before { content: "🎉 Limited Time"; position: absolute; top: 15px; right: 15px; background: var(--secondary); color: #17211f; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; z-index: 2; }
-.offer-card img { width: 100%; height: 220px; object-fit: cover; }
-.offer-body { padding: 25px; }
-.offer-body h3 { color: var(--primary); font-size: 22px; margin-bottom: 8px; }
-.offer-price { color: var(--pink); font-size: 24px; font-weight: bold; margin-bottom: 8px; }
-.offer-validity { color: #856404; font-size: 13px; font-style: italic; margin-bottom: 12px; }
-.offer-desc { color: var(--text); font-size: 14px; margin-bottom: 15px; }
-.testimonial-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 25px; }
-.testimonial-card { background: #fff; border-radius: 14px; padding: 28px; box-shadow: var(--shadow); border: 1px solid var(--border); border-left: 4px solid var(--secondary); }
-.testimonial-card .stars { color: #f1c84b; font-size: 18px; margin-bottom: 12px; }
-.testimonial-card .text { color: var(--text); font-size: 14.5px; font-style: italic; margin-bottom: 15px; line-height: 1.7; }
-.testimonial-card .name { color: var(--primary); font-weight: bold; font-size: 15px; }
-.testimonial-card .location { color: #888; font-size: 13px; }
-.enquiry-section { background: #eef7f4; }
-.form-box { max-width: 900px; margin: auto; background: #fff; padding: 40px; border-radius: 15px; box-shadow: var(--shadow); }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.form-group { margin-bottom: 5px; }
-.form-group.full { grid-column: 1 / -1; }
-.form-group label { display: block; font-weight: bold; color: #33413e; margin-bottom: 6px; font-size: 14px; }
-.form-group input, .form-group select, .form-group textarea { width: 100%; border: 1px solid #d8dfdc; padding: 12px 13px; border-radius: 7px; font-family: inherit; font-size: 15px; }
-.form-group textarea { min-height: 120px; resize: vertical; }
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: 2px solid rgba(7,94,84,0.2); border-color: var(--primary); }
-.form-buttons { margin-top: 18px; }
-.contact-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
-.contact-card { border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-align: center; background: #fff; }
-.contact-card h3 { color: var(--primary); font-size: 17px; margin-bottom: 8px; }
-.contact-card p, .contact-card a { color: var(--text); font-size: 14px; word-break: break-word; }
-.map-box { border-radius: 15px; overflow: hidden; margin-top: 35px; border: 1px solid var(--border); }
-.map-box iframe { width: 100%; height: 350px; border: 0; }
-.policy-box { max-width: 900px; margin: 0 auto; }
-.policy-item { border-bottom: 1px solid var(--border); padding: 25px 0; }
-.policy-item h3 { color: var(--primary); margin-bottom: 8px; }
-.policy-item p, .policy-item li { color: var(--text); font-size: 14px; }
-.policy-item ul { padding-left: 20px; }
 .footer { background: #073c35; color: #fff; padding: 55px 0 25px; }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
 .footer h3 { margin-bottom: 15px; }
 .footer p, .footer a { color: #d6e6e2; font-size: 14px; }
-.footer a:hover { color: #fff; }
 .footer-links a { display: block; margin-bottom: 7px; }
 .copyright { border-top: 1px solid rgba(255,255,255,0.15); margin-top: 35px; padding-top: 20px; text-align: center; font-size: 13px; color: #cbdad7; }
-.whatsapp-float { position: fixed; right: 20px; bottom: 20px; width: 58px; height: 58px; border-radius: 50%; background: var(--whatsapp); color: #fff; display: flex; justify-content: center; align-items: center; z-index: 2000; box-shadow: 0 5px 18px rgba(0,0,0,0.25); animation: pulse 2s infinite; }
+.whatsapp-float { position: fixed; right: 20px; bottom: 20px; width: 58px; height: 58px; border-radius: 50%; background: var(--whatsapp); color: #fff; display: flex; justify-content: center; align-items: center; z-index: 2000; box-shadow: 0 5px 18px rgba(0,0,0,0.25); }
 .whatsapp-float svg { width: 30px; height: 30px; fill: #fff; }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.7); } 70% { box-shadow: 0 0 0 18px rgba(37,211,102,0); } 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); } }
-.whatsapp-tooltip { position: fixed; right: 90px; bottom: 35px; background: #fff; color: #17211f; padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1999; animation: fadeInOut 6s ease-in-out infinite; }
-@keyframes fadeInOut { 0%, 100% { opacity: 0; transform: translateX(10px); } 20%, 80% { opacity: 1; transform: translateX(0); } }
-.plan-trip-btn { position: fixed; left: 20px; bottom: 20px; background: var(--secondary); color: #17211f; padding: 12px 20px; border-radius: 30px; font-weight: bold; font-size: 14px; text-decoration: none; box-shadow: 0 5px 18px rgba(0,0,0,0.25); z-index: 2000; display: none; }
-.back-top { position: fixed; right: 22px; bottom: 90px; width: 40px; height: 40px; background: var(--primary); color: #fff; border-radius: 50%; display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 1900; }
-.cookie-box { position: fixed; bottom: 0; left: 0; right: 0; background: #17211f; color: #fff; padding: 15px 20px; z-index: 5000; display: none; }
-.cookie-inner { max-width: 1100px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.cookie-inner p { font-size: 13px; }
-.cookie-btn { border: 0; background: var(--secondary); padding: 9px 17px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-.guide-band { background: linear-gradient(135deg, #075e54, #043f39); color: #fff; padding: 45px 0; text-align: center; }
-.guide-band h3 { font-size: 26px; margin-bottom: 10px; }
-.guide-band p { color: #d6e6e2; margin-bottom: 20px; font-size: 15px; }
-.guide-band .btn-whatsapp { padding: 14px 32px; font-size: 16px; }
 @media(max-width: 950px) {
     .nav { display: none; position: absolute; top: 78px; left: 0; right: 0; background: #fff; padding: 20px; flex-direction: column; align-items: stretch; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     .nav.active { display: flex; }
     .nav a { padding: 9px; }
     .menu-btn { display: block; }
-    .destination-grid, .tour-grid, .seasons-grid, .testimonial-grid { grid-template-columns: repeat(2,1fr); }
     .services-grid { grid-template-columns: repeat(2,1fr); }
-    .experience-grid { grid-template-columns: repeat(2,1fr); }
-    .contact-grid { grid-template-columns: repeat(2,1fr); }
-    .about-grid { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
     .packages-grid { grid-template-columns: 1fr; }
-    .why-band-grid { grid-template-columns: 1fr; }
-    .plan-trip-btn { display: inline-block; }
-    .best-time-banner { height: 240px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 @media(max-width: 650px) {
     .top-bar-inner { flex-direction: column; text-align: center; }
-    .header-inner { min-height: 70px; }
-    .hero { min-height: 570px; }
     .hero h1 { font-size: 37px; }
-    .hero p { font-size: 16px; }
     .section { padding: 55px 0; }
     .section-heading h2 { font-size: 29px; }
-    .services-grid, .destination-grid, .experience-grid, .tour-grid, .contact-grid, .form-grid, .footer-grid, .seasons-grid, .why-band-grid, .testimonial-grid { grid-template-columns: 1fr; }
-    .form-box { padding: 25px 18px; }
-    .cookie-inner { flex-direction: column; align-items: flex-start; }
-    .logo-text strong { font-size: 14px; }
-    .logo-text span { font-size: 10px; }
-    .package-actions { flex-direction: column; }
-    .whatsapp-tooltip { display: none; }
-    .best-time-banner { height: 200px; }
+    .services-grid, .footer-grid, .packages-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -251,14 +115,12 @@ a { text-decoration: none; }
                 <span>Your Local Travel Partner in Kashmir</span>
             </div>
         </a>
-        <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+        <button class="menu-btn" id="menuBtn">☰</button>
         <nav class="nav" id="mainNav">
             <a href="#home">Home</a>
             <a href="#services">Services</a>
             <a href="#packages">Packages</a>
-            <a href="#destinations">Destinations</a>
-            <a href="#best-time">Best Time</a>
-            <a href="#faq">FAQ</a>
+            <a href="#trust">Trust</a>
             <a href="#contact">Contact</a>
             <a class="nav-whatsapp" href="https://wa.me/919541722366?text=Hello%20AL%20HAZARI%20TOUR%20AND%20TRAVELS%2C%20I%20want%20to%20plan%20a%20Kashmir%20trip." target="_blank">WhatsApp</a>
         </nav>
@@ -266,11 +128,18 @@ a { text-decoration: none; }
 </header>
 
 <section class="hero" id="home">
-    <div id="heroSlides"></div>
+    <div class="hero-slide active" style="background-image:url('images/dallakeview.jpg.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/gulmarg.jpg.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/pahalgam.jpg.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/Srinagarview.jpg.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/gondola.jpg.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/shikara.jpg.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/houseboat.jpg.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/winter.jpg.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/lalchowk.jpg.jpg')"></div>
     <div class="container">
         <div class="hero-content">
             <div class="hero-label">Kashmir Travel Agency • Srinagar</div>
-            <p class="tagline">✨ Being Good Is Good Business</p>
             <h1>Explore the Beauty of <span>Kashmir</span></h1>
             <p>Plan your Kashmir journey with AL HAZARI TOUR AND TRAVELS. We help arrange Kashmir tour packages, hotels, taxi and local transport for Indian and international travellers.</p>
             <a class="btn btn-primary" href="#enquiry">Plan Your Kashmir Trip</a>
@@ -278,35 +147,6 @@ a { text-decoration: none; }
         </div>
     </div>
 </section>
-
-<div class="destination-ticker">
-    <div class="ticker-track">
-        <span class="ticker-item">Srinagar</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Dal Lake</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Mughal Gardens</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Gulmarg</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Gondola Ride</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Pahalgam</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Sonamarg</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Doodhpathri</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Yusmarg</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Gurez Valley</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Lal Chowk</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Kashmir</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Srinagar</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Dal Lake</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Mughal Gardens</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Gulmarg</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Gondola Ride</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Pahalgam</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Sonamarg</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Doodhpathri</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Yusmarg</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Gurez Valley</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Lal Chowk</span><span class="ticker-sep">✦</span>
-        <span class="ticker-item">Kashmir</span><span class="ticker-sep">✦</span>
-    </div>
-</div>
 
 <section class="section" id="services">
     <div class="container">
@@ -343,13 +183,6 @@ a { text-decoration: none; }
                             <li>1-Hour Shikara Ride Complimentary</li>
                         </ul>
                     </div>
-                    <button class="itinerary-toggle" onclick="toggleItinerary(this)">View Day-wise Itinerary ▼</button>
-                    <div class="itinerary-content">
-                        <div class="itinerary-day"><strong>Day 1 — Arrive Srinagar</strong><p>Airport pickup, Mughal Gardens (Cheshma Shahi, Nishat, Shalimar), Shankaracharya Temple, evening Shikara ride on Dal Lake. Overnight at Srinagar Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 2 — Srinagar → Pahalgam</strong><p>Drive to Pahalgam (95 km). Visit Aru Valley, Betaab Valley, Chandanwari. Overnight at Pahalgam Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 3 — Pahalgam → Srinagar Houseboat</strong><p>Return to Srinagar. Visit Lal Chowk and local markets. Evening Shikara ride. Overnight at Houseboat.</p></div>
-                        <div class="itinerary-day"><strong>Day 4 — Srinagar Departure</strong><p>After breakfast, airport drop with beautiful memories.</p></div>
-                    </div>
                     <div class="package-actions">
                         <a class="btn btn-whatsapp" href="https://wa.me/919541722366?text=Hello%20AL%20HAZARI%20TOUR%20AND%20TRAVELS%2C%20I%20want%20to%20enquire%20about%20the%20Charming%20Kashmir%20(3N%2F4D)%20package." target="_blank">Enquire on WhatsApp</a>
                         <a class="btn btn-primary" href="#enquiry">Full Details</a>
@@ -372,14 +205,6 @@ a { text-decoration: none; }
                             <li>All transfers &amp; sightseeing by private car</li>
                             <li>1-Hour Shikara Ride Complimentary</li>
                         </ul>
-                    </div>
-                    <button class="itinerary-toggle" onclick="toggleItinerary(this)">View Day-wise Itinerary ▼</button>
-                    <div class="itinerary-content">
-                        <div class="itinerary-day"><strong>Day 1 — Arrive Srinagar</strong><p>Airport pickup, Mughal Gardens sightseeing, evening Shikara ride on Dal Lake. Overnight at Srinagar Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 2 — Sonamarg Day Trip</strong><p>Full day excursion to Sonamarg (80 km) — "Meadow of Gold", Thajiwas Glacier, Sindh River. Overnight at Srinagar Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 3 — Srinagar → Pahalgam</strong><p>Drive to Pahalgam (95 km). Visit Aru Valley, Betaab Valley, Chandanwari. Overnight at Pahalgam Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 4 — Pahalgam → Srinagar Houseboat</strong><p>Return to Srinagar. Mughal Gardens, Shankaracharya Temple. Evening Shikara ride. Overnight at Houseboat.</p></div>
-                        <div class="itinerary-day"><strong>Day 5 — Srinagar Airport Drop</strong><p>After breakfast, transfer to Srinagar Airport for departure.</p></div>
                     </div>
                     <div class="package-actions">
                         <a class="btn btn-whatsapp" href="https://wa.me/919541722366?text=Hello%20AL%20HAZARI%20TOUR%20AND%20TRAVELS%2C%20I%20want%20to%20enquire%20about%20the%20Kashmir%20Explorer%20(4N%2F5D)%20package." target="_blank">Enquire on WhatsApp</a>
@@ -404,15 +229,6 @@ a { text-decoration: none; }
                             <li>1-Hour Shikara Ride Complimentary</li>
                         </ul>
                     </div>
-                    <button class="itinerary-toggle" onclick="toggleItinerary(this)">View Day-wise Itinerary ▼</button>
-                    <div class="itinerary-content">
-                        <div class="itinerary-day"><strong>Day 1 — Arrive Srinagar → Pahalgam</strong><p>Airport pickup, transfer to Pahalgam (95 km). Evening at leisure. Overnight at Pahalgam Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 2 — Pahalgam Local Sightseeing</strong><p>Visit Aru Valley, Chandanwari, Betaab Valley, Baisaran (Mini Switzerland). Overnight at Pahalgam Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 3 — Pahalgam → Srinagar</strong><p>Return to Srinagar. Mughal Gardens, Shankaracharya Temple, evening Shikara ride. Overnight at Srinagar Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 4 — Sonamarg Day Trip</strong><p>Full day excursion to Sonamarg (80 km). Thajiwas Glacier, Zero Point, Sindh River. Overnight at Srinagar Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 5 — Gulmarg Day Trip</strong><p>Full day Gulmarg (50 km) — Gondola ride, snow activities, Maharaja Palace. Overnight at Houseboat.</p></div>
-                        <div class="itinerary-day"><strong>Day 6 — Srinagar Airport Drop</strong><p>After breakfast, transfer to Srinagar Airport for departure.</p></div>
-                    </div>
                     <div class="package-actions">
                         <a class="btn btn-whatsapp" href="https://wa.me/919541722366?text=Hello%20AL%20HAZARI%20TOUR%20AND%20TRAVELS%2C%20I%20want%20to%20enquire%20about%20the%20Amazing%20Kashmir%20(5N%2F6D)%20package." target="_blank">Enquire on WhatsApp</a>
                         <a class="btn btn-primary" href="#enquiry">Full Details</a>
@@ -436,16 +252,6 @@ a { text-decoration: none; }
                             <li>1-Hour Shikara Ride Complimentary</li>
                         </ul>
                     </div>
-                    <button class="itinerary-toggle" onclick="toggleItinerary(this)">View Day-wise Itinerary ▼</button>
-                    <div class="itinerary-content">
-                        <div class="itinerary-day"><strong>Day 1 — Arrive Srinagar</strong><p>Airport pickup, Mughal Gardens, evening Shikara ride. Overnight at Srinagar Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 2 — Sonamarg Day Trip</strong><p>Full day Sonamarg (80 km) — Thajiwas Glacier, Sindh River. Overnight at Srinagar Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 3 — Srinagar → Pahalgam</strong><p>Drive to Pahalgam (95 km). Evening at leisure. Overnight at Pahalgam Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 4 — Pahalgam Local Sightseeing</strong><p>Aru Valley, Chandanwari, Betaab Valley, Baisaran, Denow Valley. Overnight at Pahalgam Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 5 — Pahalgam → Gulmarg</strong><p>Drive to Gulmarg (140 km). Evening at leisure. Overnight at Gulmarg Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 6 — Gulmarg → Srinagar Houseboat</strong><p>Gulmarg sightseeing — Gondola, Maharaja Palace, golf course. Return to Srinagar. Overnight at Houseboat.</p></div>
-                        <div class="itinerary-day"><strong>Day 7 — Srinagar Airport Drop</strong><p>After breakfast, transfer to Srinagar Airport for departure.</p></div>
-                    </div>
                     <div class="package-actions">
                         <a class="btn btn-whatsapp" href="https://wa.me/919541722366?text=Hello%20AL%20HAZARI%20TOUR%20AND%20TRAVELS%2C%20I%20want%20to%20enquire%20about%20the%20Kashmir%20Heaven%20on%20Earth%20(6N%2F7D)%20package." target="_blank">Enquire on WhatsApp</a>
                         <a class="btn btn-primary" href="#enquiry">Full Details</a>
@@ -466,26 +272,8 @@ a { text-decoration: none; }
                             <li>Hotel (Srinagar 2N + Pahalgam 2N) + Houseboat 1N</li>
                             <li>Breakfast &amp; Dinner (MAP plan)</li>
                             <li>All transfers &amp; sightseeing by private car</li>
-                            <li>1-Hour Shikara Ride Complimentary</li>
+                            <li>Honeymoon Inclusions (Cake, Decoration)</li>
                         </ul>
-                    </div>
-                    <div class="honeymoon-extras">
-                        <h4>💕 Special Honeymoon Inclusions</h4>
-                        <ul>
-                            <li>🎂 Chocolate Cake</li>
-                            <li>🕯️ Candle Light Dinner</li>
-                            <li>🛏️ Bed Decoration</li>
-                            <li>📍 Once at Houseboat</li>
-                        </ul>
-                    </div>
-                    <button class="itinerary-toggle" onclick="toggleItinerary(this)">View Day-wise Itinerary ▼</button>
-                    <div class="itinerary-content">
-                        <div class="itinerary-day"><strong>Day 1 — Arrive Srinagar → Pahalgam</strong><p>Airport pickup, transfer to Pahalgam (95 km). Evening at leisure. Overnight at Pahalgam Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 2 — Pahalgam Local → Srinagar</strong><p>Aru Valley, Chandanwari, Betaab Valley, Baisaran. Return to Srinagar. Overnight at Srinagar Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 3 — Srinagar Local Sightseeing</strong><p>Mughal Gardens, Shankaracharya Temple, evening Shikara ride. Overnight at Srinagar Hotel.</p></div>
-                        <div class="itinerary-day"><strong>Day 4 — Gulmarg Day Trip</strong><p>Full day Gulmarg (50 km). Gondola ride, snow activities, meadows. Overnight at Houseboat.</p></div>
-                        <div class="itinerary-day"><strong>Day 5 — Sonamarg Day Trip</strong><p>Full day Sonamarg (80 km). Thajiwas Glacier, Sindh River. Overnight at Houseboat.</p></div>
-                        <div class="itinerary-day"><strong>Day 6 — Srinagar Airport Drop</strong><p>After breakfast, transfer to Srinagar Airport with beautiful memories.</p></div>
                     </div>
                     <div class="package-actions">
                         <a class="btn btn-whatsapp" href="https://wa.me/919541722366?text=Hello%20AL%20HAZARI%20TOUR%20AND%20TRAVELS%2C%20I%20want%20to%20enquire%20about%20the%20Kashmir%20Honeymoon%20Special%20(5N%2F6D)%20package." target="_blank">Enquire on WhatsApp</a>
@@ -495,165 +283,47 @@ a { text-decoration: none; }
             </div>
 
         </div>
-        <p style="text-align:center; margin-top:35px; color:#52605d; font-size:14px;">✨ All packages are fully customizable. For inclusions, exclusions, and pricing — <a href="https://wa.me/919541722366" target="_blank" style="color:#075e54; font-weight:bold;">contact us on WhatsApp</a>.</p>
     </div>
 </section>
 
-<section class="section" id="destinations">
+<section class="section" id="trust">
     <div class="container">
-        <div class="section-heading"><small>Explore Kashmir</small><h2>Popular Destinations</h2><p>Discover some of the most popular places included in Kashmir travel plans.</p></div>
-        <div class="destination-grid" id="destinationsGrid"></div>
-    </div>
-</section>
-
-<section class="why-band">
-    <div class="container">
-        <div class="why-band-grid">
-            <div class="why-band-item"><div class="why-band-icon">🏔️</div><h4>Local Kashmiri Team</h4><p>Born and raised in Srinagar — we know every corner of the valley.</p></div>
-            <div class="why-band-item"><div class="why-band-icon">🛏️</div><h4>Houseboat + Hotel Stay</h4><p>Enjoy a traditional Kashmiri houseboat on Dal Lake along with comfortable hotels.</p></div>
-            <div class="why-band-item"><div class="why-band-icon">📞</div><h4>24/7 WhatsApp Support</h4><p>Round-the-clock assistance throughout your trip — just a message away.</p></div>
+        <div class="section-heading">
+            <small>Government Registered</small>
+            <h2>Trust &amp; Credentials</h2>
+            <p>We are a legally registered travel agency, fully compliant with Government of India and Jammu &amp; Kashmir regulations.</p>
         </div>
-    </div>
-</section>
-
-<section class="section section-light" id="best-time">
-    <div class="container">
-        <img class="best-time-banner" src="images/gulmarg2.jpg.jpg" alt="Gulmarg Kashmir" loading="lazy">
-        <div class="section-heading"><small>When to Visit</small><h2>Best Time to Visit Kashmir</h2><p>Kashmir has 4 seasons — every season has its own beauty. Choose the one that suits your mood.</p></div>
-        <div class="seasons-grid">
-            <div class="season-card"><div class="season-icon">🌷</div><h3>Spring</h3><p class="months">March – May</p><p>Tulip gardens bloom, blossoms everywhere, pleasant weather — perfect for sightseeing.</p></div>
-            <div class="season-card"><div class="season-icon">☀️</div><h3>Summer</h3><p class="months">June – August</p><p>Best weather, green meadows, peak tourist season. Great for family holidays.</p></div>
-            <div class="season-card"><div class="season-icon">🍁</div><h3>Autumn</h3><p class="months">September – November</p><p>Golden Chinar leaves, quieter roads, stunning photography light.</p></div>
-            <div class="season-card"><div class="season-icon">❄️</div><h3>Winter</h3><p class="months">December – February</p><p>Snow-covered landscapes, skiing in Gulmarg, frozen Dal Lake views.</p></div>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="experiences">
-    <div class="container">
-        <div class="section-heading"><small>Things To Do</small><h2>Popular Kashmir Experiences</h2><p>Add memorable experiences to your Kashmir holiday.</p></div>
-        <div class="experience-grid">
-            <div class="experience-card"><img src="images/shikara.jpg.jpg" alt="Shikara Dal Lake" loading="lazy"><div class="experience-overlay"><div><h3>Shikara Ride</h3><p>Enjoy a peaceful traditional boat ride on Dal Lake.</p></div></div></div>
-            <div class="experience-card"><img src="images/02houseboat.jpg.jpg" alt="Houseboat Kashmir" loading="lazy"><div class="experience-overlay"><div><h3>Houseboat Stay</h3><p>Experience a traditional Kashmiri houseboat on Dal Lake.</p></div></div></div>
-            <div class="experience-card"><img src="images/mughalgarden1.jpg.jpg" alt="Mughal Garden Srinagar" loading="lazy"><div class="experience-overlay"><div><h3>Mughal Gardens</h3><p>Visit Nishat Bagh, Shalimar Bagh and Chashme Shahi.</p></div></div></div>
-            <div class="experience-card"><img src="images/houseboat.jpg.jpg" alt="Kashmiri Houseboat Dal Lake" loading="lazy"><div class="experience-overlay"><div><h3>Houseboat Lifestyle</h3><p>Carved wood, warm hospitality, and serene lake views.</p></div></div></div>
-        </div>
-    </div>
-</section>
-
-<section class="section section-light">
-    <div class="container">
-        <div class="section-heading"><small>Travel Your Way</small><h2>Kashmir Tour Options</h2><p>Tell us your requirements and we can help arrange the travel services you need.</p></div>
-        <div class="tour-grid">
-            <div class="tour-card"><h3>Family Tours</h3><p>Kashmir travel arrangements for families.</p></div>
-            <div class="tour-card"><h3>Couple Tours</h3><p>Plan a memorable Kashmir holiday for couples.</p></div>
-            <div class="tour-card"><h3>Group Tours</h3><p>Travel arrangements for friends and groups.</p></div>
-            <div class="tour-card"><h3>Customized Tours</h3><p>Discuss your dates, destinations and requirements.</p></div>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="offers-section" style="display:none; background:var(--light);">
-    <div class="container">
-        <div class="section-heading"><small>Limited Time</small><h2>Current Offers</h2><p>Grab these special deals before they expire.</p></div>
-        <div id="offersGrid" class="packages-grid"></div>
-    </div>
-</section>
-
-<section class="section" id="testimonials-section" style="display:none;">
-    <div class="container">
-        <div class="section-heading"><small>What Our Clients Say</small><h2>Client Reviews</h2><p>Real feedback from travellers who chose Al Hazari Tour and Travels.</p></div>
-        <div id="testimonialsGrid" class="testimonial-grid"></div>
-    </div>
-</section>
-
-<section class="section section-light" id="faq">
-    <div class="container">
-        <div class="section-heading"><small>Common Questions</small><h2>Frequently Asked Questions</h2><p>Quick answers to help you plan your Kashmir trip.</p></div>
-        <div class="faq-list">
-            <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Is Kashmir safe for tourists?</div><div class="faq-answer">Yes, Kashmir is safe for tourists. Millions of travellers visit every year. We provide verified hotels, experienced local drivers, and 24/7 on-ground support throughout your trip.</div></div>
-            <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">What is the best time to visit Kashmir?</div><div class="faq-answer">Kashmir has 4 seasons and every season has its own beauty. Spring (March–May) for tulips, Summer (June–August) for green meadows, Autumn (September–November) for golden Chinar leaves, and Winter (December–February) for snow and skiing.</div></div>
-            <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Do you provide airport pickup and drop?</div><div class="faq-answer">Yes. Our service starts with airport pickup on arrival and ends with airport drop on departure. All transfers between airport, hotels, and sightseeing spots are included in our packages.</div></div>
-            <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">What payment methods do you accept?</div><div class="faq-answer">We accept both online and offline payments. Our travel agency name, account details, and payment options will be shared with you after booking confirmation.</div></div>
-            <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Can we customize the package?</div><div class="faq-answer">Yes, you can customize your package before final confirmation. Tell us your travel dates, number of travellers, and preferred destinations — we'll design an itinerary that fits your needs.</div></div>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="about">
-    <div class="container">
-        <img class="about-banner-img" src="images/brand-banner.jpg" alt="Al Hazari Tour and Travels Banner" loading="lazy">
-        <div class="about-grid">
-            <div class="about-text">
-                <small style="color:#d4a017;font-weight:bold;">ABOUT US</small>
-                <h2>Your Local Travel Partner in Kashmir</h2>
-                <p>AL HAZARI TOUR AND TRAVELS is a Kashmir-based travel business located in Srinagar.</p>
-                <p>We help Indian and international travellers arrange Kashmir tour packages, hotel booking, taxi and local transport.</p>
-                <p>Our aim is to make Kashmir travel simple and convenient by helping customers arrange the services they need for their trip.</p>
-                <p><strong style="color:#075e54;">Being Good Is Good Business.</strong></p>
+        <div class="services-grid" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="service-card" style="text-align:center;">
+                <div class="service-icon" style="margin: 0 auto 20px;">🇮🇳</div>
+                <h3>Ministry of Tourism (NIDHI)</h3>
+                <p>Registered with the National Integrated Database of Hospitality Industry, Government of India.</p>
+                <p style="font-size:12px; color:#888; margin-top:8px;">NIDHI ID: EJK000068</p>
             </div>
-            <div class="about-box">
-                <h3>Why Contact Us?</h3>
-                <p>We are based in Srinagar and focus on travel arrangements for Kashmir. Tell us your travel dates, number of travellers and destinations you want to visit.</p>
-                <br>
-                <a class="btn btn-primary" href="#enquiry">Send Enquiry</a>
+            <div class="service-card" style="text-align:center;">
+                <div class="service-icon" style="margin: 0 auto 20px;">🏛️</div>
+                <h3>Udyam Registered (MSME)</h3>
+                <p>Registered under the Ministry of Micro, Small and Medium Enterprises, Government of India.</p>
+                <p style="font-size:12px; color:#888; margin-top:8px;">Reg No: UDYAM-JK-21-0019063</p>
+            </div>
+            <div class="service-card" style="text-align:center;">
+                <div class="service-icon" style="margin: 0 auto 20px;">📜</div>
+                <h3>J&amp;K Shops &amp; Establishment</h3>
+                <p>Registered under the Jammu &amp; Kashmir Shops &amp; Establishment Act, 1966.</p>
             </div>
         </div>
-    </div>
-</section>
-
-<section class="guide-band">
-    <div class="container">
-        <h3>🏔️ Get Our FREE Kashmir Travel Guide</h3>
-        <p>Tips, best places, and insider info for your Kashmir trip — sent directly to your WhatsApp.</p>
-        <a class="btn btn-whatsapp" href="https://wa.me/919541722366?text=Hi%20AL%20HAZARI%20TOUR%20AND%20TRAVELS%2C%20I%20would%20like%20to%20receive%20your%20FREE%20Kashmir%20Travel%20Guide." target="_blank">Get Free Guide on WhatsApp</a>
-    </div>
-</section>
-
-<section class="section enquiry-section" id="enquiry">
-    <div class="container">
-        <div class="section-heading"><small>Start Planning</small><h2>Plan Your Kashmir Trip</h2><p>Send us your travel requirements and contact us through WhatsApp.</p></div>
-        <div class="form-box">
-            <form id="travelForm">
-                <div class="form-grid">
-                    <div class="form-group"><label for="name">Your Name *</label><input type="text" id="name" required placeholder="Enter your name"></div>
-                    <div class="form-group"><label for="phone">WhatsApp Number *</label><input type="tel" id="phone" required placeholder="Your WhatsApp number"></div>
-                    <div class="form-group"><label for="email">Email</label><input type="email" id="email" placeholder="Your email address"></div>
-                    <div class="form-group"><label for="date">Travel Date</label><input type="date" id="date"></div>
-                    <div class="form-group"><label for="travellers">Number of Travellers</label><input type="number" id="travellers" min="1" placeholder="e.g. 4"></div>
-                    <div class="form-group"><label for="service">Service Required</label><select id="service"><option value="">Select a service</option><option>Charming Kashmir (3N/4D)</option><option>Kashmir Explorer (4N/5D)</option><option>Amazing Kashmir (5N/6D)</option><option>Kashmir Heaven on Earth (6N/7D)</option><option>Kashmir Honeymoon Special (5N/6D)</option><option>Hotel Booking</option><option>Taxi &amp; Local Transport</option><option>Dal Lake Shikara Ride</option><option>Customized Trip</option></select></div>
-                    <div class="form-group full"><label for="destinations">Destinations / Places</label><input type="text" id="destinations" placeholder="e.g. Srinagar, Gulmarg, Pahalgam"></div>
-                    <div class="form-group full"><label for="message">Message</label><textarea id="message" placeholder="Tell us about your Kashmir trip..."></textarea></div>
-                </div>
-                <div class="form-buttons"><button type="submit" class="btn btn-whatsapp">Send Enquiry on WhatsApp</button><a class="btn btn-primary" href="mailto:alhazaritravels@gmail.com">Email Us</a></div>
-            </form>
-        </div>
+        <p style="text-align:center; margin-top:30px; color:#52605d; font-size:14px;">✅ Your trip is in safe, professional hands.</p>
     </div>
 </section>
 
 <section class="section" id="contact">
     <div class="container">
         <div class="section-heading"><small>Get In Touch</small><h2>Contact Us</h2><p>We are based in Srinagar, Kashmir.</p></div>
-        <div class="contact-grid">
-            <div class="contact-card"><h3>📞 Phone</h3><a href="tel:+919541722366">+91 9541722366</a></div>
-            <div class="contact-card"><h3>💬 WhatsApp</h3><a href="https://wa.me/919541722366" target="_blank">Chat With Us</a></div>
-            <div class="contact-card"><h3>✉ Email</h3><a href="mailto:alhazaritravels@gmail.com">alhazaritravels@gmail.com</a></div>
-            <div class="contact-card"><h3>📷 Instagram</h3><a href="https://instagram.com/Alhazaritourandtravels" target="_blank">@Alhazaritourandtravels</a></div>
-        </div>
-        <div class="map-box"><iframe src="https://www.google.com/maps?q=Khanda%20Bhawan%20Nawakadal%20Srinagar%20190002&output=embed" loading="lazy" title="AL HAZARI TOUR AND TRAVELS location map"></iframe></div>
-    </div>
-</section>
-
-<section class="section section-light" id="policies">
-    <div class="container">
-        <div class="section-heading"><small>Important Information</small><h2>Travel Policies</h2><p>Please review these general policies before making a booking.</p></div>
-        <div class="policy-box">
-            <div class="policy-item"><h3>Privacy Policy</h3><p>We may collect information such as your name, phone number, WhatsApp number, email, travel dates, number of travellers, destination and other information you provide through our website or enquiry process.</p><p>This information may be used to respond to your enquiry, prepare quotations, arrange requested travel services and communicate with you regarding your trip.</p><p>Where necessary to provide a requested service, relevant information may be shared with hotels, transport providers or other travel service providers.</p><p>We do not sell your personal information.</p></div>
-            <div class="policy-item"><h3>Booking Policy</h3><ul><li>Sending an enquiry does not automatically confirm a booking.</li><li>A booking becomes confirmed only after the service, price and applicable terms are communicated and accepted, and any required advance payment is received where applicable.</li><li>Prices and availability can change according to travel dates, season, hotel availability, vehicle availability and provider rates.</li><li>The final price will be communicated before confirmation.</li><li>Hotel bookings are subject to the applicable hotel's own terms and conditions.</li></ul></div>
-            <div class="policy-item"><h3>Cancellation &amp; Refund Policy</h3><p>Cancellation conditions depend on the service and provider. Hotels, transport providers and other suppliers may have different cancellation deadlines and charges.</p><p>Applicable cancellation conditions should be communicated before confirmation. Refund amounts and processing times, where applicable, depend on the relevant provider and payment method.</p><p>Changes to a confirmed booking may be subject to availability and additional charges.</p></div>
-            <div class="policy-item"><h3>Travel Service Disclaimer</h3><p>AL HAZARI TOUR AND TRAVELS arranges travel services offered through our business. Availability, prices, schedules and service conditions may depend on hotels, transport providers and other third-party service providers.</p><p>We do not claim to be an official representative or partner of any third-party company unless such a partnership has been formally established.</p></div>
-            <div class="policy-item"><h3>Customer Responsibility</h3><p>Customers are responsible for providing accurate information such as names, contact details, travel dates and passenger information. Incorrect information may affect bookings and services.</p></div>
-            <div class="policy-item"><h3>Website Terms</h3><p>Website information is provided for general travel enquiry purposes. Prices, availability and service conditions may change. Specific booking terms will apply once a service is confirmed.</p></div>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:18px;">
+            <div style="border:1px solid var(--border); border-radius:12px; padding:24px; text-align:center;"><h3 style="color:var(--primary);">📞 Phone</h3><a href="tel:+919541722366" style="color:var(--text);">+91 9541722366</a></div>
+            <div style="border:1px solid var(--border); border-radius:12px; padding:24px; text-align:center;"><h3 style="color:var(--primary);">💬 WhatsApp</h3><a href="https://wa.me/919541722366" style="color:var(--text);">Chat With Us</a></div>
+            <div style="border:1px solid var(--border); border-radius:12px; padding:24px; text-align:center;"><h3 style="color:var(--primary);">✉ Email</h3><a href="mailto:alhazaritravels@gmail.com" style="color:var(--text);">alhazaritravels@gmail.com</a></div>
+            <div style="border:1px solid var(--border); border-radius:12px; padding:24px; text-align:center;"><h3 style="color:var(--primary);">📷 Instagram</h3><a href="https://instagram.com/Alhazaritourandtravels" style="color:var(--text);">@Alhazaritourandtravels</a></div>
         </div>
     </div>
 </section>
@@ -664,9 +334,9 @@ a { text-decoration: none; }
             <div>
                 <h3>AL HAZARI TOUR AND TRAVELS</h3>
                 <p>Your local travel partner in Kashmir. Kashmir tour packages, hotel booking, taxi and local transport.</p>
-                <p style="color:#f1c84b; font-style:italic; margin-top:10px;">✨ Being Good Is Good Business</p>
-                <br>
-                <p>Khanda Bhawan, Nawakadal, Srinagar, Jammu &amp; Kashmir, India - 190002</p>
+                <p style="color:#e0c26e; font-style:italic; margin-top:10px;">✨ Being Good Is Good Business</p>
+                <p style="margin-top:10px;">🏛️ Udyam: UDYAM-JK-21-0019063</p>
+                <p>🇮🇳 NIDHI: EJK000068</p>
             </div>
             <div>
                 <h3>Quick Links</h3>
@@ -674,9 +344,7 @@ a { text-decoration: none; }
                     <a href="#home">Home</a>
                     <a href="#services">Services</a>
                     <a href="#packages">Packages</a>
-                    <a href="#destinations">Destinations</a>
-                    <a href="#best-time">Best Time</a>
-                    <a href="#faq">FAQ</a>
+                    <a href="#trust">Trust</a>
                     <a href="#contact">Contact</a>
                 </div>
             </div>
@@ -690,151 +358,20 @@ a { text-decoration: none; }
                 </div>
             </div>
         </div>
-        <div class="copyright">
-            © 2026 AL HAZARI TOUR AND TRAVELS. All rights reserved.
-            <br><br>
-            <a href="#policies" style="color:#cbdad7;">Privacy • Booking • Cancellation • Terms</a>
-        </div>
+        <div class="copyright">© 2026 AL HAZARI TOUR AND TRAVELS. All rights reserved.</div>
     </div>
 </footer>
 
 <a class="whatsapp-float" href="https://wa.me/919541722366?text=Hello%20AL%20HAZARI%20TOUR%20AND%20TRAVELS%2C%20I%20want%20information%20about%20a%20Kashmir%20trip." target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 2C8.3 2 2 8.3 2 16c0 2.5.7 4.8 1.9 6.9L2 30l7.4-1.9c2 1.1 4.3 1.7 6.6 1.7 7.7 0 14-6.3 14-14S23.7 2 16 2zm0 25.5c-2.1 0-4.2-.6-6-1.6l-.4-.3-4.4 1.1 1.2-4.3-.3-.4c-1.1-1.9-1.7-4-1.7-6.2 0-6.4 5.2-11.6 11.6-11.6S27.6 9.6 27.6 16 22.4 27.5 16 27.5zm6.4-8.7c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2s-.9 1.1-1.1 1.3c-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.7-1.7-1-.9-1.7-2-1.9-2.3-.2-.3 0-.5.1-.7.1-.1.3-.4.5-.5.2-.2.2-.3.3-.5.1-.2.1-.4 0-.5-.1-.2-.8-1.9-1.1-2.6-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.4 3.6 5.7 5.1.8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 2-1 2.3-1.7.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg></a>
 
-<div class="whatsapp-tooltip">💬 Chat with us!</div>
-<a class="plan-trip-btn" href="#enquiry">📩 Plan My Trip</a>
-<div class="back-top" id="backTop">↑</div>
-<div class="cookie-box" id="cookieBox"><div class="cookie-inner"><p>This website may use necessary cookies and, if enabled, other technologies to improve website functionality.</p><button class="cookie-btn" id="cookieAccept">OK</button></div></div>
-
 <script>
-// --- MENU TOGGLE ---
 const menuBtn = document.getElementById("menuBtn");
 const mainNav = document.getElementById("mainNav");
 menuBtn.addEventListener("click", function() { mainNav.classList.toggle("active"); });
 document.querySelectorAll("#mainNav a").forEach(function(link) { link.addEventListener("click", function() { mainNav.classList.remove("active"); }); });
-
-// --- HERO SLIDER (reads from hero.json) ---
-async function loadHeroSlides() {
-    try {
-        const res = await fetch('hero.json');
-        const data = await res.json();
-        const container = document.getElementById('heroSlides');
-        container.innerHTML = '';
-        data.images.forEach((img, i) => {
-            const div = document.createElement('div');
-            div.className = 'hero-slide' + (i === 0 ? ' active' : '');
-            div.style.backgroundImage = `url('images/${img}')`;
-            container.appendChild(div);
-        });
-        const slides = document.querySelectorAll('.hero-slide');
-        let index = 0;
-        if(slides.length > 0) {
-            setInterval(function() {
-                slides[index].classList.remove('active');
-                index = (index + 1) % slides.length;
-                slides[index].classList.add('active');
-            }, 4000);
-        }
-    } catch(e) { console.error('Hero load error:', e); }
-}
-loadHeroSlides();
-
-// --- DESTINATIONS (reads from destinations.json) ---
-async function loadDestinations() {
-    try {
-        const res = await fetch('destinations.json');
-        const data = await res.json();
-        const grid = document.getElementById('destinationsGrid');
-        grid.innerHTML = '';
-        data.destinations.forEach(d => {
-            const card = document.createElement('div');
-            card.className = 'destination-card';
-            card.innerHTML = `<img src="images/${d.image}" alt="${d.name}" loading="lazy"><div class="destination-content"><h3>${d.name}</h3><p>${d.description}</p><a class="destination-link" href="#enquiry">Plan ${d.name} Visit →</a></div>`;
-            grid.appendChild(card);
-        });
-    } catch(e) { console.error('Destinations load error:', e); }
-}
-loadDestinations();
-
-// --- OFFERS (reads from offers.json) ---
-async function loadOffers() {
-    try {
-        const res = await fetch('offers.json');
-        const data = await res.json();
-        if(data.offers && data.offers.length > 0) {
-            document.getElementById('offers-section').style.display = 'block';
-            const grid = document.getElementById('offersGrid');
-            grid.innerHTML = '';
-            data.offers.forEach(o => {
-                const card = document.createElement('div');
-                card.className = 'offer-card';
-                card.innerHTML = `<img src="images/${o.image}" alt="${o.title}" loading="lazy"><div class="offer-body"><h3>${o.title}</h3><div class="offer-price">${o.price}</div><div class="offer-validity">${o.validity}</div><p class="offer-desc">${o.description}</p><a class="btn btn-whatsapp" href="https://wa.me/919541722366?text=Hello%2C%20I%20am%20interested%20in%20the%20offer%3A%20${encodeURIComponent(o.title)}" target="_blank">Enquire on WhatsApp</a></div>`;
-                grid.appendChild(card);
-            });
-        }
-    } catch(e) { console.error('Offers load error:', e); }
-}
-loadOffers();
-
-// --- TESTIMONIALS (reads from testimonials.json) ---
-async function loadTestimonials() {
-    try {
-        const res = await fetch('testimonials.json');
-        const data = await res.json();
-        if(data.testimonials && data.testimonials.length > 0) {
-            document.getElementById('testimonials-section').style.display = 'block';
-            const grid = document.getElementById('testimonialsGrid');
-            grid.innerHTML = '';
-            data.testimonials.forEach(t => {
-                const stars = '★'.repeat(t.rating) + '☆'.repeat(5 - t.rating);
-                const card = document.createElement('div');
-                card.className = 'testimonial-card';
-                card.innerHTML = `<div class="stars">${stars}</div><div class="text">"${t.text}"</div><div class="name">${t.name}</div><div class="location">${t.location}</div>`;
-                grid.appendChild(card);
-            });
-        }
-    } catch(e) { console.error('Testimonials load error:', e); }
-}
-loadTestimonials();
-
-// --- TOGGLE ITINERARY ---
-function toggleItinerary(btn) { const content = btn.nextElementSibling; content.classList.toggle("open"); btn.textContent = content.classList.contains("open") ? "Hide Day-wise Itinerary ▲" : "View Day-wise Itinerary ▼"; }
-
-// --- TOGGLE FAQ ---
-function toggleFaq(el) { el.parentElement.classList.toggle("open"); }
-
-// --- ENQUIRY FORM ---
-const travelForm = document.getElementById("travelForm");
-travelForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-    const name = document.getElementById("name").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const date = document.getElementById("date").value;
-    const travellers = document.getElementById("travellers").value;
-    const service = document.getElementById("service").value;
-    const destinations = document.getElementById("destinations").value.trim();
-    const message = document.getElementById("message").value.trim();
-    let whatsappMessage = "Hello AL HAZARI TOUR AND TRAVELS,%0A%0A*New Kashmir Travel Enquiry*%0A%0A*Name:* " + encodeURIComponent(name) + "%0A*WhatsApp:* " + encodeURIComponent(phone) + "%0A";
-    if (email) whatsappMessage += "*Email:* " + encodeURIComponent(email) + "%0A";
-    if (date) whatsappMessage += "*Travel Date:* " + encodeURIComponent(date) + "%0A";
-    if (travellers) whatsappMessage += "*Travellers:* " + encodeURIComponent(travellers) + "%0A";
-    if (service) whatsappMessage += "*Service:* " + encodeURIComponent(service) + "%0A";
-    if (destinations) whatsappMessage += "*Destinations:* " + encodeURIComponent(destinations) + "%0A";
-    if (message) whatsappMessage += "*Message:* " + encodeURIComponent(message) + "%0A";
-    whatsappMessage += "%0AThank you.";
-    window.open("https://wa.me/919541722366?text=" + whatsappMessage, "_blank");
-});
-
-// --- BACK TO TOP ---
-const backTop = document.getElementById("backTop");
-window.addEventListener("scroll", function() { backTop.style.display = window.scrollY > 500 ? "flex" : "none"; });
-backTop.addEventListener("click", function() { window.scrollTo({ top: 0, behavior: "smooth" }); });
-
-// --- COOKIE NOTICE ---
-const cookieBox = document.getElementById("cookieBox");
-const cookieAccept = document.getElementById("cookieAccept");
-if (!localStorage.getItem("ahzCookieAccepted")) { cookieBox.style.display = "block"; }
-cookieAccept.addEventListener("click", function() { localStorage.setItem("ahzCookieAccepted", "yes"); cookieBox.style.display = "none"; });
+const heroSlides = document.querySelectorAll(".hero-slide");
+let heroIndex = 0;
+if (heroSlides.length > 0) { setInterval(function() { heroSlides[heroIndex].classList.remove("active"); heroIndex = (heroIndex + 1) % heroSlides.length; heroSlides[heroIndex].classList.add("active"); }, 4000); }
 </script>
 
 </body>
