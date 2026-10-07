@@ -20,10 +20,8 @@ a { text-decoration: none; }
 .top-bar .book-now { background: var(--secondary); color: #17211f; padding: 5px 14px; border-radius: 5px; font-weight: bold; margin-left: 8px; }
 .header { background: #fff; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.07); }
 .header-inner { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 25px; }
-.logo { display: flex; align-items: center; gap: 12px; }
-.logo-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
-.logo-text strong { display: block; color: var(--primary); font-size: 17px; }
-.logo-text span { font-size: 11px; color: #777; }
+.logo-text strong { display: block; color: var(--primary); font-size: 18px; font-weight: bold; }
+.logo-text span { font-size: 11px; color: #777; display: block; }
 .nav { display: flex; align-items: center; gap: 20px; }
 .nav a { color: #25312e; font-size: 14px; font-weight: 600; }
 .nav a:hover { color: var(--primary); }
@@ -128,9 +126,10 @@ a { text-decoration: none; }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 55px; align-items: center; }
 .about-text h2 { color: var(--primary); font-size: 37px; margin-bottom: 20px; }
 .about-text p { color: var(--text); margin-bottom: 15px; }
-.about-box { background: var(--primary); color: #fff; border-radius: 16px; padding: 40px; }
+.about-box { background: var(--primary); color: #fff; border-radius: 16px; padding: 40px; text-align: center; }
 .about-box h3 { font-size: 25px; margin-bottom: 15px; }
 .about-box p { color: #e4efec; }
+.about-logo { width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 20px; object-fit: cover; box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
 .about-banner-img { width: 100%; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
 .enquiry-section { background: #eef7f4; }
 .form-box { max-width: 900px; margin: auto; background: #fff; padding: 40px; border-radius: 15px; box-shadow: var(--shadow); }
@@ -204,10 +203,10 @@ a { text-decoration: none; }
     .form-box { padding: 25px 18px; }
     .cookie-inner { flex-direction: column; align-items: flex-start; }
     .logo-text strong { font-size: 14px; }
-    .logo-img { width: 40px; height: 40px; }
     .package-actions { flex-direction: column; }
     .whatsapp-tooltip { display: none; }
     .best-time-banner { height: 200px; }
+    .about-logo { width: 110px; height: 110px; }
 }
 </style>
 </head>
@@ -223,8 +222,10 @@ a { text-decoration: none; }
 <header class="header">
     <div class="container header-inner">
         <a href="#home" class="logo">
-            <img src="images/logo.png" alt="Al Hazari Logo" class="logo-img">
-            <div class="logo-text"><strong>AL HAZARI TOUR AND TRAVELS</strong><span>Your Local Travel Partner in Kashmir</span></div>
+            <div class="logo-text">
+                <strong>AL HAZARI TOUR AND TRAVELS</strong>
+                <span>Your Local Travel Partner in Kashmir</span>
+            </div>
         </a>
         <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
         <nav class="nav" id="mainNav">
@@ -557,7 +558,8 @@ a { text-decoration: none; }
                 <p>Our aim is to make Kashmir travel simple and convenient by helping customers arrange the services they need for their trip.</p>
             </div>
             <div class="about-box">
-                <h3>Why Contact Us?</h3>
+                <img src="images/logo.png" alt="Al Hazari Logo" class="about-logo">
+                <h3>Being Good Is Good Business</h3>
                 <p>We are based in Srinagar and focus on travel arrangements for Kashmir. Tell us your travel dates, number of travellers and destinations you want to visit.</p>
                 <br>
                 <a class="btn btn-primary" href="#enquiry">Send Enquiry</a>
